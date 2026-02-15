@@ -302,17 +302,126 @@ function renderMarkdown(text: string) {
   return elements
 }
 
+// ─── PageSpeed score color ───────────────────────────────
+function psColor(score: number | null) {
+  if (score === null) return '#64748b'
+  if (score >= 90) return '#10b981'
+  if (score >= 50) return '#f59e0b'
+  return '#ef4444'
+}
+
+// ─── Check Item ──────────────────────────────────────────
+function CheckItem({ ok, label, detail }: { ok: boolean; label: string; detail: string }) {
+  return (
+    <div className="flex items-center gap-3 text-sm">
+      <span className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${ok ? 'bg-[#10b981]/20 text-[#10b981]' : 'bg-[#ef4444]/20 text-[#ef4444]'}`}>
+        {ok ? (
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+        ) : (
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg>
+        )}
+      </span>
+      <span className="text-[#94a3b8] font-medium">{label}</span>
+      <span className="text-[#64748b] truncate">{detail}</span>
+    </div>
+  )
+}
+
+// ─── Website Scan Results Card ───────────────────────────
+function WebsiteScanCard({ analysis }: { analysis: any }) {
+  if (!analysis || analysis.status === 'skipped' || analysis.status === 'error') return null
+
+  const ps = analysis.pageSpeed
+  const html = analysis.html
+  const ssl = analysis.sslValid
+  const crawl = analysis.crawlability
+
+  const scoreItems = [
+    { label: 'Performance', value: ps?.performance },
+    { label: 'SEO', value: ps?.seo },
+    { label: 'Accessibility', value: ps?.accessibility },
+  ].filter(s => s.value !== null && s.value !== undefined)
+
+  return (
+    <div className={`${card} p-6 sm:p-8 mb-6 animate-fadeIn`}>
+      <div className="flex items-center gap-2 mb-5">
+        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#8b5cf6] to-[#3b82f6] flex items-center justify-center flex-shrink-0">
+          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <div>
+          <h3 className="text-lg font-bold text-white">Website Scan Results</h3>
+          <p className="text-xs text-[#64748b]">{analysis.url}</p>
+        </div>
+      </div>
+
+      {/* PageSpeed scores */}
+      {scoreItems.length > 0 && (
+        <div className="grid grid-cols-3 gap-3 mb-5">
+          {scoreItems.map(s => (
+            <div key={s.label} className="bg-[#0f1117] rounded-xl p-4 text-center">
+              <div className="text-2xl font-bold mb-1" style={{ color: psColor(s.value!) }}>{s.value}</div>
+              <div className="text-xs text-[#64748b]">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Checklist items */}
+      <div className="space-y-2">
+        {ssl !== null && (
+          <CheckItem ok={ssl} label="SSL/HTTPS" detail={ssl ? 'Secure connection' : 'Not secure'} />
+        )}
+        {html?.title && (
+          <CheckItem ok={true} label="Page title" detail={html.title} />
+        )}
+        {html && !html.title && (
+          <CheckItem ok={false} label="Page title" detail="Missing" />
+        )}
+        {html && (
+          <CheckItem ok={!!html.metaDescription} label="Meta description" detail={html.metaDescription ? 'Present' : 'Missing'} />
+        )}
+        {html && (
+          <CheckItem ok={html.h1Tags.length > 0} label="H1 heading" detail={html.h1Tags.length > 0 ? html.h1Tags[0] : 'Missing'} />
+        )}
+        {html && html.totalImages > 0 && (
+          <CheckItem ok={html.imgsMissingAlt === 0} label="Image alt text" detail={html.imgsMissingAlt === 0 ? 'All images have alt text' : `${html.imgsMissingAlt} of ${html.totalImages} missing`} />
+        )}
+        {html && (
+          <CheckItem ok={html.hasStructuredData} label="Structured data" detail={html.hasStructuredData ? 'Found' : 'Missing'} />
+        )}
+        {html && (
+          <CheckItem ok={html.hasOpenGraph} label="Open Graph tags" detail={html.hasOpenGraph ? 'Present' : 'Missing'} />
+        )}
+        {crawl && (
+          <CheckItem ok={crawl.hasRobotsTxt} label="robots.txt" detail={crawl.hasRobotsTxt ? 'Found' : 'Missing'} />
+        )}
+        {crawl && (
+          <CheckItem ok={crawl.hasSitemap} label="sitemap.xml" detail={crawl.hasSitemap ? 'Found' : 'Missing'} />
+        )}
+      </div>
+    </div>
+  )
+}
+
 // ─── Results ─────────────────────────────────────────────
 function Results({
   scores,
   businessName,
   aiReport,
   aiLoading,
+  analysisData,
+  analysisLoading,
+  loadingPhase,
 }: {
   scores: ReturnType<typeof calculateScores>
   businessName: string
   aiReport: string
   aiLoading: boolean
+  analysisData: any
+  analysisLoading: boolean
+  loadingPhase: 'scanning' | 'writing' | 'done'
 }) {
   const color = gradeColor(scores.overallGrade)
 
@@ -341,6 +450,19 @@ function Results({
         ))}
       </div>
 
+      {/* Website Scan Results (shows after scan completes) */}
+      {analysisLoading && (
+        <div className={`${card} p-6 sm:p-8 mb-6`}>
+          <div className="flex items-center gap-3 py-4 justify-center">
+            <div className="w-5 h-5 border-2 border-[#8b5cf6] border-t-transparent rounded-full animate-spin" />
+            <p className="text-sm text-[#94a3b8]">Scanning your website...</p>
+          </div>
+        </div>
+      )}
+      {!analysisLoading && analysisData && (
+        <WebsiteScanCard analysis={analysisData} />
+      )}
+
       {/* AI-Generated Personalized Report */}
       <div className={`${card} p-6 sm:p-8 mb-10`}>
         <div className="flex items-center gap-2 mb-4">
@@ -354,7 +476,9 @@ function Results({
         {aiLoading ? (
           <div className="flex items-center gap-3 py-8 justify-center">
             <div className="w-5 h-5 border-2 border-[#10b981] border-t-transparent rounded-full animate-spin" />
-            <p className="text-sm text-[#94a3b8]">Analyzing your business and writing your report...</p>
+            <p className="text-sm text-[#94a3b8]">
+              {loadingPhase === 'scanning' ? 'Waiting for website scan to finish...' : 'Writing your personalized report...'}
+            </p>
           </div>
         ) : aiReport ? (
           <div>{renderMarkdown(aiReport)}</div>
@@ -389,6 +513,9 @@ export default function VisibilityAudit() {
   const [submitting, setSubmitting] = useState(false)
   const [aiReport, setAiReport] = useState('')
   const [aiLoading, setAiLoading] = useState(false)
+  const [analysisData, setAnalysisData] = useState<any>(null)
+  const [analysisLoading, setAnalysisLoading] = useState(false)
+  const [loadingPhase, setLoadingPhase] = useState<'scanning' | 'writing' | 'done'>('done')
   const containerRef = useRef<HTMLDivElement>(null)
 
   const totalQuestions = allQuestions.length
@@ -460,8 +587,37 @@ export default function VisibilityAudit() {
     setSubmitting(false)
     setPhase('results')
 
-    // Fetch AI report in the background (results show immediately with loading state)
-    setAiLoading(true)
+    const websiteUrl = String(answers['website-url'] || '')
+    const hasWebsite = websiteUrl && websiteUrl.toLowerCase() !== 'none'
+
+    // Step 1: Scan the website (if they have one)
+    let websiteAnalysis = null
+    if (hasWebsite) {
+      setAnalysisLoading(true)
+      setLoadingPhase('scanning')
+      setAiLoading(true)
+      try {
+        const scanRes = await fetch('/.netlify/functions/analyze-website', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: websiteUrl }),
+        })
+        if (scanRes.ok) {
+          websiteAnalysis = await scanRes.json()
+          setAnalysisData(websiteAnalysis)
+        }
+      } catch (err) {
+        console.error('Website scan error:', err)
+      }
+      setAnalysisLoading(false)
+    } else {
+      // No website — tell the report generator
+      websiteAnalysis = { status: 'skipped' }
+      setAiLoading(true)
+    }
+
+    // Step 2: Generate the AI report (with scan data if available)
+    setLoadingPhase('writing')
     try {
       const res = await fetch('/.netlify/functions/generate-visibility-report', {
         method: 'POST',
@@ -470,9 +626,10 @@ export default function VisibilityAudit() {
           businessName: String(answers['business-name'] || ''),
           city: String(answers['city'] || ''),
           industry: String(answers['industry'] || ''),
-          websiteUrl: String(answers['website-url'] || ''),
+          websiteUrl,
           scores: result,
           weakQuestions: result.weakQuestions,
+          websiteAnalysis,
         }),
       })
       if (res.ok) {
@@ -483,6 +640,7 @@ export default function VisibilityAudit() {
       console.error('AI report error:', err)
     }
     setAiLoading(false)
+    setLoadingPhase('done')
   }
 
   return (
@@ -542,7 +700,15 @@ export default function VisibilityAudit() {
         )}
 
         {phase === 'results' && scores && (
-          <Results scores={scores} businessName={String(answers['business-name'] || 'Your Business')} aiReport={aiReport} aiLoading={aiLoading} />
+          <Results
+            scores={scores}
+            businessName={String(answers['business-name'] || 'Your Business')}
+            aiReport={aiReport}
+            aiLoading={aiLoading}
+            analysisData={analysisData}
+            analysisLoading={analysisLoading}
+            loadingPhase={loadingPhase}
+          />
         )}
       </div>
 

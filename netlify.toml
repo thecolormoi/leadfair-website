@@ -7,3 +7,7 @@
 
 [build.processing.html]
   pretty_urls = true
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["cheerio"]
