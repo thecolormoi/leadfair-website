@@ -420,10 +420,9 @@ export default function BusinessDiagnostic() {
     const result = calculateScores(answers)
     setScores(result)
 
-    // Submit to Netlify Forms
+    // Submit to FormSubmit
     try {
-      const formData = new URLSearchParams()
-      formData.append('form-name', 'diagnostic-results')
+      const formData = new FormData()
       formData.append('name', info.name)
       formData.append('email', info.email)
       formData.append('phone', info.phone)
@@ -438,11 +437,13 @@ export default function BusinessDiagnostic() {
         formData.append(`score-${cat.key}`, String(cat.score))
         formData.append(`grade-${cat.key}`, cat.grade)
       })
+      formData.append('_subject', 'New Business Diagnostic Result')
+      formData.append('_captcha', 'false')
+      formData.append('_template', 'table')
 
-      await fetch('/', {
+      await fetch('https://formsubmit.co/ajax/hello@leadfair.ai', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formData.toString(),
+        body: formData,
       })
     } catch (err) {
       console.error('Form submission error:', err)

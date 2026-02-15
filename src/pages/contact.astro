@@ -30,16 +30,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="gradient-border rounded-2xl p-8 sm:p-10">
             <form
               id="contact-form"
-              name="contact"
+              action="https://formsubmit.co/hello@leadfair.ai"
               method="POST"
-              data-netlify="true"
-              netlify-honeypot="bot-field"
               class="space-y-6"
             >
-              <input type="hidden" name="form-name" value="contact" />
-              <p class="hidden">
-                <label>Don't fill this out: <input name="bot-field" /></label>
-              </p>
+              <!-- FormSubmit config -->
+              <input type="hidden" name="_next" value="https://leadfair.ai/contact/thanks" />
+              <input type="hidden" name="_subject" value="New LeadFair Contact Form Submission" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="text" name="_honey" style="display:none" />
 
               <div class="grid sm:grid-cols-2 gap-6">
                 <div>
@@ -67,11 +66,24 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </div>
 
               <div>
+                <label for="phone" class="block text-sm font-semibold text-text mb-2">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all text-base"
+                  placeholder="(555) 123-4567"
+                />
+              </div>
+
+              <div>
                 <label for="business" class="block text-sm font-semibold text-text mb-2">Business Name</label>
                 <input
                   type="text"
                   id="business"
                   name="business"
+                  required
                   class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all text-base"
                   placeholder="Your Business Name"
                 />
@@ -82,6 +94,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 <select
                   id="interest"
                   name="interest"
+                  required
                   class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all bg-white text-base"
                 >
                   <option value="">Select one...</option>
@@ -145,38 +158,4 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </div>
   </section>
-
-  <script>
-    const form = document.getElementById('contact-form');
-    if (form) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = form.querySelector('button[type="submit"]');
-        const originalHTML = btn.innerHTML;
-        btn.innerHTML = 'Sending...';
-        btn.disabled = true;
-
-        try {
-          const formData = new FormData(form);
-          const response = await fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(formData).toString(),
-          });
-
-          if (response.ok) {
-            window.location.href = '/contact/thanks';
-          } else {
-            btn.innerHTML = 'Something went wrong — try again';
-            btn.disabled = false;
-            setTimeout(() => { btn.innerHTML = originalHTML; }, 3000);
-          }
-        } catch (err) {
-          btn.innerHTML = 'Something went wrong — try again';
-          btn.disabled = false;
-          setTimeout(() => { btn.innerHTML = originalHTML; }, 3000);
-        }
-      });
-    }
-  </script>
 </BaseLayout>
