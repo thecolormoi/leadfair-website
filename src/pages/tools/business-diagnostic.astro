@@ -1,66 +1,45 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BusinessDiagnostic from '../../components/diagnostic/BusinessDiagnostic';
 ---
 
 <BaseLayout
   title="Free Business Diagnostic — LeadFair"
-  description="Find out where AI and better visibility could make the biggest difference for your business. Free diagnostic tool coming soon."
+  description="Find out where AI and better visibility could make the biggest difference for your business. Free 5-minute diagnostic with personalized recommendations."
 >
-  <section class="relative overflow-hidden min-h-[80vh] flex items-center bg-dark text-white">
-    <div class="absolute inset-0 bg-grid-dark opacity-30"></div>
-    <div class="blob blob-blue w-96 h-96 -top-32 -right-32 opacity-20"></div>
-    <div class="blob blob-green w-64 h-64 bottom-0 left-10 opacity-15"></div>
-    <div class="blob blob-orange w-48 h-48 top-1/2 right-1/4 opacity-10"></div>
+  <section class="relative overflow-hidden bg-dark text-white">
+    <div class="absolute inset-0 bg-grid-dark opacity-20"></div>
+    <div class="blob blob-blue w-96 h-96 -top-32 -right-32 opacity-10"></div>
+    <div class="blob blob-green w-64 h-64 bottom-0 left-10 opacity-10"></div>
 
-    <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
-      <div class="icon-box icon-box-blue w-20 h-20 rounded-2xl mx-auto mb-10 animate-float">
-        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-      </div>
-
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-        Free Business<br/>
-        <span class="gradient-text-blue-green">Diagnostic</span>
-      </h1>
-      <p class="text-lg sm:text-xl text-gray-300 max-w-xl mx-auto mb-6 leading-relaxed">
-        We're building an interactive tool that analyzes your business operations and shows you exactly where AI and better visibility could save you time and bring in more customers.
-      </p>
-
-      <div class="inline-flex items-center gap-2 bg-primary-500/20 text-primary-300 px-5 py-2 rounded-full text-sm font-semibold mb-10">
-        <div class="w-2 h-2 bg-primary-400 rounded-full animate-pulse"></div>
-        Coming Soon
-      </div>
-
-      <!-- Email Capture -->
-      <form
-        name="diagnostic-notify"
-        method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-        class="max-w-md mx-auto"
-      >
-        <input type="hidden" name="form-name" value="diagnostic-notify" />
-        <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
-        <p class="text-gray-400 text-sm mb-4">Get notified when it launches:</p>
-        <div class="flex gap-3">
-          <input
-            type="email"
-            name="email"
-            required
-            placeholder="your@email.com"
-            class="flex-1 px-5 py-3.5 rounded-xl bg-dark-light border border-gray-700 text-white placeholder-gray-500 focus:border-primary-500 focus:ring-2 focus:ring-primary-900 outline-none transition-all text-base"
-          />
-          <button
-            type="submit"
-            class="bg-accent-500 hover:bg-accent-600 text-white px-6 py-3.5 rounded-xl font-semibold transition-all btn-scale shadow-glow-orange whitespace-nowrap"
-          >
-            Notify Me
-          </button>
-        </div>
-      </form>
-
-      <p class="mt-10 text-gray-500 text-sm">
-        Can't wait? <a href="/contact" class="text-primary-400 hover:text-primary-300 font-medium underline underline-offset-2">Book a call</a> and we'll do it together.
-      </p>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <BusinessDiagnostic client:load />
     </div>
   </section>
+
+  <!-- Hidden form for Netlify Forms detection at build time -->
+  <form name="diagnostic-results" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input name="form-name" value="diagnostic-results" />
+    <input name="bot-field" />
+    <input name="name" />
+    <input name="email" />
+    <input name="phone" />
+    <input name="business-name" />
+    <input name="industry" />
+    <input name="team-size" />
+    <input name="years" />
+    <input name="challenge" />
+    <input name="overall-score" />
+    <input name="overall-grade" />
+    <input name="score-lead-generation" />
+    <input name="grade-lead-generation" />
+    <input name="score-sales-conversion" />
+    <input name="grade-sales-conversion" />
+    <input name="score-customer-retention" />
+    <input name="grade-customer-retention" />
+    <input name="score-marketing-visibility" />
+    <input name="grade-marketing-visibility" />
+    <input name="score-operations" />
+    <input name="grade-operations" />
+  </form>
 </BaseLayout>
