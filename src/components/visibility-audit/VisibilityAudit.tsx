@@ -475,8 +475,19 @@ export default function VisibilityAudit() {
     <div
       ref={containerRef}
       onKeyDown={handleKeyDown}
-      className="min-h-[70vh] flex items-center justify-center py-12 px-4"
+      className="min-h-[70vh] flex flex-col items-center justify-center py-12 px-4"
     >
+      {/* Persistent branding header */}
+      <div className="w-full max-w-2xl text-center mb-8">
+        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
+          <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1">Visibility Audit</h1>
+        <p className="text-sm text-[#64748b]">See how visible your business is on Google, AI search, and in your local area</p>
+      </div>
+
       <div className="w-full max-w-2xl">
         {phase === 'questions' && currentQuestion && (
           <>
