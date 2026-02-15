@@ -4,7 +4,6 @@ import {
   assessmentQuestions,
   categories,
   calculateScores,
-  questionRecommendations,
   type Question,
   type CategoryScore,
 } from './data'
@@ -49,12 +48,6 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
       </div>
     </div>
   )
-}
-
-// ─── Category badge color ────────────────────────────────
-function categoryBadgeColor(categoryKey: string) {
-  const cat = categories.find(c => c.key === categoryKey)
-  return cat?.color || '#3b82f6'
 }
 
 // ─── Question Renderer ───────────────────────────────────
@@ -252,16 +245,76 @@ function ScoreCard({ cat }: { cat: CategoryScore }) {
   )
 }
 
+// ─── Simple markdown renderer ────────────────────────────
+function renderMarkdown(text: string) {
+  const lines = text.split('\n')
+  const elements: React.ReactNode[] = []
+  let listItems: string[] = []
+  let listIndex = 0
+
+  function flushList() {
+    if (listItems.length > 0) {
+      elements.push(
+        <ul key={`list-${listIndex++}`} className="space-y-1.5 mb-4 ml-1">
+          {listItems.map((item, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-[#94a3b8]">
+              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#10b981] flex-shrink-0" />
+              <span dangerouslySetInnerHTML={{ __html: inlineMd(item) }} />
+            </li>
+          ))}
+        </ul>
+      )
+      listItems = []
+    }
+  }
+
+  function inlineMd(s: string) {
+    return s.replace(/\*\*(.+?)\*\*/g, '<strong class="text-white">$1</strong>')
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i]
+    const listMatch = line.match(/^[-*]\s+(.+)/)
+    const numListMatch = line.match(/^\d+\.\s+(.+)/)
+
+    if (listMatch) {
+      listItems.push(listMatch[1])
+      continue
+    }
+    if (numListMatch) {
+      listItems.push(numListMatch[1])
+      continue
+    }
+
+    flushList()
+
+    if (line.startsWith('### ')) {
+      elements.push(<h4 key={i} className="text-base font-bold text-white mt-6 mb-2">{line.slice(4).replace(/\*\*/g, '')}</h4>)
+    } else if (line.startsWith('## ')) {
+      elements.push(<h3 key={i} className="text-lg font-bold text-white mt-6 mb-2">{line.slice(3).replace(/\*\*/g, '')}</h3>)
+    } else if (line.trim() === '') {
+      continue
+    } else {
+      elements.push(<p key={i} className="text-sm text-[#94a3b8] leading-relaxed mb-3" dangerouslySetInnerHTML={{ __html: inlineMd(line) }} />)
+    }
+  }
+  flushList()
+  return elements
+}
+
 // ─── Results ─────────────────────────────────────────────
 function Results({
   scores,
   businessName,
+  aiReport,
+  aiLoading,
 }: {
   scores: ReturnType<typeof calculateScores>
   businessName: string
+  aiReport: string
+  aiLoading: boolean
 }) {
   const color = gradeColor(scores.overallGrade)
-  const weakCats = scores.categories.filter(c => c.score < 6)
 
   return (
     <div className="animate-fadeIn">
@@ -288,92 +341,27 @@ function Results({
         ))}
       </div>
 
-      {/* Per-question recommendations for weak areas */}
-      {scores.weakQuestions.length > 0 && (
-        <div className="mb-10">
-          <h3 className="text-lg font-bold text-white mb-2">What to Fix First</h3>
-          <p className="text-sm text-[#64748b] mb-4">
-            Based on your answers, here are the specific areas dragging your visibility down:
-          </p>
-          <div className="space-y-3">
-            {scores.weakQuestions
-              .sort((a, b) => a.score - b.score)
-              .map(wq => {
-                const rec = questionRecommendations[wq.id]
-                const catColor = categoryBadgeColor(wq.category)
-                const catName = categories.find(c => c.key === wq.category)?.name || ''
-                return (
-                  <div key={wq.id} className={`${card} p-5`}>
-                    <div className="flex items-center gap-2 mb-2">
-                      <span
-                        className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full"
-                        style={{ backgroundColor: `${catColor}15`, color: catColor }}
-                      >
-                        {catName}
-                      </span>
-                      <span className="text-xs text-[#ef4444] font-medium">{wq.score}/10</span>
-                    </div>
-                    <p className="text-sm font-medium text-white mb-1">{wq.text}</p>
-                    {rec && <p className="text-sm text-[#94a3b8] leading-relaxed">{rec}</p>}
-                  </div>
-                )
-              })}
+      {/* AI-Generated Personalized Report */}
+      <div className={`${card} p-6 sm:p-8 mb-10`}>
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center flex-shrink-0">
+            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
           </div>
+          <h3 className="text-lg font-bold text-white">Your Personalized Report</h3>
         </div>
-      )}
-
-      {/* Category action items for weak categories */}
-      {weakCats.length > 0 && (
-        <div className="mb-10">
-          <h3 className="text-lg font-bold text-white mb-4">Action Plan by Category</h3>
-          <div className="space-y-4">
-            {weakCats
-              .sort((a, b) => a.score - b.score)
-              .map(cat => (
-                <div key={cat.key} className={`${card} p-5`}>
-                  <div className="flex items-center gap-3 mb-3">
-                    <span
-                      className="text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full"
-                      style={{ backgroundColor: `${cat.color}15`, color: cat.color }}
-                    >
-                      {cat.name}: {cat.score}/10
-                    </span>
-                  </div>
-                  <h4 className="font-semibold text-white mb-1">{cat.service}</h4>
-                  <p className="text-sm text-[#94a3b8] mb-3">{cat.serviceDescription}</p>
-                  <ul className="space-y-1.5">
-                    {cat.actions.map((action, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-[#94a3b8]">
-                        <span className="mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: cat.color }} />
-                        {action}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+        {aiLoading ? (
+          <div className="flex items-center gap-3 py-8 justify-center">
+            <div className="w-5 h-5 border-2 border-[#10b981] border-t-transparent rounded-full animate-spin" />
+            <p className="text-sm text-[#94a3b8]">Analyzing your business and writing your report...</p>
           </div>
-        </div>
-      )}
-
-      {/* Strengths */}
-      {scores.categories.filter(c => c.score >= 7).length > 0 && (
-        <div className="mb-10">
-          <h3 className="text-lg font-bold text-white mb-4">Your Strengths</h3>
-          <div className="flex flex-wrap gap-3">
-            {scores.categories
-              .filter(c => c.score >= 7)
-              .map(cat => (
-                <span
-                  key={cat.key}
-                  className="text-sm font-medium px-4 py-2 rounded-full"
-                  style={{ backgroundColor: `${cat.color}15`, color: cat.color }}
-                >
-                  {cat.name}: {cat.score}/10
-                </span>
-              ))}
-          </div>
-        </div>
-      )}
+        ) : aiReport ? (
+          <div>{renderMarkdown(aiReport)}</div>
+        ) : (
+          <p className="text-sm text-[#64748b]">Report unavailable — see the recommendations below.</p>
+        )}
+      </div>
 
       {/* CTA */}
       <div className={`${card} p-8 text-center`}>
@@ -399,6 +387,8 @@ export default function VisibilityAudit() {
   const [answers, setAnswers] = useState<Record<string, string | number>>({})
   const [scores, setScores] = useState<ReturnType<typeof calculateScores> | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [aiReport, setAiReport] = useState('')
+  const [aiLoading, setAiLoading] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
   const totalQuestions = allQuestions.length
@@ -469,6 +459,30 @@ export default function VisibilityAudit() {
 
     setSubmitting(false)
     setPhase('results')
+
+    // Fetch AI report in the background (results show immediately with loading state)
+    setAiLoading(true)
+    try {
+      const res = await fetch('/.netlify/functions/generate-visibility-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          businessName: String(answers['business-name'] || ''),
+          city: String(answers['city'] || ''),
+          industry: String(answers['industry'] || ''),
+          websiteUrl: String(answers['website-url'] || ''),
+          scores: result,
+          weakQuestions: result.weakQuestions,
+        }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        setAiReport(data.report || '')
+      }
+    } catch (err) {
+      console.error('AI report error:', err)
+    }
+    setAiLoading(false)
   }
 
   return (
@@ -528,7 +542,7 @@ export default function VisibilityAudit() {
         )}
 
         {phase === 'results' && scores && (
-          <Results scores={scores} businessName={String(answers['business-name'] || 'Your Business')} />
+          <Results scores={scores} businessName={String(answers['business-name'] || 'Your Business')} aiReport={aiReport} aiLoading={aiLoading} />
         )}
       </div>
 
