@@ -21,39 +21,12 @@ const toolLinks = [
 ---
 
 <footer class="bg-dark text-gray-300">
+  <!-- Footer Links -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-      <!-- Brand -->
-      <div class="lg:col-span-1">
-        <a href="/" class="flex items-center gap-2 font-bold text-xl text-white mb-4">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <rect width="28" height="28" rx="6" fill="hsl(217 91% 45%)"/>
-            <path d="M8 8h4v12H8V8zm8 4h4v8h-4v-8z" fill="white"/>
-          </svg>
-          LeadFair
-        </a>
-        <p class="text-sm text-gray-400 leading-relaxed">
-          AI-powered systems that help small businesses grow smarter, get found, and save time.
-        </p>
-      </div>
-
-      <!-- Services -->
-      <div>
-        <h3 class="text-white font-semibold text-sm mb-4">Services</h3>
-        <ul class="space-y-2">
-          {serviceLinks.map(link => (
-            <li>
-              <a href={link.href} class="text-sm text-gray-400 hover:text-white transition-colors">
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
       <!-- Company -->
       <div>
-        <h3 class="text-white font-semibold text-sm mb-4">Company</h3>
+        <h3 class="text-white font-bold text-lg mb-4">Company</h3>
         <ul class="space-y-2">
           {companyLinks.map(link => (
             <li>
@@ -65,9 +38,23 @@ const toolLinks = [
         </ul>
       </div>
 
-      <!-- Tools -->
+      <!-- Services -->
       <div>
-        <h3 class="text-white font-semibold text-sm mb-4">Free Tools</h3>
+        <h3 class="text-white font-bold text-lg mb-4">Services</h3>
+        <ul class="space-y-2">
+          {serviceLinks.map(link => (
+            <li>
+              <a href={link.href} class="text-sm text-gray-400 hover:text-white transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div>
+        <h3 class="text-white font-bold text-lg mb-4">Resources</h3>
         <ul class="space-y-2">
           {toolLinks.map(link => (
             <li>
@@ -78,11 +65,30 @@ const toolLinks = [
           ))}
         </ul>
       </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-white font-bold text-lg mb-4">Contact</h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/contact" class="text-sm text-gray-400 hover:text-white transition-colors">
+              Get in Touch
+            </a>
+          </li>
+          <li class="text-sm text-gray-400">Huntsville, Alabama</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <!-- Bottom Bar -->
+    <div class="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+          <span class="text-dark font-bold text-sm">LF</span>
+        </div>
+        <span class="font-bold text-white">LeadFair</span>
+      </div>
       <p class="text-sm text-gray-500">&copy; {currentYear} LeadFair. All rights reserved.</p>
-      <p class="text-sm text-gray-500">Huntsville, Alabama</p>
     </div>
   </div>
 </footer>

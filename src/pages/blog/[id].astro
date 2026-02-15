@@ -12,29 +12,67 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const categoryColors: Record<string, string> = {
+  AI: 'bg-primary-100 text-primary-700',
+  SEO: 'bg-secondary-100 text-secondary-700',
+  Automation: 'bg-accent-100 text-accent-700',
+  Business: 'bg-purple-100 text-purple-700',
+};
 ---
 
 <BaseLayout
   title={`${post.data.title} — LeadFair Blog`}
   description={post.data.description}
 >
-  <article class="py-16 lg:py-24">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-8">
-        <a href="/blog" class="text-primary-500 hover:text-primary-600 text-sm font-medium transition-colors">&larr; Back to Blog</a>
+  <!-- Article Header -->
+  <section class="relative overflow-hidden bg-gradient-blue py-16 lg:py-24">
+    <div class="blob blob-blue w-56 h-56 -top-16 -right-16"></div>
+    <div class="absolute inset-0 bg-grid opacity-30"></div>
+    <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <a href="/blog" class="inline-flex items-center gap-1.5 text-primary-500 hover:text-primary-600 text-sm font-semibold transition-colors mb-8">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+        Back to Blog
+      </a>
+      <div class="flex items-center gap-3 mb-6">
+        <span class={`px-3 py-1 rounded-full text-xs font-semibold ${categoryColors[post.data.category] || 'bg-gray-100 text-gray-700'}`}>{post.data.category}</span>
+        <time class="text-sm text-text-lighter" datetime={post.data.pubDate.toISOString()}>
+          {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
       </div>
-      <header class="mb-10">
-        <div class="flex items-center gap-3 mb-4">
-          <span class="bg-primary-100 text-primary-700 px-2 py-0.5 rounded text-xs font-medium">{post.data.category}</span>
-          <time class="text-sm text-text-lighter" datetime={post.data.pubDate.toISOString()}>
-            {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-          </time>
-        </div>
-        <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight">{post.data.title}</h1>
-      </header>
-      <div class="prose prose-lg max-w-none text-text-light leading-relaxed">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
+        <span class="gradient-text-blue-green">{post.data.title}</span>
+      </h1>
+    </div>
+  </section>
+
+  <div class="shimmer-line"></div>
+
+  <!-- Article Content -->
+  <article class="py-16 lg:py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="prose prose-lg max-w-none text-text-light leading-relaxed prose-headings:text-text prose-headings:font-extrabold prose-a:text-primary-500 prose-a:no-underline hover:prose-a:underline">
         <Content />
       </div>
     </div>
   </article>
+
+  <!-- CTA -->
+  <div class="shimmer-line"></div>
+  <section class="relative overflow-hidden py-20 bg-dark text-white">
+    <div class="absolute inset-0 bg-grid-dark opacity-30"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-extrabold mb-4">Want to learn more?</h2>
+      <p class="text-gray-400 max-w-md mx-auto mb-8 leading-relaxed">
+        Let's have a conversation about how these ideas could work for your business.
+      </p>
+      <a
+        href="/contact"
+        class="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white px-8 py-4 rounded-xl font-semibold transition-all text-lg btn-scale shadow-glow-orange"
+      >
+        Get in Touch
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </section>
 </BaseLayout>

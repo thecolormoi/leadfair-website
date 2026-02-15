@@ -7,56 +7,86 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   description="LeadFair helps small businesses in Huntsville, Alabama and beyond grow with practical AI tools and visibility strategies. Founded by Jeremy Turner."
 >
   <!-- Hero -->
-  <section class="bg-surface py-16 lg:py-24 border-b border-gray-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">Built by a Small Business Owner,<br/>for Small Business Owners</h1>
-      <p class="text-lg text-text-light max-w-2xl mx-auto leading-relaxed">LeadFair exists because small businesses deserve the same AI-powered tools and visibility strategies that big companies take for granted.</p>
+  <section class="relative overflow-hidden bg-gradient-blue py-20 lg:py-32">
+    <div class="blob blob-blue w-72 h-72 -top-20 -right-20"></div>
+    <div class="blob blob-green w-56 h-56 bottom-0 left-10"></div>
+    <div class="absolute inset-0 bg-grid opacity-40"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+        <span class="gradient-text-blue-green">Built by a Small Business Owner,</span><br/>
+        <span class="gradient-text-blue-green">for Small Business Owners</span>
+      </h1>
+      <p class="text-lg sm:text-xl text-text-light max-w-2xl mx-auto leading-relaxed">LeadFair exists because small businesses deserve the same AI-powered tools and visibility strategies that big companies take for granted.</p>
     </div>
   </section>
 
+  <div class="shimmer-line"></div>
+
   <!-- Story -->
-  <section class="py-20 bg-white">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold mb-8">The Story</h2>
-      <div class="prose prose-lg text-text-light space-y-6">
-        <p class="leading-relaxed">
-          I'm Jeremy Turner. I own a music school in Huntsville, Alabama called Alabama Music Academy. After years of running it, I hit a wall that a lot of small business owners know well: I was spending more time on admin, phone calls, and marketing than on the actual work I started the business to do.
-        </p>
-        <p class="leading-relaxed">
-          Missed calls were costing me students. Manual scheduling was eating my evenings. And when it came to being found online? I was barely visible, even though I'd been in business for years.
-        </p>
-        <p class="leading-relaxed">
-          So I started building solutions. An AI phone agent to handle calls. Automations to eliminate busywork. A visibility strategy that actually worked for a local business. And it clicked — these weren't just solving my problems. They could solve the same problems for thousands of small businesses.
-        </p>
-        <p class="leading-relaxed">
-          That's LeadFair. We take the AI tools and visibility strategies that actually work — the ones I use on my own business every day — and implement them for other small businesses. No hype, no buzzwords, no six-month timelines. Just practical tools that make your business run better and get found by more customers.
-        </p>
+  <section class="py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-5 gap-12 items-start">
+        <div class="lg:col-span-3">
+          <h2 class="text-3xl sm:text-4xl font-extrabold mb-8">
+            <span class="gradient-text-blue-green">The Story</span>
+          </h2>
+          <div class="space-y-6 text-text-light text-lg leading-relaxed">
+            <p>
+              I'm Jeremy Turner. I own a music school in Huntsville, Alabama called Alabama Music Academy. After years of running it, I hit a wall that a lot of small business owners know well: I was spending more time on admin, phone calls, and marketing than on the actual work I started the business to do.
+            </p>
+            <p>
+              Missed calls were costing me students. Manual scheduling was eating my evenings. And when it came to being found online? I was barely visible, even though I'd been in business for years.
+            </p>
+            <p>
+              So I started building solutions. An AI phone agent to handle calls. Automations to eliminate busywork. A visibility strategy that actually worked for a local business. And it clicked — these weren't just solving my problems. They could solve the same problems for thousands of small businesses.
+            </p>
+            <p>
+              That's LeadFair. We take the AI tools and visibility strategies that actually work — the ones I use on my own business every day — and implement them for other small businesses. No hype, no buzzwords, no six-month timelines. Just practical tools that make your business run better and get found by more customers.
+            </p>
+          </div>
+        </div>
+        <div class="lg:col-span-2">
+          <!-- Visual placeholder for Jeremy's photo -->
+          <div class="bg-gradient-blue-green rounded-3xl p-1">
+            <div class="bg-white rounded-3xl p-8 flex flex-col items-center text-center">
+              <div class="w-32 h-32 rounded-full bg-gradient-to-br from-primary-400 to-secondary-400 flex items-center justify-center mb-6">
+                <span class="text-white text-4xl font-extrabold">JT</span>
+              </div>
+              <h3 class="text-xl font-bold mb-1">Jeremy Turner</h3>
+              <p class="text-text-light text-sm mb-4">Founder, LeadFair</p>
+              <p class="text-text-lighter text-sm">Small business owner. Music educator. AI pragmatist.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <div class="shimmer-line"></div>
+
   <!-- Values -->
-  <section class="py-20 bg-surface">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-center mb-14">What We Believe</h2>
+  <section class="relative overflow-hidden py-24 bg-gradient-blue-green">
+    <div class="absolute inset-0 bg-dots opacity-30"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-16">What We Believe</h2>
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white rounded-xl p-8 border border-gray-100">
-          <div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <div class="gradient-border rounded-2xl p-8 card-hover card-glow-blue">
+          <div class="icon-box icon-box-blue w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
           <h3 class="text-xl font-bold mb-3">Results-Driven</h3>
           <p class="text-text-light leading-relaxed">We measure success by what changes for your business, not by how impressive the technology sounds. If it doesn't move the needle, we don't build it.</p>
         </div>
-        <div class="bg-white rounded-xl p-8 border border-gray-100">
-          <div class="w-12 h-12 bg-secondary-100 rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-6 h-6 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        <div class="gradient-border rounded-2xl p-8 card-hover card-glow-green">
+          <div class="icon-box icon-box-green w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
           </div>
           <h3 class="text-xl font-bold mb-3">Human-First</h3>
           <p class="text-text-light leading-relaxed">AI should make things better for your customers, not creepier. We build systems that feel helpful and natural, because that's what actually works.</p>
         </div>
-        <div class="bg-white rounded-xl p-8 border border-gray-100">
-          <div class="w-12 h-12 bg-accent-100 rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-6 h-6 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+        <div class="gradient-border rounded-2xl p-8 card-hover card-glow-orange">
+          <div class="icon-box icon-box-orange w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
           </div>
           <h3 class="text-xl font-bold mb-3">Practical Innovation</h3>
           <p class="text-text-light leading-relaxed">We're not chasing the latest AI trend. We use proven tools in smart ways, tailored to real business problems. Practical beats flashy every time.</p>
@@ -66,17 +96,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
   <!-- CTA -->
-  <section class="py-20 bg-primary-500 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl font-bold mb-4">Want to Work Together?</h2>
-      <p class="text-primary-100 max-w-xl mx-auto mb-8 text-lg leading-relaxed">
+  <div class="shimmer-line"></div>
+  <section class="relative overflow-hidden py-24 bg-dark text-white">
+    <div class="absolute inset-0 bg-grid-dark opacity-30"></div>
+    <div class="blob blob-blue w-64 h-64 -top-20 -left-20 opacity-20"></div>
+    <div class="blob blob-green w-48 h-48 bottom-0 right-10 opacity-20"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Want to Work Together?</h2>
+      <p class="text-gray-400 max-w-xl mx-auto mb-10 text-lg leading-relaxed">
         Let's have a conversation about your business. No pitch, no pressure — just an honest look at where AI and better visibility could help.
       </p>
       <a
         href="/contact"
-        class="inline-block bg-white text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors text-lg"
+        class="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white px-8 py-4 rounded-xl font-semibold transition-all text-lg btn-scale shadow-glow-orange"
       >
         Get in Touch
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
     </div>
   </section>

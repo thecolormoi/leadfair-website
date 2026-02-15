@@ -39,8 +39,8 @@
 
   /* Dark */
   --color-dark: hsl(220 20% 8%);
-  --color-dark-light: hsl(220 15% 15%);
-  --color-dark-lighter: hsl(220 12% 22%);
+  --color-dark-light: hsl(220 15% 12%);
+  --color-dark-lighter: hsl(220 12% 18%);
 
   /* Neutral */
   --color-surface: hsl(220 15% 97%);
@@ -65,4 +65,209 @@ body {
   background-color: white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== GRADIENT TEXT ===== */
+.gradient-text-blue-green {
+  background: linear-gradient(135deg, hsl(217 91% 55%), hsl(152 68% 48%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-green-blue {
+  background: linear-gradient(135deg, hsl(152 68% 48%), hsl(217 91% 55%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-orange {
+  background: linear-gradient(135deg, hsl(24 95% 53%), hsl(24 95% 65%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== CARD EFFECTS ===== */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.card-glow-blue:hover {
+  box-shadow: 0 20px 40px -10px hsl(217 91% 45% / 0.2), 0 8px 16px -6px hsl(217 91% 45% / 0.1);
+  border-color: hsl(217 91% 78%);
+}
+
+.card-glow-green:hover {
+  box-shadow: 0 20px 40px -10px hsl(152 68% 42% / 0.2), 0 8px 16px -6px hsl(152 68% 42% / 0.1);
+  border-color: hsl(152 68% 72%);
+}
+
+.card-glow-orange:hover {
+  box-shadow: 0 20px 40px -10px hsl(24 95% 53% / 0.2), 0 8px 16px -6px hsl(24 95% 53% / 0.1);
+  border-color: hsl(24 95% 78%);
+}
+
+/* ===== BUTTON EFFECTS ===== */
+.btn-scale {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-scale:hover {
+  transform: scale(1.03);
+}
+
+.shadow-glow-blue { box-shadow: 0 0 30px hsl(217 91% 45% / 0.25); }
+.shadow-glow-green { box-shadow: 0 0 30px hsl(152 68% 42% / 0.25); }
+.shadow-glow-orange { box-shadow: 0 4px 14px hsl(24 95% 53% / 0.4); }
+
+/* ===== GRADIENT BACKGROUNDS ===== */
+.gradient-card {
+  background: linear-gradient(180deg, white 0%, hsl(220 15% 98%) 100%);
+}
+
+.gradient-card-dark {
+  background: linear-gradient(180deg, hsl(220 15% 12%) 0%, hsl(220 15% 10%) 100%);
+}
+
+/* Bold gradient section backgrounds */
+.bg-gradient-blue {
+  background: linear-gradient(135deg, hsl(217 91% 95%) 0%, hsl(217 91% 88%) 50%, hsl(220 15% 97%) 100%);
+}
+
+.bg-gradient-green {
+  background: linear-gradient(135deg, hsl(152 68% 95%) 0%, hsl(152 68% 88%) 50%, hsl(220 15% 97%) 100%);
+}
+
+.bg-gradient-warm {
+  background: linear-gradient(135deg, hsl(24 95% 97%) 0%, hsl(24 60% 94%) 50%, hsl(220 15% 97%) 100%);
+}
+
+.bg-gradient-blue-green {
+  background: linear-gradient(135deg, hsl(217 91% 94%) 0%, hsl(180 40% 94%) 50%, hsl(152 68% 94%) 100%);
+}
+
+.bg-gradient-hero-light {
+  background: linear-gradient(180deg, hsl(217 91% 97%) 0%, white 100%);
+}
+
+/* ===== DECORATIVE BLOBS ===== */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.blob-blue {
+  background: hsl(217 91% 70%);
+}
+
+.blob-green {
+  background: hsl(152 68% 65%);
+}
+
+.blob-orange {
+  background: hsl(24 95% 70%);
+}
+
+.blob-purple {
+  background: hsl(260 70% 70%);
+}
+
+/* ===== DECORATIVE GRID PATTERN ===== */
+.bg-grid {
+  background-image:
+    linear-gradient(hsl(220 15% 90% / 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(220 15% 90% / 0.5) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.bg-grid-dark {
+  background-image:
+    linear-gradient(hsl(220 15% 20% / 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(220 15% 20% / 0.3) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ===== DECORATIVE DOTS PATTERN ===== */
+.bg-dots {
+  background-image: radial-gradient(hsl(220 15% 85%) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ===== GRADIENT BORDER CARDS ===== */
+.gradient-border {
+  position: relative;
+  background: white;
+  border-radius: 1rem;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg, hsl(217 91% 65%), hsl(152 68% 55%), hsl(24 95% 60%));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ===== FLOATING ANIMATION ===== */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delay {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-float-slow {
+  animation: float 8s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+/* ===== SHIMMER LINE ===== */
+.shimmer-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(217 91% 65%), hsl(152 68% 55%), hsl(24 95% 60%), transparent);
+  opacity: 0.6;
+}
+
+/* ===== FEATURE ICON BOXES ===== */
+.icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+
+.icon-box-blue {
+  background: linear-gradient(135deg, hsl(217 91% 45%), hsl(217 91% 55%));
+  box-shadow: 0 8px 24px hsl(217 91% 45% / 0.25);
+}
+
+.icon-box-green {
+  background: linear-gradient(135deg, hsl(152 68% 42%), hsl(152 68% 52%));
+  box-shadow: 0 8px 24px hsl(152 68% 42% / 0.25);
+}
+
+.icon-box-orange {
+  background: linear-gradient(135deg, hsl(24 95% 50%), hsl(24 95% 60%));
+  box-shadow: 0 8px 24px hsl(24 95% 53% / 0.25);
 }

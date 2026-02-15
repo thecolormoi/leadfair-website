@@ -7,103 +7,140 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   description="Ready to talk about AI tools and visibility for your business? Reach out — no sales pitch, just an honest conversation about what might help."
 >
   <!-- Hero -->
-  <section class="bg-surface py-16 lg:py-24 border-b border-gray-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">Let's Talk</h1>
-      <p class="text-lg text-text-light max-w-2xl mx-auto leading-relaxed">No sales pitch. No pressure. Just a conversation about your business and whether we can help.</p>
+  <section class="relative overflow-hidden bg-gradient-blue py-20 lg:py-28">
+    <div class="blob blob-blue w-72 h-72 -top-20 -right-20"></div>
+    <div class="blob blob-orange w-48 h-48 bottom-0 left-10"></div>
+    <div class="absolute inset-0 bg-grid opacity-40"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+        <span class="gradient-text-blue-green">Let's Talk</span>
+      </h1>
+      <p class="text-lg sm:text-xl text-text-light max-w-2xl mx-auto leading-relaxed">No sales pitch. No pressure. Just a conversation about your business and whether we can help.</p>
     </div>
   </section>
 
-  <!-- Contact Form -->
-  <section class="py-20 bg-white">
-    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-      <form
-        name="contact"
-        method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-        class="space-y-6"
-      >
-        <input type="hidden" name="form-name" value="contact" />
-        <p class="hidden">
-          <label>Don't fill this out: <input name="bot-field" /></label>
-        </p>
+  <div class="shimmer-line"></div>
 
-        <div class="grid sm:grid-cols-2 gap-6">
-          <div>
-            <label for="name" class="block text-sm font-medium text-text mb-2">Your Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-colors"
-              placeholder="Jane Smith"
-            />
+  <!-- Contact Form + Info -->
+  <section class="py-24 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-5 gap-12">
+        <!-- Form -->
+        <div class="lg:col-span-3">
+          <div class="gradient-border rounded-2xl p-8 sm:p-10">
+            <form
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              class="space-y-6"
+            >
+              <input type="hidden" name="form-name" value="contact" />
+              <p class="hidden">
+                <label>Don't fill this out: <input name="bot-field" /></label>
+              </p>
+
+              <div class="grid sm:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="block text-sm font-semibold text-text mb-2">Your Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all text-base"
+                    placeholder="Jane Smith"
+                  />
+                </div>
+                <div>
+                  <label for="email" class="block text-sm font-semibold text-text mb-2">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all text-base"
+                    placeholder="jane@example.com"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="business" class="block text-sm font-semibold text-text mb-2">Business Name</label>
+                <input
+                  type="text"
+                  id="business"
+                  name="business"
+                  class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all text-base"
+                  placeholder="Your Business Name"
+                />
+              </div>
+
+              <div>
+                <label for="interest" class="block text-sm font-semibold text-text mb-2">What are you interested in?</label>
+                <select
+                  id="interest"
+                  name="interest"
+                  class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all bg-white text-base"
+                >
+                  <option value="">Select one...</option>
+                  <option value="ai-receptionist">AI Receptionist</option>
+                  <option value="company-companion">Company Companion</option>
+                  <option value="visibility">Visibility (SEO/AEO/GEO)</option>
+                  <option value="automations">Automations</option>
+                  <option value="diagnostic">Business Diagnostic</option>
+                  <option value="not-sure">Not sure yet — just exploring</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-semibold text-text mb-2">Tell us about your business</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all resize-y text-base"
+                  placeholder="What does your business do? What's your biggest challenge right now?"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full bg-accent-500 hover:bg-accent-600 text-white px-8 py-4 rounded-xl font-semibold transition-all text-lg btn-scale shadow-glow-orange inline-flex items-center justify-center gap-2"
+              >
+                Send Message
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </button>
+            </form>
           </div>
-          <div>
-            <label for="email" class="block text-sm font-medium text-text mb-2">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-colors"
-              placeholder="jane@example.com"
-            />
+        </div>
+
+        <!-- Info Sidebar -->
+        <div class="lg:col-span-2 space-y-8">
+          <div class="bg-gradient-blue-green rounded-2xl p-8">
+            <div class="icon-box icon-box-blue w-12 h-12 rounded-xl mb-5">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <h3 class="font-bold text-lg mb-2">Based in Huntsville, Alabama</h3>
+            <p class="text-text-light text-sm leading-relaxed">Serving small businesses locally and across the country.</p>
+          </div>
+
+          <div class="bg-gradient-warm rounded-2xl p-8">
+            <div class="icon-box icon-box-orange w-12 h-12 rounded-xl mb-5">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="font-bold text-lg mb-2">Quick Response</h3>
+            <p class="text-text-light text-sm leading-relaxed">We typically respond within one business day.</p>
+          </div>
+
+          <div class="bg-gradient-green rounded-2xl p-8">
+            <div class="icon-box icon-box-green w-12 h-12 rounded-xl mb-5">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <h3 class="font-bold text-lg mb-2">No Strings Attached</h3>
+            <p class="text-text-light text-sm leading-relaxed">Our first conversation is always free. No contracts, no commitments.</p>
           </div>
         </div>
-
-        <div>
-          <label for="business" class="block text-sm font-medium text-text mb-2">Business Name</label>
-          <input
-            type="text"
-            id="business"
-            name="business"
-            class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-colors"
-            placeholder="Your Business Name"
-          />
-        </div>
-
-        <div>
-          <label for="interest" class="block text-sm font-medium text-text mb-2">What are you interested in?</label>
-          <select
-            id="interest"
-            name="interest"
-            class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-colors bg-white"
-          >
-            <option value="">Select one...</option>
-            <option value="ai-receptionist">AI Receptionist</option>
-            <option value="company-companion">Company Companion</option>
-            <option value="visibility">Visibility (SEO/AEO/GEO)</option>
-            <option value="automations">Automations</option>
-            <option value="diagnostic">Business Diagnostic</option>
-            <option value="not-sure">Not sure yet — just exploring</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="message" class="block text-sm font-medium text-text mb-2">Tell us about your business</label>
-          <textarea
-            id="message"
-            name="message"
-            rows="5"
-            class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-colors resize-y"
-            placeholder="What does your business do? What's your biggest challenge right now?"
-          ></textarea>
-        </div>
-
-        <button
-          type="submit"
-          class="w-full bg-primary-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-600 transition-colors text-lg"
-        >
-          Send Message
-        </button>
-      </form>
-
-      <div class="mt-12 pt-8 border-t border-gray-100 text-center">
-        <p class="text-text-light mb-2">Based in Huntsville, Alabama</p>
-        <p class="text-text-lighter text-sm">We typically respond within one business day.</p>
       </div>
     </div>
   </section>

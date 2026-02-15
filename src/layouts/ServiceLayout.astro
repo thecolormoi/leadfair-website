@@ -13,25 +13,22 @@ const { title, description, headline, subheadline, accentColor } = Astro.props;
 
 const colorMap = {
   primary: {
-    bg: 'bg-primary-50',
-    border: 'border-primary-100',
-    badge: 'bg-primary-100 text-primary-700',
-    btn: 'bg-primary-500 hover:bg-primary-600',
-    btnOutline: 'border-primary-500 text-primary-600 hover:bg-primary-50',
+    heroGradient: 'bg-gradient-blue',
+    blob1: 'blob-blue',
+    blob2: 'blob-green',
+    gradientText: 'gradient-text-blue-green',
   },
   secondary: {
-    bg: 'bg-secondary-50',
-    border: 'border-secondary-100',
-    badge: 'bg-secondary-100 text-secondary-700',
-    btn: 'bg-secondary-500 hover:bg-secondary-600',
-    btnOutline: 'border-secondary-500 text-secondary-600 hover:bg-secondary-50',
+    heroGradient: 'bg-gradient-green',
+    blob1: 'blob-green',
+    blob2: 'blob-blue',
+    gradientText: 'gradient-text-green-blue',
   },
   accent: {
-    bg: 'bg-accent-50',
-    border: 'border-accent-100',
-    badge: 'bg-accent-100 text-accent-700',
-    btn: 'bg-accent-500 hover:bg-accent-600',
-    btnOutline: 'border-accent-500 text-accent-600 hover:bg-accent-50',
+    heroGradient: 'bg-gradient-warm',
+    blob1: 'blob-orange',
+    blob2: 'blob-blue',
+    gradientText: 'gradient-text-orange',
   },
 };
 
@@ -40,32 +37,61 @@ const colors = colorMap[accentColor];
 
 <BaseLayout title={title} description={description}>
   <!-- Hero -->
-  <section class={`${colors.bg} ${colors.border} border-b py-16 lg:py-24`}>
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">{headline}</h1>
-      <p class="text-lg sm:text-xl text-text-light max-w-2xl mx-auto leading-relaxed">{subheadline}</p>
+  <section class={`relative overflow-hidden ${colors.heroGradient} py-20 lg:py-32`}>
+    <div class={`blob ${colors.blob1} w-72 h-72 -top-20 -right-20`}></div>
+    <div class={`blob ${colors.blob2} w-56 h-56 bottom-0 left-10`}></div>
+    <div class="absolute inset-0 bg-grid opacity-40"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+        <span class={colors.gradientText}>{headline}</span>
+      </h1>
+      <p class="text-lg sm:text-xl text-text-light max-w-2xl mx-auto leading-relaxed mb-10">{subheadline}</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="/contact"
+          class="bg-accent-500 hover:bg-accent-600 text-white px-8 py-4 rounded-xl font-semibold transition-all text-lg btn-scale shadow-glow-orange inline-flex items-center gap-2"
+        >
+          Get Started
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a
+          href="/tools/business-diagnostic"
+          class="border-2 border-gray-300 text-text px-8 py-4 rounded-xl font-semibold hover:border-gray-400 hover:bg-white/50 transition-all text-lg"
+        >
+          Free Diagnostic
+        </a>
+      </div>
     </div>
   </section>
+
+  <div class="shimmer-line"></div>
 
   <slot />
 
   <!-- CTA -->
-  <section class="py-20 bg-dark text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl font-bold mb-4">Interested? Let's Talk.</h2>
-      <p class="text-gray-400 max-w-xl mx-auto mb-8 leading-relaxed">
+  <div class="shimmer-line"></div>
+  <section class="relative overflow-hidden py-24 bg-dark text-white">
+    <div class="absolute inset-0 bg-grid-dark opacity-30"></div>
+    <div class="blob blob-blue w-64 h-64 -top-20 -left-20 opacity-20"></div>
+    <div class="blob blob-green w-48 h-48 bottom-0 right-10 opacity-20"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Interested? Let's Talk.</h2>
+      <p class="text-gray-400 max-w-xl mx-auto mb-10 text-lg leading-relaxed">
         Every business is different. Let's figure out if this is the right fit for yours — no pressure, no sales pitch.
       </p>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
         <a
           href="/contact"
-          class={`${colors.btn} text-white px-8 py-3 rounded-lg font-semibold transition-colors text-lg`}
+          class="bg-accent-500 hover:bg-accent-600 text-white px-8 py-4 rounded-xl font-semibold transition-all text-lg btn-scale shadow-glow-orange inline-flex items-center gap-2"
         >
           Get in Touch
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
         <a
           href="/tools/business-diagnostic"
-          class="border-2 border-gray-600 text-gray-300 px-8 py-3 rounded-lg font-semibold hover:border-white hover:text-white transition-colors text-lg"
+          class="border-2 border-gray-600 text-gray-300 px-8 py-4 rounded-xl font-semibold hover:border-white hover:text-white transition-all text-lg"
         >
           Take the Free Diagnostic
         </a>

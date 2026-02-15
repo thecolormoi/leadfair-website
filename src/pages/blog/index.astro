@@ -6,44 +6,102 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const categories = ['AI', 'SEO', 'Automation', 'Business'];
+
+const categoryColors: Record<string, string> = {
+  AI: 'bg-primary-100 text-primary-700',
+  SEO: 'bg-secondary-100 text-secondary-700',
+  Automation: 'bg-accent-100 text-accent-700',
+  Business: 'bg-purple-100 text-purple-700',
+};
 ---
 
 <BaseLayout
   title="Blog — LeadFair"
   description="Practical insights on AI tools, SEO, business automation, and visibility strategies for small businesses."
 >
-  <section class="bg-surface py-16 lg:py-24 border-b border-gray-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">Blog</h1>
-      <p class="text-lg text-text-light max-w-2xl mx-auto leading-relaxed">Practical insights on AI, visibility, and automation — written for business owners, not developers.</p>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-gradient-blue-green py-20 lg:py-28">
+    <div class="blob blob-blue w-72 h-72 -top-20 -right-20"></div>
+    <div class="blob blob-green w-48 h-48 bottom-0 left-10"></div>
+    <div class="absolute inset-0 bg-grid opacity-40"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+        <span class="gradient-text-blue-green">Blog</span>
+      </h1>
+      <p class="text-lg sm:text-xl text-text-light max-w-2xl mx-auto leading-relaxed">Practical insights on AI, visibility, and automation — written for business owners, not developers.</p>
     </div>
   </section>
 
+  <div class="shimmer-line"></div>
+
+  <!-- Category Pills -->
+  <section class="py-8 bg-white border-b border-gray-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap gap-3 justify-center">
+        {categories.map(cat => (
+          <span class={`px-4 py-1.5 rounded-full text-sm font-medium ${categoryColors[cat] || 'bg-gray-100 text-gray-700'}`}>
+            {cat}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Posts -->
   <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       {posts.length > 0 ? (
         <div class="space-y-8">
           {posts.map(post => (
-            <a href={`/blog/${post.id}`} class="block bg-surface rounded-xl p-6 hover:shadow-md transition-shadow border border-gray-100">
-              <div class="flex items-center gap-3 mb-3">
-                <span class="bg-primary-100 text-primary-700 px-2 py-0.5 rounded text-xs font-medium">{post.data.category}</span>
+            <a href={`/blog/${post.id}`} class="block gradient-border rounded-2xl p-8 card-hover">
+              <div class="flex items-center gap-3 mb-4">
+                <span class={`px-3 py-1 rounded-full text-xs font-semibold ${categoryColors[post.data.category] || 'bg-gray-100 text-gray-700'}`}>{post.data.category}</span>
                 <time class="text-sm text-text-lighter" datetime={post.data.pubDate.toISOString()}>
                   {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </time>
               </div>
               <h2 class="text-xl font-bold mb-2">{post.data.title}</h2>
-              <p class="text-text-light text-sm leading-relaxed">{post.data.description}</p>
+              <p class="text-text-light leading-relaxed">{post.data.description}</p>
+              <span class="inline-flex items-center gap-1 text-primary-500 font-semibold text-sm mt-4">
+                Read more
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </span>
             </a>
           ))}
         </div>
       ) : (
-        <div class="text-center py-12">
-          <h2 class="text-2xl font-bold mb-4">Coming Soon</h2>
-          <p class="text-text-light max-w-lg mx-auto leading-relaxed">
+        <div class="text-center py-16">
+          <div class="icon-box icon-box-blue w-20 h-20 rounded-2xl mx-auto mb-8">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+          </div>
+          <h2 class="text-3xl font-extrabold mb-4">
+            <span class="gradient-text-blue-green">Coming Soon</span>
+          </h2>
+          <p class="text-text-light max-w-lg mx-auto leading-relaxed text-lg">
             We're working on our first posts. Check back soon for practical insights on AI tools, visibility strategies, and business automation.
           </p>
         </div>
       )}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="shimmer-line"></div>
+  <section class="relative overflow-hidden py-24 bg-dark text-white">
+    <div class="absolute inset-0 bg-grid-dark opacity-30"></div>
+    <div class="blob blob-blue w-64 h-64 -top-20 -left-20 opacity-20"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Don't Wait for the Blog</h2>
+      <p class="text-gray-400 max-w-xl mx-auto mb-10 text-lg leading-relaxed">
+        Get a personalized look at how AI and better visibility could help your business right now.
+      </p>
+      <a
+        href="/contact"
+        class="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white px-8 py-4 rounded-xl font-semibold transition-all text-lg btn-scale shadow-glow-orange"
+      >
+        Get in Touch
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
     </div>
   </section>
 </BaseLayout>

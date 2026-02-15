@@ -10,32 +10,51 @@ import ServiceLayout from '../../layouts/ServiceLayout.astro';
   accentColor="primary"
 >
   <!-- What It Does -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-center mb-4">What the AI Receptionist Does</h2>
-      <p class="text-text-light text-center max-w-2xl mx-auto mb-14">It's like having a friendly, knowledgeable receptionist who never takes a day off.</p>
+  <section class="relative overflow-hidden py-24 bg-white">
+    <div class="absolute inset-0 bg-dots opacity-30"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-4">What the AI Receptionist Does</h2>
+      <p class="text-text-light text-center max-w-2xl mx-auto mb-16 text-lg">It's like having a friendly, knowledgeable receptionist who never takes a day off.</p>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-blue">
+          <div class="icon-box icon-box-blue w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Answers Your Phone</h3>
           <p class="text-sm text-text-light leading-relaxed">Picks up calls with a natural-sounding voice, greets callers by your business name, and handles conversations like a real person.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-blue">
+          <div class="icon-box icon-box-blue w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Books Appointments</h3>
           <p class="text-sm text-text-light leading-relaxed">Connects to your calendar and schedules appointments in real time. No double-booking, no back-and-forth.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-blue">
+          <div class="icon-box icon-box-blue w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Answers Questions</h3>
           <p class="text-sm text-text-light leading-relaxed">Trained on your business information — hours, services, pricing, location — so callers get accurate answers instantly.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-blue">
+          <div class="icon-box icon-box-blue w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Takes Messages</h3>
           <p class="text-sm text-text-light leading-relaxed">When a caller needs to reach you directly, the AI takes a detailed message and sends it to you via text or email.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-blue">
+          <div class="icon-box icon-box-blue w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Sends Summaries</h3>
           <p class="text-sm text-text-light leading-relaxed">After every call, you get a text with a summary of what was discussed, who called, and what action was taken.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-blue">
+          <div class="icon-box icon-box-blue w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Works 24/7</h3>
           <p class="text-sm text-text-light leading-relaxed">Nights, weekends, holidays — your phone always gets answered. No voicemail, no missed opportunities.</p>
         </div>
@@ -44,29 +63,36 @@ import ServiceLayout from '../../layouts/ServiceLayout.astro';
   </section>
 
   <!-- How It Works -->
-  <section class="py-20 bg-surface">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-center mb-14">How We Set It Up</h2>
-      <div class="space-y-8">
-        <div class="flex gap-6">
-          <div class="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center text-white font-bold shrink-0">1</div>
+  <section class="relative overflow-hidden py-24 bg-gradient-blue-green">
+    <div class="absolute inset-0 bg-grid opacity-30"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-16">How We Set It Up</h2>
+      <div class="space-y-12">
+        <div class="flex gap-8 items-start">
+          <div class="icon-box icon-box-blue w-16 h-16 rounded-2xl shrink-0 animate-float">
+            <span class="text-white font-extrabold text-xl">1</span>
+          </div>
           <div>
-            <h3 class="font-bold text-lg mb-1">Learn Your Business</h3>
-            <p class="text-text-light leading-relaxed">We gather your business info — services, hours, FAQs, scheduling rules — and train the AI on all of it.</p>
+            <h3 class="font-bold text-xl mb-2">Learn Your Business</h3>
+            <p class="text-text-light leading-relaxed text-lg">We gather your business info — services, hours, FAQs, scheduling rules — and train the AI on all of it.</p>
           </div>
         </div>
-        <div class="flex gap-6">
-          <div class="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center text-white font-bold shrink-0">2</div>
+        <div class="flex gap-8 items-start">
+          <div class="icon-box icon-box-green w-16 h-16 rounded-2xl shrink-0 animate-float-delay">
+            <span class="text-white font-extrabold text-xl">2</span>
+          </div>
           <div>
-            <h3 class="font-bold text-lg mb-1">Set Up Your Number</h3>
-            <p class="text-text-light leading-relaxed">We configure a phone number (or forward your existing one) to the AI receptionist. You choose when it answers — all calls, after-hours, or overflow only.</p>
+            <h3 class="font-bold text-xl mb-2">Set Up Your Number</h3>
+            <p class="text-text-light leading-relaxed text-lg">We configure a phone number (or forward your existing one) to the AI receptionist. You choose when it answers — all calls, after-hours, or overflow only.</p>
           </div>
         </div>
-        <div class="flex gap-6">
-          <div class="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center text-white font-bold shrink-0">3</div>
+        <div class="flex gap-8 items-start">
+          <div class="icon-box icon-box-orange w-16 h-16 rounded-2xl shrink-0 animate-float-slow">
+            <span class="text-white font-extrabold text-xl">3</span>
+          </div>
           <div>
-            <h3 class="font-bold text-lg mb-1">Test & Launch</h3>
-            <p class="text-text-light leading-relaxed">We test every scenario with you, tweak the responses until they're right, and flip the switch. You start getting call summaries immediately.</p>
+            <h3 class="font-bold text-xl mb-2">Test & Launch</h3>
+            <p class="text-text-light leading-relaxed text-lg">We test every scenario with you, tweak the responses until they're right, and flip the switch. You start getting call summaries immediately.</p>
           </div>
         </div>
       </div>
@@ -74,25 +100,33 @@ import ServiceLayout from '../../layouts/ServiceLayout.astro';
   </section>
 
   <!-- Who It's For -->
-  <section class="py-20 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-center mb-14">Who This Is For</h2>
+  <section class="relative overflow-hidden py-24 bg-gradient-warm">
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-16">Who This Is For</h2>
       <div class="grid sm:grid-cols-2 gap-6">
-        <div class="flex items-start gap-3">
-          <svg class="w-5 h-5 text-primary-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          <p class="text-text-light">Small businesses that miss calls during busy hours</p>
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 card-hover flex items-start gap-4">
+          <div class="icon-box icon-box-blue w-10 h-10 rounded-lg shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <p class="text-text font-medium">Small businesses that miss calls during busy hours</p>
         </div>
-        <div class="flex items-start gap-3">
-          <svg class="w-5 h-5 text-primary-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          <p class="text-text-light">Solo operators who can't answer the phone while working</p>
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 card-hover flex items-start gap-4">
+          <div class="icon-box icon-box-blue w-10 h-10 rounded-lg shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <p class="text-text font-medium">Solo operators who can't answer the phone while working</p>
         </div>
-        <div class="flex items-start gap-3">
-          <svg class="w-5 h-5 text-primary-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          <p class="text-text-light">Service businesses that need after-hours coverage</p>
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 card-hover flex items-start gap-4">
+          <div class="icon-box icon-box-blue w-10 h-10 rounded-lg shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <p class="text-text font-medium">Service businesses that need after-hours coverage</p>
         </div>
-        <div class="flex items-start gap-3">
-          <svg class="w-5 h-5 text-primary-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          <p class="text-text-light">Anyone tired of playing phone tag with customers</p>
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 card-hover flex items-start gap-4">
+          <div class="icon-box icon-box-blue w-10 h-10 rounded-lg shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <p class="text-text font-medium">Anyone tired of playing phone tag with customers</p>
         </div>
       </div>
     </div>

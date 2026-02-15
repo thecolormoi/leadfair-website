@@ -10,32 +10,51 @@ import ServiceLayout from '../../layouts/ServiceLayout.astro';
   accentColor="primary"
 >
   <!-- What It Does -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-center mb-4">What the Company Companion Does</h2>
-      <p class="text-text-light text-center max-w-2xl mx-auto mb-14">Think of it as the most knowledgeable employee you've ever had — who never sleeps.</p>
+  <section class="relative overflow-hidden py-24 bg-white">
+    <div class="absolute inset-0 bg-dots opacity-30"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-4">What the Company Companion Does</h2>
+      <p class="text-text-light text-center max-w-2xl mx-auto mb-16 text-lg">Think of it as the most knowledgeable employee you've ever had — who never sleeps.</p>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-blue">
+          <div class="icon-box icon-box-blue w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Answers Customer Questions</h3>
           <p class="text-sm text-text-light leading-relaxed">Trained on your services, pricing, policies, and FAQs. Customers get instant, accurate answers without waiting for you to reply.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-blue">
+          <div class="icon-box icon-box-green w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Captures Leads</h3>
           <p class="text-sm text-text-light leading-relaxed">When a visitor is interested, the companion collects their name, contact info, and what they're looking for — and sends it to you.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-blue">
+          <div class="icon-box icon-box-orange w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Explains Your Services</h3>
           <p class="text-sm text-text-light leading-relaxed">Goes beyond a static FAQ. The AI can walk customers through your offerings, help them pick the right one, and explain the process.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-blue">
+          <div class="icon-box icon-box-blue w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Learns Your Voice</h3>
           <p class="text-sm text-text-light leading-relaxed">We train it to match your brand's tone — professional, friendly, casual, whatever fits. It doesn't sound like a generic bot.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-blue">
+          <div class="icon-box icon-box-green w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Lives on Your Website</h3>
           <p class="text-sm text-text-light leading-relaxed">Drops onto your site with a single line of code. Works on any website platform — Wix, WordPress, Squarespace, or custom.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-blue">
+          <div class="icon-box icon-box-orange w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Improves Over Time</h3>
           <p class="text-sm text-text-light leading-relaxed">We review conversation logs and fine-tune responses. The more customers ask, the smarter it gets.</p>
         </div>
@@ -44,29 +63,36 @@ import ServiceLayout from '../../layouts/ServiceLayout.astro';
   </section>
 
   <!-- How It Works -->
-  <section class="py-20 bg-surface">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-center mb-14">How We Set It Up</h2>
-      <div class="space-y-8">
-        <div class="flex gap-6">
-          <div class="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center text-white font-bold shrink-0">1</div>
+  <section class="relative overflow-hidden py-24 bg-gradient-blue-green">
+    <div class="absolute inset-0 bg-grid opacity-30"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-16">How We Set It Up</h2>
+      <div class="space-y-12">
+        <div class="flex gap-8 items-start">
+          <div class="icon-box icon-box-blue w-16 h-16 rounded-2xl shrink-0 animate-float">
+            <span class="text-white font-extrabold text-xl">1</span>
+          </div>
           <div>
-            <h3 class="font-bold text-lg mb-1">Gather Your Knowledge</h3>
-            <p class="text-text-light leading-relaxed">We collect your business info, services, FAQs, policies, and anything else customers ask about. If you have a website, we can pull from that too.</p>
+            <h3 class="font-bold text-xl mb-2">Gather Your Knowledge</h3>
+            <p class="text-text-light leading-relaxed text-lg">We collect your business info, services, FAQs, policies, and anything else customers ask about. If you have a website, we can pull from that too.</p>
           </div>
         </div>
-        <div class="flex gap-6">
-          <div class="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center text-white font-bold shrink-0">2</div>
+        <div class="flex gap-8 items-start">
+          <div class="icon-box icon-box-green w-16 h-16 rounded-2xl shrink-0 animate-float-delay">
+            <span class="text-white font-extrabold text-xl">2</span>
+          </div>
           <div>
-            <h3 class="font-bold text-lg mb-1">Train & Customize</h3>
-            <p class="text-text-light leading-relaxed">We build the AI with your knowledge base and customize the tone, appearance, and behavior to match your brand.</p>
+            <h3 class="font-bold text-xl mb-2">Train & Customize</h3>
+            <p class="text-text-light leading-relaxed text-lg">We build the AI with your knowledge base and customize the tone, appearance, and behavior to match your brand.</p>
           </div>
         </div>
-        <div class="flex gap-6">
-          <div class="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center text-white font-bold shrink-0">3</div>
+        <div class="flex gap-8 items-start">
+          <div class="icon-box icon-box-orange w-16 h-16 rounded-2xl shrink-0 animate-float-slow">
+            <span class="text-white font-extrabold text-xl">3</span>
+          </div>
           <div>
-            <h3 class="font-bold text-lg mb-1">Deploy & Monitor</h3>
-            <p class="text-text-light leading-relaxed">We add it to your website and monitor conversations. When customers ask new questions, we update the training to keep it accurate.</p>
+            <h3 class="font-bold text-xl mb-2">Deploy & Monitor</h3>
+            <p class="text-text-light leading-relaxed text-lg">We add it to your website and monitor conversations. When customers ask new questions, we update the training to keep it accurate.</p>
           </div>
         </div>
       </div>
@@ -74,25 +100,33 @@ import ServiceLayout from '../../layouts/ServiceLayout.astro';
   </section>
 
   <!-- Who It's For -->
-  <section class="py-20 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-center mb-14">Who This Is For</h2>
+  <section class="relative overflow-hidden py-24 bg-gradient-warm">
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-16">Who This Is For</h2>
       <div class="grid sm:grid-cols-2 gap-6">
-        <div class="flex items-start gap-3">
-          <svg class="w-5 h-5 text-primary-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          <p class="text-text-light">Businesses that get the same questions over and over</p>
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 card-hover flex items-start gap-4">
+          <div class="icon-box icon-box-blue w-10 h-10 rounded-lg shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <p class="text-text font-medium">Businesses that get the same questions over and over</p>
         </div>
-        <div class="flex items-start gap-3">
-          <svg class="w-5 h-5 text-primary-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          <p class="text-text-light">Service businesses with complex offerings to explain</p>
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 card-hover flex items-start gap-4">
+          <div class="icon-box icon-box-blue w-10 h-10 rounded-lg shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <p class="text-text font-medium">Service businesses with complex offerings to explain</p>
         </div>
-        <div class="flex items-start gap-3">
-          <svg class="w-5 h-5 text-primary-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          <p class="text-text-light">Anyone who wants to capture leads from website visitors</p>
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 card-hover flex items-start gap-4">
+          <div class="icon-box icon-box-blue w-10 h-10 rounded-lg shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <p class="text-text font-medium">Anyone who wants to capture leads from website visitors</p>
         </div>
-        <div class="flex items-start gap-3">
-          <svg class="w-5 h-5 text-primary-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          <p class="text-text-light">Companies that want 24/7 customer support without hiring</p>
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 card-hover flex items-start gap-4">
+          <div class="icon-box icon-box-blue w-10 h-10 rounded-lg shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <p class="text-text font-medium">Companies that want 24/7 customer support without hiring</p>
         </div>
       </div>
     </div>

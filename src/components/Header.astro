@@ -15,15 +15,14 @@ const secondaryLinks = [
 ];
 ---
 
-<header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+<header class="bg-white/95 backdrop-blur-sm border-b border-gray-100 sticky top-0 z-50 shadow-sm">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 font-bold text-xl text-primary-600 hover:text-primary-700 transition-colors">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" class="shrink-0">
-          <rect width="28" height="28" rx="6" fill="currentColor"/>
-          <path d="M8 8h4v12H8V8zm8 4h4v8h-4v-8z" fill="white"/>
-        </svg>
+      <a href="/" class="flex items-center gap-2.5 font-bold text-xl text-text hover:text-primary-600 transition-colors">
+        <div class="w-9 h-9 bg-primary-500 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-sm">LF</span>
+        </div>
         LeadFair
       </a>
 
@@ -71,7 +70,7 @@ const secondaryLinks = [
       <div class="hidden lg:flex items-center gap-3">
         <a
           href="/contact"
-          class="bg-primary-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary-600 transition-colors"
+          class="bg-accent-500 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-accent-600 transition-all shadow-md hover:shadow-lg btn-scale"
         >
           Get Started
         </a>

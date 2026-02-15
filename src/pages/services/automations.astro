@@ -10,32 +10,51 @@ import ServiceLayout from '../../layouts/ServiceLayout.astro';
   accentColor="accent"
 >
   <!-- What We Automate -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-center mb-4">What We Can Automate</h2>
-      <p class="text-text-light text-center max-w-2xl mx-auto mb-14">If you're doing it the same way every time, there's a good chance we can automate it.</p>
+  <section class="relative overflow-hidden py-24 bg-white">
+    <div class="absolute inset-0 bg-dots opacity-30"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-4">What We Can Automate</h2>
+      <p class="text-text-light text-center max-w-2xl mx-auto mb-16 text-lg">If you're doing it the same way every time, there's a good chance we can automate it.</p>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-orange">
+          <div class="icon-box icon-box-orange w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Follow-Up Messages</h3>
           <p class="text-sm text-text-light leading-relaxed">Automatically send follow-up emails or texts after a new lead comes in, an appointment is booked, or a form is submitted.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-orange">
+          <div class="icon-box icon-box-orange w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Appointment Reminders</h3>
           <p class="text-sm text-text-light leading-relaxed">Reduce no-shows with automatic reminders via text or email. Customers can confirm, reschedule, or cancel without calling.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-orange">
+          <div class="icon-box icon-box-blue w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Data Sync</h3>
           <p class="text-sm text-text-light leading-relaxed">Keep your CRM, calendar, spreadsheets, and other tools in sync. No more entering the same info in three different places.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-orange">
+          <div class="icon-box icon-box-green w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Lead Routing</h3>
           <p class="text-sm text-text-light leading-relaxed">New leads from your website, phone, or ads automatically go to the right person or system — with all the info attached.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-orange">
+          <div class="icon-box icon-box-orange w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Notifications & Alerts</h3>
           <p class="text-sm text-text-light leading-relaxed">Get notified when something important happens — a new review, a missed call, a high-value lead — so you can act fast.</p>
         </div>
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-orange">
+          <div class="icon-box icon-box-blue w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
           <h3 class="font-bold text-lg mb-2">Custom Workflows</h3>
           <p class="text-sm text-text-light leading-relaxed">Got a process that's unique to your business? We can build custom automations that fit exactly how you work.</p>
         </div>
@@ -44,29 +63,36 @@ import ServiceLayout from '../../layouts/ServiceLayout.astro';
   </section>
 
   <!-- How It Works -->
-  <section class="py-20 bg-surface">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-center mb-14">How We Set It Up</h2>
-      <div class="space-y-8">
-        <div class="flex gap-6">
-          <div class="w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center text-white font-bold shrink-0">1</div>
+  <section class="relative overflow-hidden py-24 bg-gradient-warm">
+    <div class="absolute inset-0 bg-grid opacity-30"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-16">How We Set It Up</h2>
+      <div class="space-y-12">
+        <div class="flex gap-8 items-start">
+          <div class="icon-box icon-box-orange w-16 h-16 rounded-2xl shrink-0 animate-float">
+            <span class="text-white font-extrabold text-xl">1</span>
+          </div>
           <div>
-            <h3 class="font-bold text-lg mb-1">Map Your Processes</h3>
-            <p class="text-text-light leading-relaxed">We walk through your daily operations and identify the tasks that are repetitive, time-consuming, or easy to mess up.</p>
+            <h3 class="font-bold text-xl mb-2">Map Your Processes</h3>
+            <p class="text-text-light leading-relaxed text-lg">We walk through your daily operations and identify the tasks that are repetitive, time-consuming, or easy to mess up.</p>
           </div>
         </div>
-        <div class="flex gap-6">
-          <div class="w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center text-white font-bold shrink-0">2</div>
+        <div class="flex gap-8 items-start">
+          <div class="icon-box icon-box-blue w-16 h-16 rounded-2xl shrink-0 animate-float-delay">
+            <span class="text-white font-extrabold text-xl">2</span>
+          </div>
           <div>
-            <h3 class="font-bold text-lg mb-1">Build the Automations</h3>
-            <p class="text-text-light leading-relaxed">We connect your existing tools and build the workflows. No need to switch software — we work with what you already use.</p>
+            <h3 class="font-bold text-xl mb-2">Build the Automations</h3>
+            <p class="text-text-light leading-relaxed text-lg">We connect your existing tools and build the workflows. No need to switch software — we work with what you already use.</p>
           </div>
         </div>
-        <div class="flex gap-6">
-          <div class="w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center text-white font-bold shrink-0">3</div>
+        <div class="flex gap-8 items-start">
+          <div class="icon-box icon-box-green w-16 h-16 rounded-2xl shrink-0 animate-float-slow">
+            <span class="text-white font-extrabold text-xl">3</span>
+          </div>
           <div>
-            <h3 class="font-bold text-lg mb-1">Test & Refine</h3>
-            <p class="text-text-light leading-relaxed">We test every automation with real scenarios, make sure nothing falls through the cracks, and adjust until it's running smoothly.</p>
+            <h3 class="font-bold text-xl mb-2">Test & Refine</h3>
+            <p class="text-text-light leading-relaxed text-lg">We test every automation with real scenarios, make sure nothing falls through the cracks, and adjust until it's running smoothly.</p>
           </div>
         </div>
       </div>
@@ -74,25 +100,33 @@ import ServiceLayout from '../../layouts/ServiceLayout.astro';
   </section>
 
   <!-- Who It's For -->
-  <section class="py-20 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-center mb-14">Who This Is For</h2>
+  <section class="relative overflow-hidden py-24 bg-gradient-blue-green">
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-16">Who This Is For</h2>
       <div class="grid sm:grid-cols-2 gap-6">
-        <div class="flex items-start gap-3">
-          <svg class="w-5 h-5 text-accent-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          <p class="text-text-light">Businesses spending hours on repetitive manual tasks</p>
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 card-hover flex items-start gap-4">
+          <div class="icon-box icon-box-orange w-10 h-10 rounded-lg shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <p class="text-text font-medium">Businesses spending hours on repetitive manual tasks</p>
         </div>
-        <div class="flex items-start gap-3">
-          <svg class="w-5 h-5 text-accent-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          <p class="text-text-light">Owners who want their business to run without them</p>
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 card-hover flex items-start gap-4">
+          <div class="icon-box icon-box-orange w-10 h-10 rounded-lg shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <p class="text-text font-medium">Owners who want their business to run without them</p>
         </div>
-        <div class="flex items-start gap-3">
-          <svg class="w-5 h-5 text-accent-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          <p class="text-text-light">Teams juggling too many tools with no connection</p>
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 card-hover flex items-start gap-4">
+          <div class="icon-box icon-box-orange w-10 h-10 rounded-lg shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <p class="text-text font-medium">Teams juggling too many tools with no connection</p>
         </div>
-        <div class="flex items-start gap-3">
-          <svg class="w-5 h-5 text-accent-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          <p class="text-text-light">Anyone who drops the ball on follow-ups or reminders</p>
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 card-hover flex items-start gap-4">
+          <div class="icon-box icon-box-orange w-10 h-10 rounded-lg shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <p class="text-text font-medium">Anyone who drops the ball on follow-ups or reminders</p>
         </div>
       </div>
     </div>
