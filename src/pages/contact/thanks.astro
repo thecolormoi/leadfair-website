@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Message Sent — LeadFair"
+  description="Thanks for reaching out. We'll get back to you soon."
+>
+  <section class="relative overflow-hidden bg-gradient-blue min-h-[70vh] flex items-center">
+    <div class="blob blob-blue w-72 h-72 -top-20 -right-20"></div>
+    <div class="blob blob-green w-48 h-48 bottom-0 left-10"></div>
+    <div class="absolute inset-0 bg-grid opacity-40"></div>
+    <div class="relative max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
+      <div class="icon-box icon-box-green w-20 h-20 rounded-2xl mx-auto mb-8">
+        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold mb-4">Message Sent</h1>
+      <p class="text-lg text-text-light mb-8">Thanks for reaching out. We'll get back to you within one business day.</p>
+      <a href="/" class="bg-accent-500 hover:bg-accent-600 text-white px-8 py-4 rounded-xl font-semibold transition-all btn-scale shadow-glow-orange inline-flex items-center gap-2">
+        Back to Home
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
