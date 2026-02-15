@@ -485,6 +485,7 @@ export default function VisibilityAudit() {
           </svg>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1">Visibility Audit</h1>
+        <p className="text-xs font-medium text-[#64748b] mb-2">by <span className="text-[#10b981]">LeadFair</span></p>
         <p className="text-sm text-[#64748b]">See how visible your business is on Google, AI search, and in your local area</p>
       </div>
 

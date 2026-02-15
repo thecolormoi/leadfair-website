@@ -467,6 +467,7 @@ export default function BusinessDiagnostic() {
           </svg>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1">Business Diagnostic</h1>
+        <p className="text-xs font-medium text-[#64748b] mb-2">by <span className="text-[#06b6d4]">LeadFair</span></p>
         <p className="text-sm text-[#64748b]">Find out where AI and automation can help your business the most</p>
       </div>
 
