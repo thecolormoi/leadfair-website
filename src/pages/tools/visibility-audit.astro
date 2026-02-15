@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Free Visibility Audit — LeadFair"
+  description="See how visible your business is on Google, in AI search results, and across the web. Free visibility audit tool coming soon."
+>
+  <section class="min-h-[70vh] flex items-center bg-dark text-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
+      <div class="w-16 h-16 bg-secondary-500 rounded-2xl flex items-center justify-center mx-auto mb-8">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">Free Visibility Audit</h1>
+      <p class="text-lg text-gray-300 max-w-xl mx-auto mb-10 leading-relaxed">
+        We're building a tool that checks how visible your business is on Google, in AI-powered search results, and across the web — and tells you exactly what to fix.
+      </p>
+      <p class="text-secondary-400 font-semibold text-lg mb-8">Coming Soon</p>
+
+      <!-- Email Capture -->
+      <form
+        name="audit-notify"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="max-w-md mx-auto"
+      >
+        <input type="hidden" name="form-name" value="audit-notify" />
+        <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+        <p class="text-gray-400 text-sm mb-4">Get notified when it launches:</p>
+        <div class="flex gap-3">
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="your@email.com"
+            class="flex-1 px-4 py-3 rounded-lg bg-dark-light border border-gray-700 text-white placeholder-gray-500 focus:border-secondary-500 focus:ring-2 focus:ring-secondary-900 outline-none transition-colors"
+          />
+          <button
+            type="submit"
+            class="bg-secondary-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-secondary-600 transition-colors whitespace-nowrap"
+          >
+            Notify Me
+          </button>
+        </div>
+      </form>
+
+      <p class="mt-8 text-gray-500 text-sm">
+        Can't wait? <a href="/contact" class="text-secondary-400 hover:text-secondary-300 underline">Book a call</a> and we'll audit your visibility together.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

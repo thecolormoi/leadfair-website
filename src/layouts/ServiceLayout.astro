@@ -1,0 +1,75 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  headline: string;
+  subheadline: string;
+  accentColor: 'primary' | 'secondary' | 'accent';
+}
+
+const { title, description, headline, subheadline, accentColor } = Astro.props;
+
+const colorMap = {
+  primary: {
+    bg: 'bg-primary-50',
+    border: 'border-primary-100',
+    badge: 'bg-primary-100 text-primary-700',
+    btn: 'bg-primary-500 hover:bg-primary-600',
+    btnOutline: 'border-primary-500 text-primary-600 hover:bg-primary-50',
+  },
+  secondary: {
+    bg: 'bg-secondary-50',
+    border: 'border-secondary-100',
+    badge: 'bg-secondary-100 text-secondary-700',
+    btn: 'bg-secondary-500 hover:bg-secondary-600',
+    btnOutline: 'border-secondary-500 text-secondary-600 hover:bg-secondary-50',
+  },
+  accent: {
+    bg: 'bg-accent-50',
+    border: 'border-accent-100',
+    badge: 'bg-accent-100 text-accent-700',
+    btn: 'bg-accent-500 hover:bg-accent-600',
+    btnOutline: 'border-accent-500 text-accent-600 hover:bg-accent-50',
+  },
+};
+
+const colors = colorMap[accentColor];
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- Hero -->
+  <section class={`${colors.bg} ${colors.border} border-b py-16 lg:py-24`}>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">{headline}</h1>
+      <p class="text-lg sm:text-xl text-text-light max-w-2xl mx-auto leading-relaxed">{subheadline}</p>
+    </div>
+  </section>
+
+  <slot />
+
+  <!-- CTA -->
+  <section class="py-20 bg-dark text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold mb-4">Interested? Let's Talk.</h2>
+      <p class="text-gray-400 max-w-xl mx-auto mb-8 leading-relaxed">
+        Every business is different. Let's figure out if this is the right fit for yours — no pressure, no sales pitch.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="/contact"
+          class={`${colors.btn} text-white px-8 py-3 rounded-lg font-semibold transition-colors text-lg`}
+        >
+          Get in Touch
+        </a>
+        <a
+          href="/tools/business-diagnostic"
+          class="border-2 border-gray-600 text-gray-300 px-8 py-3 rounded-lg font-semibold hover:border-white hover:text-white transition-colors text-lg"
+        >
+          Take the Free Diagnostic
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

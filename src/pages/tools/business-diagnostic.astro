@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Free Business Diagnostic — LeadFair"
+  description="Find out where AI and better visibility could make the biggest difference for your business. Free diagnostic tool coming soon."
+>
+  <section class="min-h-[70vh] flex items-center bg-dark text-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
+      <div class="w-16 h-16 bg-primary-500 rounded-2xl flex items-center justify-center mx-auto mb-8">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">Free Business Diagnostic</h1>
+      <p class="text-lg text-gray-300 max-w-xl mx-auto mb-10 leading-relaxed">
+        We're building an interactive tool that analyzes your business operations and shows you exactly where AI and better visibility could save you time and bring in more customers.
+      </p>
+      <p class="text-primary-400 font-semibold text-lg mb-8">Coming Soon</p>
+
+      <!-- Email Capture -->
+      <form
+        name="diagnostic-notify"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="max-w-md mx-auto"
+      >
+        <input type="hidden" name="form-name" value="diagnostic-notify" />
+        <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+        <p class="text-gray-400 text-sm mb-4">Get notified when it launches:</p>
+        <div class="flex gap-3">
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="your@email.com"
+            class="flex-1 px-4 py-3 rounded-lg bg-dark-light border border-gray-700 text-white placeholder-gray-500 focus:border-primary-500 focus:ring-2 focus:ring-primary-900 outline-none transition-colors"
+          />
+          <button
+            type="submit"
+            class="bg-primary-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-600 transition-colors whitespace-nowrap"
+          >
+            Notify Me
+          </button>
+        </div>
+      </form>
+
+      <p class="mt-8 text-gray-500 text-sm">
+        Can't wait? <a href="/contact" class="text-primary-400 hover:text-primary-300 underline">Book a call</a> and we'll do it together.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

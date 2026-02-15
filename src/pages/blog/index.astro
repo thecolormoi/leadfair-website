@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const categories = ['AI', 'SEO', 'Automation', 'Business'];
+---
+
+<BaseLayout
+  title="Blog — LeadFair"
+  description="Practical insights on AI tools, SEO, business automation, and visibility strategies for small businesses."
+>
+  <section class="bg-surface py-16 lg:py-24 border-b border-gray-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">Blog</h1>
+      <p class="text-lg text-text-light max-w-2xl mx-auto leading-relaxed">Practical insights on AI, visibility, and automation — written for business owners, not developers.</p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {posts.length > 0 ? (
+        <div class="space-y-8">
+          {posts.map(post => (
+            <a href={`/blog/${post.id}`} class="block bg-surface rounded-xl p-6 hover:shadow-md transition-shadow border border-gray-100">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="bg-primary-100 text-primary-700 px-2 py-0.5 rounded text-xs font-medium">{post.data.category}</span>
+                <time class="text-sm text-text-lighter" datetime={post.data.pubDate.toISOString()}>
+                  {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+              </div>
+              <h2 class="text-xl font-bold mb-2">{post.data.title}</h2>
+              <p class="text-text-light text-sm leading-relaxed">{post.data.description}</p>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <h2 class="text-2xl font-bold mb-4">Coming Soon</h2>
+          <p class="text-text-light max-w-lg mx-auto leading-relaxed">
+            We're working on our first posts. Check back soon for practical insights on AI tools, visibility strategies, and business automation.
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
