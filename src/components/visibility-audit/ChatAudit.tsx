@@ -131,39 +131,39 @@ function ScanResultsCard({ analysis }: { analysis: any }) {
   ].filter(s => s.value !== null && s.value !== undefined)
 
   return (
-    <div className={`${card} p-5 animate-fadeIn`}>
+    <div className={`${card} p-5 sm:p-6 animate-fadeIn`}>
       <div className="flex items-center gap-2 mb-4">
-        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#8b5cf6] to-[#3b82f6] flex items-center justify-center flex-shrink-0">
-          <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#8b5cf6] to-[#3b82f6] flex items-center justify-center flex-shrink-0">
+          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
         </div>
         <div>
-          <h3 className="text-sm font-bold text-white">Website Scan Results</h3>
+          <h3 className="text-base font-bold text-white">Website Scan Results</h3>
           <p className="text-xs text-[#64748b]">{analysis.url}</p>
         </div>
       </div>
 
       {scoreItems.length > 0 && (
-        <div className="grid grid-cols-3 gap-2 mb-4">
+        <div className="grid grid-cols-3 gap-3 mb-5">
           {scoreItems.map(s => (
             <div key={s.label} className="bg-[#0f1117] rounded-xl p-3 text-center">
-              <div className="text-xl font-bold mb-0.5" style={{ color: psColor(s.value!) }}>{s.value}</div>
+              <div className="text-2xl font-bold mb-0.5" style={{ color: psColor(s.value!) }}>{s.value}</div>
               <div className="text-xs text-[#64748b]">{s.label}</div>
             </div>
           ))}
         </div>
       )}
 
-      <div className="space-y-1.5">
-        {ssl !== null && <CheckItem ok={ssl} label="SSL/HTTPS" detail={ssl ? 'Secure' : 'Not secure'} />}
-        {html?.title && <CheckItem ok={true} label="Title" detail={html.title} />}
-        {html && !html.title && <CheckItem ok={false} label="Title" detail="Missing" />}
+      <div className="space-y-2">
+        {ssl !== null && <CheckItem ok={ssl} label="SSL/HTTPS" detail={ssl ? 'Secure connection' : 'Not secure'} />}
+        {html?.title && <CheckItem ok={true} label="Page title" detail={html.title} />}
+        {html && !html.title && <CheckItem ok={false} label="Page title" detail="Missing" />}
         {html && <CheckItem ok={!!html.metaDescription} label="Meta description" detail={html.metaDescription ? 'Present' : 'Missing'} />}
         {html && <CheckItem ok={html.h1Tags.length > 0} label="H1 heading" detail={html.h1Tags.length > 0 ? html.h1Tags[0] : 'Missing'} />}
-        {html && html.totalImages > 0 && <CheckItem ok={html.imgsMissingAlt === 0} label="Alt text" detail={html.imgsMissingAlt === 0 ? 'All good' : `${html.imgsMissingAlt}/${html.totalImages} missing`} />}
+        {html && html.totalImages > 0 && <CheckItem ok={html.imgsMissingAlt === 0} label="Image alt text" detail={html.imgsMissingAlt === 0 ? 'All images have alt text' : `${html.imgsMissingAlt} of ${html.totalImages} missing`} />}
         {html && <CheckItem ok={html.hasStructuredData} label="Structured data" detail={html.hasStructuredData ? 'Found' : 'Missing'} />}
-        {html && <CheckItem ok={html.hasOpenGraph} label="Open Graph" detail={html.hasOpenGraph ? 'Present' : 'Missing'} />}
+        {html && <CheckItem ok={html.hasOpenGraph} label="Open Graph tags" detail={html.hasOpenGraph ? 'Present' : 'Missing'} />}
         {crawl && <CheckItem ok={crawl.hasRobotsTxt} label="robots.txt" detail={crawl.hasRobotsTxt ? 'Found' : 'Missing'} />}
         {crawl && <CheckItem ok={crawl.hasSitemap} label="sitemap.xml" detail={crawl.hasSitemap ? 'Found' : 'Missing'} />}
       </div>
@@ -334,16 +334,18 @@ export default function ChatAudit() {
   const [quizIndex, setQuizIndex] = useState(0)
   const [quizAnswers, setQuizAnswers] = useState<Record<string, number>>({})
 
-  // Scan
+  // Scan — store the promise so we can await it later
   const [scanResults, setScanResults] = useState<any>(null)
   const [scanLoading, setScanLoading] = useState(false)
   const scanTriggeredRef = useRef(false)
-  const scanResultsRef = useRef<any>(null)
+  const scanPromiseRef = useRef<Promise<any> | null>(null)
 
   // Lead + Report
   const [leadSubmitting, setLeadSubmitting] = useState(false)
+  const [leadInfo, setLeadInfo] = useState<{ name: string; email: string; phone: string } | null>(null)
   const [aiReport, setAiReport] = useState('')
   const [reportLoading, setReportLoading] = useState(false)
+  const [loadingStatus, setLoadingStatus] = useState('')
   const [scores, setScores] = useState<ReturnType<typeof calculateScores> | null>(null)
 
   const chatEndRef = useRef<HTMLDivElement>(null)
@@ -375,26 +377,33 @@ export default function ChatAudit() {
     return updated
   }
 
-  // Trigger website scan
-  async function triggerScan(url: string) {
+  // Trigger website scan — returns a promise we can await
+  function triggerScan(url: string) {
     if (scanTriggeredRef.current) return
     scanTriggeredRef.current = true
     setScanLoading(true)
-    try {
-      const res = await fetch('/.netlify/functions/analyze-website', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url }),
-      })
-      if (res.ok) {
-        const data = await res.json()
-        setScanResults(data)
-        scanResultsRef.current = data
+
+    const promise = (async () => {
+      try {
+        const res = await fetch('/.netlify/functions/analyze-website', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url }),
+        })
+        if (res.ok) {
+          const data = await res.json()
+          setScanResults(data)
+          return data
+        }
+      } catch (err) {
+        console.error('Scan error:', err)
       }
-    } catch (err) {
-      console.error('Scan error:', err)
-    }
-    setScanLoading(false)
+      setScanLoading(false)
+      return null
+    })()
+
+    promise.then(() => setScanLoading(false))
+    scanPromiseRef.current = promise
   }
 
   // Stream AI response (discovery only)
@@ -503,21 +512,63 @@ export default function ChatAudit() {
       if (quizIndex < assessmentQuestions.length - 1) {
         setQuizIndex(prev => prev + 1)
       } else {
-        // Quiz complete
         setPhase('lead-capture')
       }
     }, 400)
   }
 
-  // Handle lead capture submission
+  // Handle lead capture → wait for scan → generate report → submit form with report
   async function handleLeadSubmit(info: { name: string; email: string; phone: string }) {
     setLeadSubmitting(true)
+    setLeadInfo(info)
 
-    // Calculate scores from quiz answers
+    // Calculate scores
     const result = calculateScores(quizAnswers as Record<string, string | number>)
     setScores(result)
 
-    // Submit to FormSubmit with full data
+    // Switch to report view immediately
+    setPhase('report')
+    setLeadSubmitting(false)
+    setReportLoading(true)
+
+    // Step 1: Wait for website scan to finish (if one was triggered)
+    let websiteAnalysis: any = { status: 'skipped' }
+    if (scanTriggeredRef.current && scanPromiseRef.current) {
+      setLoadingStatus('Finishing website scan...')
+      const scanData = await scanPromiseRef.current
+      if (scanData) {
+        websiteAnalysis = scanData
+      }
+    }
+
+    // Step 2: Generate AI report
+    setLoadingStatus('Writing your personalized report...')
+    let reportText = ''
+    try {
+      const res = await fetch('/.netlify/functions/generate-visibility-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          businessName: businessContext.name || '',
+          city: businessContext.city || '',
+          industry: businessContext.industry || '',
+          websiteUrl: businessContext.url || '',
+          scores: result,
+          weakQuestions: result.weakQuestions,
+          websiteAnalysis,
+        }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        reportText = data.report || ''
+        setAiReport(reportText)
+      }
+    } catch (err) {
+      console.error('Report error:', err)
+    }
+    setReportLoading(false)
+
+    // Step 3: Submit to FormSubmit with everything — CC the customer
     try {
       const formData = new FormData()
       formData.append('name', info.name)
@@ -534,9 +585,14 @@ export default function ChatAudit() {
         formData.append(`grade-${cat.key}`, cat.grade)
       })
       formData.append('weak-areas', result.weakQuestions.map(w => w.id).join(', '))
+      if (reportText) {
+        formData.append('visibility-report', reportText)
+      }
       formData.append('_subject', `Visibility Audit — ${businessContext.name || 'Unknown'} (${result.overallGrade})`)
       formData.append('_captcha', 'false')
       formData.append('_template', 'table')
+      // CC the customer so they get a copy too
+      formData.append('_cc', info.email)
 
       await fetch('https://formsubmit.co/ajax/hello@leadfair.ai', {
         method: 'POST',
@@ -545,34 +601,6 @@ export default function ChatAudit() {
     } catch (err) {
       console.error('Form submission error:', err)
     }
-
-    setLeadSubmitting(false)
-    setPhase('report')
-
-    // Generate AI report
-    setReportLoading(true)
-    try {
-      const res = await fetch('/.netlify/functions/generate-visibility-report', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          businessName: businessContext.name || '',
-          city: businessContext.city || '',
-          industry: businessContext.industry || '',
-          websiteUrl: businessContext.url || '',
-          scores: result,
-          weakQuestions: result.weakQuestions,
-          websiteAnalysis: scanResultsRef.current || { status: 'skipped' },
-        }),
-      })
-      if (res.ok) {
-        const data = await res.json()
-        setAiReport(data.report || '')
-      }
-    } catch (err) {
-      console.error('Report error:', err)
-    }
-    setReportLoading(false)
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {
@@ -591,7 +619,6 @@ export default function ChatAudit() {
     for (let i = 0; i <= quizIndex; i++) {
       const q = assessmentQuestions[i]
 
-      // Category intro
       if (q.category && q.category !== lastCat) {
         lastCat = q.category
         const cat = categories.find(c => c.key === q.category)
@@ -611,7 +638,6 @@ export default function ChatAudit() {
         }
       }
 
-      // Question card
       items.push(
         <QuizQuestionCard
           key={q.id}
@@ -626,13 +652,127 @@ export default function ChatAudit() {
     return items
   }
 
-  // ─── Progress Bar ───────────────────────────────────────
-
   const answeredCount = Object.keys(quizAnswers).length
   const quizPct = Math.round((answeredCount / assessmentQuestions.length) * 100)
 
   // ─── Render ─────────────────────────────────────────────
 
+  // Report phase: clean view — hide chat/quiz clutter
+  if (phase === 'report' && scores) {
+    return (
+      <div className="min-h-[70vh] flex flex-col items-center py-12 px-4">
+        {/* Header */}
+        <div className="w-full max-w-2xl text-center mb-8">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
+            <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1">Visibility Audit</h1>
+          <p className="text-xs font-medium text-[#64748b] mb-2">by <span className="text-[#10b981]">LeadFair</span></p>
+        </div>
+
+        <div className="w-full max-w-2xl space-y-6">
+          {/* Overall Score */}
+          <div className="text-center mb-4">
+            <p className="text-sm text-[#64748b] mb-2">Visibility Score for {businessContext.name || 'Your Business'}</p>
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <span className="text-7xl font-bold" style={{ color: gradeColor(scores.overallGrade) }}>{scores.overall}</span>
+              <span className="text-2xl text-[#4a5568] font-light">/10</span>
+            </div>
+            <span
+              className="inline-block text-sm font-bold px-4 py-1.5 rounded-full"
+              style={{ backgroundColor: `${gradeColor(scores.overallGrade)}20`, color: gradeColor(scores.overallGrade) }}
+            >
+              {scores.overallGrade} — {gradeLabel(scores.overallGrade)}
+            </span>
+          </div>
+
+          {/* Category Breakdown */}
+          <h3 className="text-lg font-bold text-white mb-3">Category Breakdown</h3>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {scores.categories.map(cat => {
+              const gColor = gradeColor(cat.grade)
+              return (
+                <div key={cat.key} className={`${card} p-5`}>
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-semibold text-white text-sm">{cat.name}</h3>
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${gColor}20`, color: gColor }}>
+                      {cat.grade}
+                    </span>
+                  </div>
+                  <div className="flex items-end gap-2 mb-3">
+                    <span className="text-3xl font-bold" style={{ color: cat.color }}>{cat.score}</span>
+                    <span className="text-sm text-[#64748b] mb-1">/10</span>
+                  </div>
+                  <div className="h-1.5 bg-[#0f1117] rounded-full overflow-hidden mb-2">
+                    <div className="h-full rounded-full transition-all duration-700" style={{ width: `${cat.score * 10}%`, backgroundColor: cat.color }} />
+                  </div>
+                  <p className="text-xs text-[#64748b]">{gradeLabel(cat.grade)}</p>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Website Scan Results */}
+          {scanResults && scanResults.status !== 'skipped' && scanResults.status !== 'error' && (
+            <ScanResultsCard analysis={scanResults} />
+          )}
+
+          {/* AI Report */}
+          <div className={`${card} p-6 sm:p-8`}>
+            <div className="flex items-center gap-2 mb-5">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center flex-shrink-0">
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold text-white">Your Personalized Report</h3>
+            </div>
+            {reportLoading ? (
+              <div className="flex items-center gap-3 py-8 justify-center">
+                <div className="w-5 h-5 border-2 border-[#10b981] border-t-transparent rounded-full animate-spin" />
+                <p className="text-sm text-[#94a3b8]">{loadingStatus || 'Generating your report...'}</p>
+              </div>
+            ) : aiReport ? (
+              <div>{renderMarkdown(aiReport)}</div>
+            ) : (
+              <p className="text-sm text-[#64748b]">Report unavailable — please try refreshing the page.</p>
+            )}
+          </div>
+
+          {/* CTA */}
+          <div className={`${card} p-8 text-center`}>
+            <h3 className="text-xl font-bold text-white mb-3">Want Us to Fix This?</h3>
+            <p className="text-[#94a3b8] mb-6 max-w-md mx-auto">
+              Book a free visibility consultation and we'll walk through your report together — with a clear plan to get your business found by more customers.
+            </p>
+            <a href="/contact" className={btnPrimary}>
+              Book a Free Visibility Consultation
+            </a>
+          </div>
+
+          {leadInfo && (
+            <p className="text-xs text-[#64748b] text-center">
+              A copy of this report has been sent to {leadInfo.email}
+            </p>
+          )}
+        </div>
+
+        <style>{`
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out;
+          }
+        `}</style>
+      </div>
+    )
+  }
+
+  // Non-report phases: discovery, quiz, lead-capture
   return (
     <div className="min-h-[70vh] flex flex-col items-center py-8 px-4">
       {/* Header */}
@@ -664,7 +804,7 @@ export default function ChatAudit() {
             <>
               {/* Scan status / results */}
               {scanLoading && <ScanStatusBar />}
-              {scanResults && !scanLoading && scanResults.status !== 'skipped' && scanResults.status !== 'error' && phase !== 'report' && (
+              {scanResults && !scanLoading && scanResults.status !== 'skipped' && scanResults.status !== 'error' && (
                 <ScanResultsCard analysis={scanResults} />
               )}
 
@@ -685,7 +825,7 @@ export default function ChatAudit() {
               )}
 
               {/* Quiz questions */}
-              {(phase === 'quiz' || phase === 'lead-capture' || phase === 'report') && (
+              {(phase === 'quiz' || phase === 'lead-capture') && (
                 <div className="space-y-2">
                   {renderQuizSection()}
                 </div>
@@ -705,88 +845,6 @@ export default function ChatAudit() {
               </div>
               <LeadCaptureCard onSubmit={handleLeadSubmit} submitting={leadSubmitting} />
             </>
-          )}
-
-          {/* Report */}
-          {phase === 'report' && scores && (
-            <div className="animate-fadeIn space-y-4 pt-4">
-              {/* Overall Score */}
-              <div className="text-center mb-2">
-                <p className="text-sm text-[#64748b] mb-2">Visibility Score for {businessContext.name || 'Your Business'}</p>
-                <div className="flex items-center justify-center gap-3 mb-2">
-                  <span className="text-6xl font-bold" style={{ color: gradeColor(scores.overallGrade) }}>{scores.overall}</span>
-                  <span className="text-2xl text-[#4a5568] font-light">/10</span>
-                </div>
-                <span
-                  className="inline-block text-sm font-bold px-4 py-1.5 rounded-full"
-                  style={{ backgroundColor: `${gradeColor(scores.overallGrade)}20`, color: gradeColor(scores.overallGrade) }}
-                >
-                  {scores.overallGrade} — {gradeLabel(scores.overallGrade)}
-                </span>
-              </div>
-
-              {/* Category Breakdown */}
-              <div className="grid sm:grid-cols-3 gap-3">
-                {scores.categories.map(cat => {
-                  const gColor = gradeColor(cat.grade)
-                  return (
-                    <div key={cat.key} className={`${card} p-4`}>
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="font-semibold text-white text-sm">{cat.name}</h3>
-                        <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${gColor}20`, color: gColor }}>
-                          {cat.grade}
-                        </span>
-                      </div>
-                      <div className="flex items-end gap-1.5 mb-2">
-                        <span className="text-2xl font-bold" style={{ color: cat.color }}>{cat.score}</span>
-                        <span className="text-xs text-[#64748b] mb-0.5">/10</span>
-                      </div>
-                      <div className="h-1.5 bg-[#0f1117] rounded-full overflow-hidden">
-                        <div className="h-full rounded-full transition-all duration-700" style={{ width: `${cat.score * 10}%`, backgroundColor: cat.color }} />
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-
-              {/* Scan results */}
-              {scanResults && scanResults.status !== 'skipped' && scanResults.status !== 'error' && (
-                <ScanResultsCard analysis={scanResults} />
-              )}
-
-              {/* AI Report */}
-              <div className={`${card} p-6 sm:p-8`}>
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center flex-shrink-0">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-lg font-bold text-white">Your Personalized Report</h3>
-                </div>
-                {reportLoading ? (
-                  <div className="flex items-center gap-3 py-8 justify-center">
-                    <div className="w-5 h-5 border-2 border-[#10b981] border-t-transparent rounded-full animate-spin" />
-                    <p className="text-sm text-[#94a3b8]">Writing your personalized report...</p>
-                  </div>
-                ) : aiReport ? (
-                  <div>{renderMarkdown(aiReport)}</div>
-                ) : (
-                  <p className="text-sm text-[#64748b]">Report unavailable — please try refreshing the page.</p>
-                )}
-              </div>
-
-              {/* CTA */}
-              <div className={`${card} p-8 text-center`}>
-                <h3 className="text-xl font-bold text-white mb-3">Want Us to Fix This?</h3>
-                <p className="text-[#94a3b8] mb-6 max-w-md mx-auto">
-                  Book a free visibility consultation and we'll walk through your report together — with a clear plan to get your business found by more customers.
-                </p>
-                <a href="/contact" className={btnPrimary}>
-                  Book a Free Visibility Consultation
-                </a>
-              </div>
-            </div>
           )}
 
           <div ref={chatEndRef} />
