@@ -348,13 +348,19 @@ export default function ChatAudit() {
   const [loadingStatus, setLoadingStatus] = useState('')
   const [scores, setScores] = useState<ReturnType<typeof calculateScores> | null>(null)
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
   const chatEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const hasInteracted = useRef(false)
 
-  // Auto-scroll
+  // Auto-scroll within the chat container (not the page) — skip initial mount
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages, phase, quizIndex, scanResults, scanLoading, aiReport, reportLoading])
+    if (!hasInteracted.current) return
+    scrollContainerRef.current?.scrollTo({
+      top: scrollContainerRef.current.scrollHeight,
+      behavior: 'smooth',
+    })
+  }, [messages, phase, quizIndex, scanResults, scanLoading])
 
   // Initial greeting
   useEffect(() => {
@@ -468,6 +474,7 @@ export default function ChatAudit() {
     if (!text || isStreaming) return
 
     setInputValue('')
+    hasInteracted.current = true
     userMsgCountRef.current += 1
     const msgCount = userMsgCountRef.current
 
@@ -506,6 +513,7 @@ export default function ChatAudit() {
 
   // Handle quiz answer selection
   function handleQuizAnswer(questionId: string, value: number) {
+    hasInteracted.current = true
     setQuizAnswers(prev => ({ ...prev, [questionId]: value }))
 
     setTimeout(() => {
@@ -773,23 +781,42 @@ export default function ChatAudit() {
   }
 
   // Non-report phases: discovery, quiz, lead-capture
+  // Contained chat window that fills the viewport below the site nav
   return (
-    <div className="min-h-[70vh] flex flex-col items-center py-8 px-4">
-      {/* Header */}
-      <div className="w-full max-w-2xl text-center mb-6">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center mx-auto mb-3">
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+    <div className="flex flex-col" style={{ height: 'calc(100dvh - 64px)' }}>
+      {/* Compact header — always visible */}
+      <div className="flex-shrink-0 text-center pt-5 pb-3 px-4">
+        <div className="flex items-center justify-center gap-2.5 mb-1.5">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center">
+            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <h1 className="text-lg sm:text-xl font-extrabold text-white">Visibility Audit</h1>
+          <span className="text-xs text-[#64748b]">by <span className="text-[#10b981]">LeadFair</span></span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1">Visibility Audit</h1>
-        <p className="text-xs font-medium text-[#64748b] mb-2">by <span className="text-[#10b981]">LeadFair</span></p>
-        <p className="text-sm text-[#64748b]">See how visible your business is on Google, AI search, and in your local area</p>
+        <p className="text-xs text-[#4a5568]">See how visible your business is on Google, AI search, and in your local area</p>
       </div>
 
-      {/* Content */}
-      <div className="w-full max-w-2xl flex flex-col flex-1">
-        <div className="flex-1 space-y-3 mb-4 min-h-[300px]">
+      {/* Quiz progress bar — pinned below header during quiz */}
+      {phase === 'quiz' && (
+        <div className="flex-shrink-0 px-4 sm:px-6 max-w-2xl w-full mx-auto pb-2">
+          <div className="flex justify-between text-xs text-[#64748b] mb-1">
+            <span>Question {Math.min(quizIndex + 1, assessmentQuestions.length)} of {assessmentQuestions.length}</span>
+            <span>{quizPct}%</span>
+          </div>
+          <div className="h-1.5 bg-[#1a1d2e] rounded-full overflow-hidden">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-[#10b981] to-[#3b82f6] transition-all duration-500"
+              style={{ width: `${quizPct}%` }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Scrollable chat area */}
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto px-4 sm:px-6">
+        <div className="max-w-2xl mx-auto space-y-3 py-3">
 
           {/* Discovery chat messages */}
           {messages.map(msg => (
@@ -806,22 +833,6 @@ export default function ChatAudit() {
               {scanLoading && <ScanStatusBar />}
               {scanResults && !scanLoading && scanResults.status !== 'skipped' && scanResults.status !== 'error' && (
                 <ScanResultsCard analysis={scanResults} />
-              )}
-
-              {/* Quiz progress bar */}
-              {phase === 'quiz' && (
-                <div className="pt-2">
-                  <div className="flex justify-between text-xs text-[#64748b] mb-1.5">
-                    <span>Question {Math.min(quizIndex + 1, assessmentQuestions.length)} of {assessmentQuestions.length}</span>
-                    <span>{quizPct}%</span>
-                  </div>
-                  <div className="h-1.5 bg-[#1a1d2e] rounded-full overflow-hidden">
-                    <div
-                      className="h-full rounded-full bg-gradient-to-r from-[#10b981] to-[#3b82f6] transition-all duration-500"
-                      style={{ width: `${quizPct}%` }}
-                    />
-                  </div>
-                </div>
               )}
 
               {/* Quiz questions */}
@@ -849,34 +860,34 @@ export default function ChatAudit() {
 
           <div ref={chatEndRef} />
         </div>
-
-        {/* Input (discovery only) */}
-        {phase === 'discovery' && (
-          <div className="sticky bottom-0 pt-2 pb-4 bg-gradient-to-t from-[#0b0d14] via-[#0b0d14] to-transparent">
-            <div className="flex gap-2">
-              <input
-                ref={inputRef}
-                type="text"
-                className={inputBase}
-                value={inputValue}
-                onChange={e => setInputValue(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Type your message..."
-                disabled={isStreaming}
-              />
-              <button
-                onClick={handleSend}
-                disabled={!inputValue.trim() || isStreaming}
-                className="bg-gradient-to-r from-[#10b981] to-[#3b82f6] text-white p-3.5 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-40 flex-shrink-0"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        )}
       </div>
+
+      {/* Input bar — pinned at bottom (discovery only) */}
+      {phase === 'discovery' && (
+        <div className="flex-shrink-0 border-t border-[#1a1d2e] px-4 sm:px-6 py-3">
+          <div className="max-w-2xl mx-auto flex gap-2">
+            <input
+              ref={inputRef}
+              type="text"
+              className={inputBase}
+              value={inputValue}
+              onChange={e => setInputValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Type your message..."
+              disabled={isStreaming}
+            />
+            <button
+              onClick={handleSend}
+              disabled={!inputValue.trim() || isStreaming}
+              className="bg-gradient-to-r from-[#10b981] to-[#3b82f6] text-white p-3.5 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-40 flex-shrink-0"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
 
       <style>{`
         @keyframes fadeIn {
