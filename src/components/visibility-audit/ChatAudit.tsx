@@ -541,11 +541,16 @@ export default function ChatAudit() {
 
     // Step 1: Wait for website scan to finish (if one was triggered)
     let websiteAnalysis: any = { status: 'skipped' }
-    if (scanTriggeredRef.current && scanPromiseRef.current) {
+    if (scanTriggeredRef.current) {
       setLoadingStatus('Finishing website scan...')
-      const scanData = await scanPromiseRef.current
-      if (scanData) {
-        websiteAnalysis = scanData
+      // Try awaiting the promise first
+      if (scanPromiseRef.current) {
+        const scanData = await scanPromiseRef.current
+        if (scanData) websiteAnalysis = scanData
+      }
+      // Fall back to state if promise returned null but state has data
+      if (websiteAnalysis.status === 'skipped' && scanResults) {
+        websiteAnalysis = scanResults
       }
     }
 
@@ -599,8 +604,6 @@ export default function ChatAudit() {
       formData.append('_subject', `Visibility Audit — ${businessContext.name || 'Unknown'} (${result.overallGrade})`)
       formData.append('_captcha', 'false')
       formData.append('_template', 'table')
-      // CC the customer so they get a copy too
-      formData.append('_cc', info.email)
 
       await fetch('https://formsubmit.co/ajax/hello@leadfair.ai', {
         method: 'POST',
@@ -749,22 +752,21 @@ export default function ChatAudit() {
             )}
           </div>
 
-          {/* CTA */}
-          <div className={`${card} p-8 text-center`}>
-            <h3 className="text-xl font-bold text-white mb-3">Want Us to Fix This?</h3>
-            <p className="text-[#94a3b8] mb-6 max-w-md mx-auto">
-              Book a free visibility consultation and we'll walk through your report together — with a clear plan to get your business found by more customers.
-            </p>
-            <a href="/contact" className={btnPrimary}>
+          {/* Actions */}
+          <div className="flex flex-col sm:flex-row gap-3 no-print">
+            <button
+              onClick={() => window.print()}
+              className="flex-1 flex items-center justify-center gap-2 bg-[#1a1d2e] border border-[#2a2d3e] text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-[#232640] transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Download Report
+            </button>
+            <a href="/contact" className={`${btnPrimary} flex-1 text-center`}>
               Book a Free Visibility Consultation
             </a>
           </div>
-
-          {leadInfo && (
-            <p className="text-xs text-[#64748b] text-center">
-              A copy of this report has been sent to {leadInfo.email}
-            </p>
-          )}
         </div>
 
         <style>{`
@@ -774,6 +776,24 @@ export default function ChatAudit() {
           }
           .animate-fadeIn {
             animation: fadeIn 0.3s ease-out;
+          }
+          @media print {
+            /* Hide site chrome */
+            header, footer, nav, .no-print { display: none !important; }
+            /* White background for print */
+            body, main, section { background: white !important; color: #1a1a2e !important; }
+            * { color-adjust: exact !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            /* Report container */
+            .min-h-\\[70vh\\] { min-height: auto !important; padding: 0 !important; }
+            /* Cards */
+            .bg-\\[\\#1a1d2e\\] { background: #f8f9fa !important; border-color: #e2e8f0 !important; }
+            .bg-\\[\\#0f1117\\] { background: #f1f5f9 !important; }
+            /* Text colors for print */
+            .text-white { color: #1a1a2e !important; }
+            .text-\\[\\#e2e8f0\\] { color: #334155 !important; }
+            .text-\\[\\#94a3b8\\] { color: #475569 !important; }
+            .text-\\[\\#64748b\\] { color: #64748b !important; }
+            .text-\\[\\#4a5568\\] { color: #64748b !important; }
           }
         `}</style>
       </div>

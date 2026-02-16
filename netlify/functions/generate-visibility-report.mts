@@ -85,9 +85,12 @@ export default async (req: Request) => {
       ? `\n5. **Website Health** — Based on the scan results, briefly summarize the technical state of their website. Mention the key metrics (PageSpeed scores, missing SEO elements, SSL status) and what the most impactful technical fix would be.`
       : ''
 
-    const noWebsiteInstruction = websiteAnalysis?.status === 'skipped'
+    const hasNoWebsite = !websiteUrl || websiteUrl === 'none' || websiteUrl.trim() === ''
+    const noWebsiteInstruction = hasNoWebsite
       ? `\nCRITICAL: This business has no website. Make "Get a website" the #1 priority in your recommendations. Explain why this is holding them back, especially for a ${industry} business in ${city}.`
-      : ''
+      : websiteAnalysis?.status === 'skipped' || websiteAnalysis?.status === 'error'
+        ? `\nNote: We could not scan their website (${websiteUrl}), but they DO have one. Do not say they don't have a website. Focus recommendations on what they told you in the questionnaire.`
+        : ''
 
     const prompt = `You are a local business visibility consultant writing a personalized report for a small business owner. Be direct, specific, and actionable. No fluff.
 
