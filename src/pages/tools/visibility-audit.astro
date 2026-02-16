@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import VisibilityAudit from '../../components/visibility-audit/VisibilityAudit';
+import ChatAudit from '../../components/visibility-audit/ChatAudit';
 ---
 
 <BaseLayout
   title="Free Visibility Audit — LeadFair"
-  description="See how visible your business is on Google, in AI search results, and in your local area. Free audit with specific recommendations."
+  description="Chat with our AI visibility consultant to find out how visible your business is on Google, in AI search results, and in your local area."
 >
   <section class="relative overflow-hidden bg-dark text-white">
     <div class="absolute inset-0 bg-grid-dark opacity-20"></div>
@@ -13,13 +13,13 @@ import VisibilityAudit from '../../components/visibility-audit/VisibilityAudit';
     <div class="blob blob-blue w-64 h-64 bottom-0 left-10 opacity-10"></div>
 
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <VisibilityAudit client:load />
+      <ChatAudit client:load />
     </div>
   </section>
 
   <!-- Hidden form for Netlify Forms detection at build time -->
-  <form name="visibility-audit-results" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input name="form-name" value="visibility-audit-results" />
+  <form name="visibility-audit-chat" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input name="form-name" value="visibility-audit-chat" />
     <input name="bot-field" />
     <input name="name" />
     <input name="email" />
@@ -28,14 +28,7 @@ import VisibilityAudit from '../../components/visibility-audit/VisibilityAudit';
     <input name="website-url" />
     <input name="city" />
     <input name="industry" />
-    <input name="overall-score" />
-    <input name="overall-grade" />
-    <input name="score-search-visibility" />
-    <input name="grade-search-visibility" />
-    <input name="score-ai-visibility" />
-    <input name="grade-ai-visibility" />
-    <input name="score-local-presence" />
-    <input name="grade-local-presence" />
-    <input name="weak-areas" />
+    <input name="how-get-customers" />
+    <input name="biggest-challenge" />
   </form>
 </BaseLayout>
