@@ -1,14 +1,13 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { assessmentQuestions, categories, calculateScores, type Question } from './data'
 
 // ─── Types ──────────────────────────────────────────────
-type ConversationPhase = 'discovery' | 'scanning' | 'discussion' | 'pre-capture' | 'post-capture'
-type MessageType = 'user' | 'assistant' | 'scan-card' | 'lead-capture' | 'final-report'
+type Phase = 'discovery' | 'quiz' | 'lead-capture' | 'report'
 
 interface Message {
   id: string
-  type: MessageType
+  type: 'user' | 'assistant'
   content: string
-  timestamp: number
 }
 
 interface BusinessContext {
@@ -16,8 +15,6 @@ interface BusinessContext {
   url?: string
   city?: string
   industry?: string
-  howGetCustomers?: string
-  biggestChallenge?: string
 }
 
 // ─── Shared styles ──────────────────────────────────────
@@ -25,21 +22,17 @@ const card = 'bg-[#1a1d2e] border border-[#2a2d3e] rounded-2xl'
 const btnPrimary = 'bg-gradient-to-r from-[#10b981] to-[#3b82f6] text-white font-semibold px-8 py-3.5 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-40'
 const inputBase = 'w-full bg-[#0f1117] border border-[#2a2d3e] rounded-xl px-5 py-3.5 text-white placeholder-[#4a5568] focus:border-[#10b981] focus:ring-2 focus:ring-[#10b981]/20 outline-none transition-all text-base'
 
-// ─── URL detection ──────────────────────────────────────
+// ─── Helpers ────────────────────────────────────────────
 function extractUrl(text: string): string | null {
-  // Match common URL patterns
-  const urlPattern = /(?:https?:\/\/)?(?:www\.)?([a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+)(?:\/[^\s]*)?/i
-  const match = text.match(urlPattern)
-  if (match) return match[0]
-  return null
+  const match = text.match(/(?:https?:\/\/)?(?:www\.)?([a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+)(?:\/[^\s]*)?/i)
+  return match ? match[0] : null
 }
 
 function isNoWebsite(text: string): boolean {
   const lower = text.toLowerCase().trim()
-  return lower === 'none' || lower === 'no' || lower === "i don't have one" || lower === 'no website' || lower === "don't have one"
+  return ['none', 'no', "i don't have one", 'no website', "don't have one", 'n/a', 'na'].includes(lower)
 }
 
-// ─── PageSpeed score color ──────────────────────────────
 function psColor(score: number | null) {
   if (score === null) return '#64748b'
   if (score >= 90) return '#10b981'
@@ -47,7 +40,66 @@ function psColor(score: number | null) {
   return '#ef4444'
 }
 
-// ─── Check Item ─────────────────────────────────────────
+function gradeColor(grade: string) {
+  if (grade === 'A') return '#10b981'
+  if (grade === 'B') return '#3b82f6'
+  if (grade === 'C') return '#f59e0b'
+  if (grade === 'D') return '#f97316'
+  return '#ef4444'
+}
+
+function gradeLabel(grade: string) {
+  if (grade === 'A') return 'Excellent'
+  if (grade === 'B') return 'Good'
+  if (grade === 'C') return 'Needs Work'
+  if (grade === 'D') return 'Struggling'
+  return 'Critical'
+}
+
+// ─── Sub-components ─────────────────────────────────────
+
+function MessageBubble({ message }: { message: Message }) {
+  if (message.type === 'user') {
+    return (
+      <div className="flex justify-end animate-fadeIn">
+        <div className="max-w-[80%] bg-gradient-to-r from-[#10b981] to-[#3b82f6] text-white rounded-2xl rounded-br-sm px-4 py-3">
+          <p className="text-sm leading-relaxed">{message.content}</p>
+        </div>
+      </div>
+    )
+  }
+  return (
+    <div className="flex justify-start animate-fadeIn">
+      <div className={`max-w-[85%] ${card} text-[#e2e8f0] rounded-2xl rounded-bl-sm px-4 py-3`}>
+        <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+      </div>
+    </div>
+  )
+}
+
+function TypingIndicator() {
+  return (
+    <div className="flex justify-start">
+      <div className={`${card} rounded-2xl rounded-bl-sm`}>
+        <div className="flex items-center gap-1 px-4 py-3">
+          <span className="w-2 h-2 rounded-full bg-[#64748b] animate-bounce" style={{ animationDelay: '0ms' }} />
+          <span className="w-2 h-2 rounded-full bg-[#64748b] animate-bounce" style={{ animationDelay: '150ms' }} />
+          <span className="w-2 h-2 rounded-full bg-[#64748b] animate-bounce" style={{ animationDelay: '300ms' }} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ScanStatusBar() {
+  return (
+    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#8b5cf6]/10 border border-[#8b5cf6]/20 animate-fadeIn">
+      <div className="w-4 h-4 border-2 border-[#8b5cf6] border-t-transparent rounded-full animate-spin" />
+      <span className="text-xs text-[#8b5cf6]">Scanning your website...</span>
+    </div>
+  )
+}
+
 function CheckItem({ ok, label, detail }: { ok: boolean; label: string; detail: string }) {
   return (
     <div className="flex items-center gap-3 text-sm">
@@ -64,7 +116,6 @@ function CheckItem({ ok, label, detail }: { ok: boolean; label: string; detail: 
   )
 }
 
-// ─── Scan Results Card ──────────────────────────────────
 function ScanResultsCard({ analysis }: { analysis: any }) {
   if (!analysis || analysis.status === 'skipped' || analysis.status === 'error') return null
 
@@ -120,7 +171,6 @@ function ScanResultsCard({ analysis }: { analysis: any }) {
   )
 }
 
-// ─── Lead Capture Card ──────────────────────────────────
 function LeadCaptureCard({ onSubmit, submitting }: {
   onSubmit: (info: { name: string; email: string; phone: string }) => void
   submitting: boolean
@@ -168,7 +218,55 @@ function LeadCaptureCard({ onSubmit, submitting }: {
   )
 }
 
-// ─── Simple markdown renderer ───────────────────────────
+// ─── Quiz Question Card ─────────────────────────────────
+
+function QuizQuestionCard({ question, selectedValue, onSelect, active }: {
+  question: Question
+  selectedValue: number | undefined
+  onSelect: (val: number) => void
+  active: boolean
+}) {
+  const catInfo = question.category ? categories.find(c => c.key === question.category) : null
+  const accentColor = catInfo?.color || '#10b981'
+
+  // Compact answered state
+  if (!active && selectedValue !== undefined) {
+    const label = question.options?.find(o => o.value === selectedValue)?.label || ''
+    return (
+      <div className="bg-[#1a1d2e]/50 border border-[#2a2d3e]/50 rounded-xl px-4 py-2.5">
+        <p className="text-xs text-[#64748b]">{question.text}</p>
+        <p className="text-xs mt-0.5" style={{ color: accentColor }}>
+          <span className="mr-1">&#10003;</span>{label}
+        </p>
+      </div>
+    )
+  }
+
+  // Not yet reached
+  if (!active) return null
+
+  // Active question with selectable options
+  return (
+    <div className={`${card} p-5 animate-fadeIn`}>
+      <p className="text-sm font-medium text-white mb-1">{question.text}</p>
+      {question.subtext && <p className="text-xs text-[#64748b] mb-3">{question.subtext}</p>}
+      <div className="space-y-2 mt-3">
+        {question.options?.map(opt => (
+          <button
+            key={String(opt.value)}
+            onClick={() => onSelect(opt.value as number)}
+            className="w-full text-left px-4 py-2.5 rounded-lg text-sm border transition-all border-[#2a2d3e] bg-[#0f1117] text-[#94a3b8] hover:border-[#10b981]/50 hover:text-white"
+          >
+            {opt.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ─── Markdown Renderer ──────────────────────────────────
+
 function renderMarkdown(text: string) {
   const lines = text.split('\n')
   const elements: React.ReactNode[] = []
@@ -219,149 +317,62 @@ function renderMarkdown(text: string) {
   return elements
 }
 
-// ─── Typing Indicator ───────────────────────────────────
-function TypingIndicator() {
-  return (
-    <div className="flex items-center gap-1 px-4 py-3">
-      <span className="w-2 h-2 rounded-full bg-[#64748b] animate-bounce" style={{ animationDelay: '0ms' }} />
-      <span className="w-2 h-2 rounded-full bg-[#64748b] animate-bounce" style={{ animationDelay: '150ms' }} />
-      <span className="w-2 h-2 rounded-full bg-[#64748b] animate-bounce" style={{ animationDelay: '300ms' }} />
-    </div>
-  )
-}
-
-// ─── Message Bubble ─────────────────────────────────────
-function MessageBubble({ message }: { message: Message }) {
-  if (message.type === 'user') {
-    return (
-      <div className="flex justify-end animate-fadeIn">
-        <div className="max-w-[80%] bg-gradient-to-r from-[#10b981] to-[#3b82f6] text-white rounded-2xl rounded-br-sm px-4 py-3">
-          <p className="text-sm leading-relaxed">{message.content}</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (message.type === 'assistant') {
-    return (
-      <div className="flex justify-start animate-fadeIn">
-        <div className={`max-w-[85%] ${card} text-[#e2e8f0] rounded-2xl rounded-bl-sm px-4 py-3`}>
-          <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
-        </div>
-      </div>
-    )
-  }
-
-  return null
-}
-
-// ─── Scan Status Bar ────────────────────────────────────
-function ScanStatusBar() {
-  return (
-    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#8b5cf6]/10 border border-[#8b5cf6]/20 animate-fadeIn">
-      <div className="w-4 h-4 border-2 border-[#8b5cf6] border-t-transparent rounded-full animate-spin" />
-      <span className="text-xs text-[#8b5cf6]">Scanning your website...</span>
-    </div>
-  )
-}
-
 // ─── Main Component ─────────────────────────────────────
+
 export default function ChatAudit() {
+  // Phase
+  const [phase, setPhase] = useState<Phase>('discovery')
+
+  // Discovery
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isStreaming, setIsStreaming] = useState(false)
   const [businessContext, setBusinessContext] = useState<BusinessContext>({})
+  const userMsgCountRef = useRef(0)
+
+  // Quiz
+  const [quizIndex, setQuizIndex] = useState(0)
+  const [quizAnswers, setQuizAnswers] = useState<Record<string, number>>({})
+
+  // Scan
   const [scanResults, setScanResults] = useState<any>(null)
   const [scanLoading, setScanLoading] = useState(false)
-  const [conversationPhase, setConversationPhase] = useState<ConversationPhase>('discovery')
-  const [leadCaptured, setLeadCaptured] = useState(false)
-  const [leadSubmitting, setLeadSubmitting] = useState(false)
-  const [showLeadCapture, setShowLeadCapture] = useState(false)
-  const [showFinalReport, setShowFinalReport] = useState(false)
-  const [finalReport, setFinalReport] = useState('')
-
-  const chatEndRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
-  const userMessageCountRef = useRef(0)
   const scanTriggeredRef = useRef(false)
   const scanResultsRef = useRef<any>(null)
 
-  // Auto-scroll to bottom
-  const scrollToBottom = useCallback(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [])
+  // Lead + Report
+  const [leadSubmitting, setLeadSubmitting] = useState(false)
+  const [aiReport, setAiReport] = useState('')
+  const [reportLoading, setReportLoading] = useState(false)
+  const [scores, setScores] = useState<ReturnType<typeof calculateScores> | null>(null)
 
+  const chatEndRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  // Auto-scroll
   useEffect(() => {
-    scrollToBottom()
-  }, [messages, showLeadCapture, showFinalReport, scanLoading, scrollToBottom])
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages, phase, quizIndex, scanResults, scanLoading, aiReport, reportLoading])
 
   // Initial greeting
   useEffect(() => {
-    const greeting: Message = {
+    setMessages([{
       id: crypto.randomUUID(),
       type: 'assistant',
       content: "Hi! I help local businesses figure out how visible they are online — on Google, in AI search results, and in your local area. What's your business name?",
-      timestamp: Date.now(),
-    }
-    setMessages([greeting])
+    }])
   }, [])
 
-  // Update context from user messages
-  function updateContext(userText: string, currentContext: BusinessContext, messageCount: number): BusinessContext {
-    const updated = { ...currentContext }
-
-    // Message 1: business name
-    if (messageCount === 1 && !updated.name) {
-      updated.name = userText.trim()
+  // Context extraction by message position
+  function updateContext(text: string, ctx: BusinessContext, msgCount: number): BusinessContext {
+    const updated = { ...ctx }
+    if (msgCount === 1) updated.name = text.trim()
+    else if (msgCount === 2) {
+      updated.url = isNoWebsite(text) ? 'none' : (extractUrl(text) || text.trim())
     }
-    // Message 2: website URL
-    else if (messageCount === 2 && !updated.url) {
-      if (isNoWebsite(userText)) {
-        updated.url = 'none'
-      } else {
-        const url = extractUrl(userText)
-        if (url) updated.url = url
-        else updated.url = userText.trim() // let them type whatever, AI will handle it
-      }
-    }
-    // Message 3: city
-    else if (messageCount === 3 && !updated.city) {
-      updated.city = userText.trim()
-    }
-    // Message 4: industry
-    else if (messageCount === 4 && !updated.industry) {
-      updated.industry = userText.trim()
-    }
-    // Message 5+: strategic questions
-    else if (messageCount >= 5) {
-      if (!updated.howGetCustomers) {
-        updated.howGetCustomers = userText.trim()
-      } else if (!updated.biggestChallenge) {
-        updated.biggestChallenge = userText.trim()
-      }
-    }
-
+    else if (msgCount === 3) updated.city = text.trim()
+    else if (msgCount === 4) updated.industry = text.trim()
     return updated
-  }
-
-  // Determine conversation phase
-  function getPhase(ctx: BusinessContext, hasScan: boolean, scanInProgress: boolean, msgCount: number): ConversationPhase {
-    if (leadCaptured) return 'post-capture'
-
-    // If we have enough info + scan is done (or no website), and enough exchanges, show lead capture
-    const hasBasics = ctx.name && ctx.url && ctx.city && ctx.industry
-    const hasStrategic = ctx.howGetCustomers || ctx.biggestChallenge
-    if (hasBasics && (hasScan || ctx.url === 'none') && hasStrategic && msgCount >= 5) {
-      return 'pre-capture'
-    }
-
-    // Scan is done, discuss findings
-    if (hasScan && hasBasics) return 'discussion'
-
-    // Scan is running
-    if (scanInProgress) return 'scanning'
-
-    return 'discovery'
   }
 
   // Trigger website scan
@@ -369,7 +380,6 @@ export default function ChatAudit() {
     if (scanTriggeredRef.current) return
     scanTriggeredRef.current = true
     setScanLoading(true)
-
     try {
       const res = await fetch('/.netlify/functions/analyze-website', {
         method: 'POST',
@@ -387,38 +397,28 @@ export default function ChatAudit() {
     setScanLoading(false)
   }
 
-  // Send message to chat-audit function and stream response
-  async function sendToAI(allMessages: Message[], ctx: BusinessContext, phase: ConversationPhase, scan: any) {
+  // Stream AI response (discovery only)
+  async function sendToAI(allMessages: Message[], ctx: BusinessContext) {
     setIsStreaming(true)
-
-    const assistantMsg: Message = {
-      id: crypto.randomUUID(),
-      type: 'assistant',
-      content: '',
-      timestamp: Date.now(),
-    }
-
+    const assistantMsg: Message = { id: crypto.randomUUID(), type: 'assistant', content: '' }
     setMessages(prev => [...prev, assistantMsg])
 
     try {
       const apiMessages = allMessages
         .filter(m => m.type === 'user' || m.type === 'assistant')
-        .map(m => ({ role: m.type as 'user' | 'assistant', content: m.content }))
+        .map(m => ({ role: m.type, content: m.content }))
 
       const res = await fetch('/.netlify/functions/chat-audit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: apiMessages,
-          scanResults: scan,
           businessContext: ctx,
-          conversationPhase: phase,
+          conversationPhase: 'discovery',
         }),
       })
 
-      if (!res.ok || !res.body) {
-        throw new Error('Chat request failed')
-      }
+      if (!res.ok || !res.body) throw new Error('Chat failed')
 
       const reader = res.body.getReader()
       const decoder = new TextDecoder()
@@ -427,11 +427,8 @@ export default function ChatAudit() {
       while (true) {
         const { done, value } = await reader.read()
         if (done) break
-
         const chunk = decoder.decode(value, { stream: true })
-        const lines = chunk.split('\n')
-
-        for (const line of lines) {
+        for (const line of chunk.split('\n')) {
           if (line.startsWith('data: ')) {
             const data = line.slice(6)
             if (data === '[DONE]') continue
@@ -440,78 +437,87 @@ export default function ChatAudit() {
               if (parsed.text) {
                 accumulated += parsed.text
                 const finalText = accumulated
-                setMessages(prev =>
-                  prev.map(m => m.id === assistantMsg.id ? { ...m, content: finalText } : m)
-                )
+                setMessages(prev => prev.map(m => m.id === assistantMsg.id ? { ...m, content: finalText } : m))
               }
-            } catch { /* skip unparseable chunks */ }
+            } catch { /* skip */ }
           }
         }
       }
     } catch (err) {
       console.error('Chat error:', err)
-      setMessages(prev =>
-        prev.map(m => m.id === assistantMsg.id
-          ? { ...m, content: "Sorry, I'm having trouble connecting right now. Could you try again?" }
-          : m
-        )
-      )
+      setMessages(prev => prev.map(m =>
+        m.id === assistantMsg.id ? { ...m, content: "Sorry, I'm having trouble connecting. Could you try again?" } : m
+      ))
     }
 
     setIsStreaming(false)
   }
 
-  // Handle user sending a message
+  // Handle user message during discovery
   async function handleSend() {
     const text = inputValue.trim()
     if (!text || isStreaming) return
 
     setInputValue('')
-    userMessageCountRef.current += 1
-    const msgCount = userMessageCountRef.current
+    userMsgCountRef.current += 1
+    const msgCount = userMsgCountRef.current
 
-    const userMsg: Message = {
-      id: crypto.randomUUID(),
-      type: 'user',
-      content: text,
-      timestamp: Date.now(),
-    }
+    const userMsg: Message = { id: crypto.randomUUID(), type: 'user', content: text }
+    const updated = [...messages, userMsg]
+    setMessages(updated)
 
-    const updatedMessages = [...messages, userMsg]
-    setMessages(updatedMessages)
-
-    // Update business context
-    const updatedContext = updateContext(text, businessContext, msgCount)
-    setBusinessContext(updatedContext)
+    const ctx = updateContext(text, businessContext, msgCount)
+    setBusinessContext(ctx)
 
     // Trigger scan when URL is provided (message 2)
-    if (msgCount === 2 && updatedContext.url && updatedContext.url !== 'none') {
-      triggerScan(updatedContext.url)
+    if (msgCount === 2 && ctx.url && ctx.url !== 'none') {
+      triggerScan(ctx.url)
     }
 
-    // Determine phase
-    const hasScan = !!(scanResultsRef.current)
-    const phase = getPhase(updatedContext, hasScan, scanLoading, msgCount)
-    setConversationPhase(phase)
+    // After 4th user message, transition to quiz
+    if (msgCount >= 4) {
+      setIsStreaming(true)
+      setTimeout(() => {
+        const hasWebsite = ctx.url && ctx.url !== 'none'
+        const transitionContent = hasWebsite
+          ? `Got it! I'm scanning ${ctx.name || 'your'} website now. While that runs, I've got some quick questions about your online presence that'll help me build a thorough visibility report. Just tap the answer that fits best — should only take a couple minutes.`
+          : `Got it! Not having a website is actually important to know — that'll be a key part of our recommendations. I've got some quick questions about your online presence that'll help me build a thorough report for ${ctx.name || 'your business'}. Just tap the answer that fits best.`
 
-    // Send to AI
-    await sendToAI(updatedMessages, updatedContext, phase, scanResultsRef.current)
-
-    // After AI responds, check if we should show lead capture
-    const postPhase = getPhase(updatedContext, !!(scanResultsRef.current), false, msgCount)
-    if (postPhase === 'pre-capture' && !showLeadCapture && !leadCaptured) {
-      // Small delay so the AI message is visible first
-      setTimeout(() => setShowLeadCapture(true), 800)
+        setMessages(prev => [...prev, { id: crypto.randomUUID(), type: 'assistant', content: transitionContent }])
+        setIsStreaming(false)
+        setPhase('quiz')
+      }, 800)
+      return
     }
 
+    // Normal discovery chat
+    await sendToAI(updated, ctx)
     inputRef.current?.focus()
+  }
+
+  // Handle quiz answer selection
+  function handleQuizAnswer(questionId: string, value: number) {
+    setQuizAnswers(prev => ({ ...prev, [questionId]: value }))
+
+    setTimeout(() => {
+      if (quizIndex < assessmentQuestions.length - 1) {
+        setQuizIndex(prev => prev + 1)
+      } else {
+        // Quiz complete
+        setPhase('lead-capture')
+      }
+    }, 400)
   }
 
   // Handle lead capture submission
   async function handleLeadSubmit(info: { name: string; email: string; phone: string }) {
     setLeadSubmitting(true)
 
-    // Submit to FormSubmit
+    // Calculate scores from quiz answers
+    const result = calculateScores(quizAnswers as Record<string, string | number>)
+    setScores(result)
+
+    // Submit to FormSubmit with full data
     try {
       const formData = new FormData()
       formData.append('name', info.name)
@@ -521,9 +527,14 @@ export default function ChatAudit() {
       formData.append('website-url', businessContext.url || '')
       formData.append('city', businessContext.city || '')
       formData.append('industry', businessContext.industry || '')
-      formData.append('how-get-customers', businessContext.howGetCustomers || '')
-      formData.append('biggest-challenge', businessContext.biggestChallenge || '')
-      formData.append('_subject', 'New Visibility Audit (Chat) — ' + (businessContext.name || 'Unknown'))
+      formData.append('overall-score', String(result.overall))
+      formData.append('overall-grade', result.overallGrade)
+      result.categories.forEach(cat => {
+        formData.append(`score-${cat.key}`, String(cat.score))
+        formData.append(`grade-${cat.key}`, cat.grade)
+      })
+      formData.append('weak-areas', result.weakQuestions.map(w => w.id).join(', '))
+      formData.append('_subject', `Visibility Audit — ${businessContext.name || 'Unknown'} (${result.overallGrade})`)
       formData.append('_captcha', 'false')
       formData.append('_template', 'table')
 
@@ -535,76 +546,33 @@ export default function ChatAudit() {
       console.error('Form submission error:', err)
     }
 
-    setLeadCaptured(true)
-    setShowLeadCapture(false)
     setLeadSubmitting(false)
+    setPhase('report')
 
-    // Now generate the final report
-    setShowFinalReport(true)
-    setConversationPhase('post-capture')
-
-    // Send one final request for the comprehensive report
-    const reportMessages = [
-      ...messages.filter(m => m.type === 'user' || m.type === 'assistant'),
-      {
-        id: crypto.randomUUID(),
-        type: 'user' as MessageType,
-        content: 'Please generate my full visibility report now.',
-        timestamp: Date.now(),
-      },
-    ]
-
-    setIsStreaming(true)
-
+    // Generate AI report
+    setReportLoading(true)
     try {
-      const apiMessages = reportMessages
-        .filter(m => m.type === 'user' || m.type === 'assistant')
-        .map(m => ({ role: m.type as 'user' | 'assistant', content: m.content }))
-
-      const res = await fetch('/.netlify/functions/chat-audit', {
+      const res = await fetch('/.netlify/functions/generate-visibility-report', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: apiMessages,
-          scanResults: scanResultsRef.current,
-          businessContext,
-          conversationPhase: 'post-capture',
+          businessName: businessContext.name || '',
+          city: businessContext.city || '',
+          industry: businessContext.industry || '',
+          websiteUrl: businessContext.url || '',
+          scores: result,
+          weakQuestions: result.weakQuestions,
+          websiteAnalysis: scanResultsRef.current || { status: 'skipped' },
         }),
       })
-
-      if (!res.ok || !res.body) throw new Error('Report request failed')
-
-      const reader = res.body.getReader()
-      const decoder = new TextDecoder()
-      let accumulated = ''
-
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-
-        const chunk = decoder.decode(value, { stream: true })
-        const lines = chunk.split('\n')
-
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const data = line.slice(6)
-            if (data === '[DONE]') continue
-            try {
-              const parsed = JSON.parse(data)
-              if (parsed.text) {
-                accumulated += parsed.text
-                setFinalReport(accumulated)
-              }
-            } catch { /* skip */ }
-          }
-        }
+      if (res.ok) {
+        const data = await res.json()
+        setAiReport(data.report || '')
       }
     } catch (err) {
       console.error('Report error:', err)
-      setFinalReport('Sorry, there was an issue generating your report. Please try refreshing the page.')
     }
-
-    setIsStreaming(false)
+    setReportLoading(false)
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {
@@ -614,91 +582,199 @@ export default function ChatAudit() {
     }
   }
 
+  // ─── Quiz Rendering ─────────────────────────────────────
+
+  function renderQuizSection() {
+    const items: React.ReactNode[] = []
+    let lastCat = ''
+
+    for (let i = 0; i <= quizIndex; i++) {
+      const q = assessmentQuestions[i]
+
+      // Category intro
+      if (q.category && q.category !== lastCat) {
+        lastCat = q.category
+        const cat = categories.find(c => c.key === q.category)
+        if (cat) {
+          const catIdx = categories.indexOf(cat)
+          items.push(
+            <div key={`cat-${q.category}`} className="flex justify-start animate-fadeIn">
+              <div className={`max-w-[85%] ${card} rounded-2xl rounded-bl-sm px-4 py-3`}>
+                <p className="text-sm text-[#e2e8f0] leading-relaxed">
+                  {catIdx === 0 ? "Let's start with " : catIdx === categories.length - 1 ? 'Last section — ' : 'Next up: '}
+                  <span className="font-semibold" style={{ color: cat.color }}>{cat.name}</span>
+                  {' — '}{cat.description.charAt(0).toLowerCase() + cat.description.slice(1)}
+                </p>
+              </div>
+            </div>
+          )
+        }
+      }
+
+      // Question card
+      items.push(
+        <QuizQuestionCard
+          key={q.id}
+          question={q}
+          selectedValue={quizAnswers[q.id]}
+          onSelect={(val) => handleQuizAnswer(q.id, val)}
+          active={i === quizIndex && quizAnswers[q.id] === undefined}
+        />
+      )
+    }
+
+    return items
+  }
+
+  // ─── Progress Bar ───────────────────────────────────────
+
+  const answeredCount = Object.keys(quizAnswers).length
+  const quizPct = Math.round((answeredCount / assessmentQuestions.length) * 100)
+
+  // ─── Render ─────────────────────────────────────────────
+
   return (
     <div className="min-h-[70vh] flex flex-col items-center py-8 px-4">
       {/* Header */}
       <div className="w-full max-w-2xl text-center mb-6">
         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center mx-auto mb-3">
           <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1">Visibility Audit</h1>
-        <p className="text-xs font-medium text-[#64748b]">by <span className="text-[#10b981]">LeadFair</span></p>
+        <p className="text-xs font-medium text-[#64748b] mb-2">by <span className="text-[#10b981]">LeadFair</span></p>
+        <p className="text-sm text-[#64748b]">See how visible your business is on Google, AI search, and in your local area</p>
       </div>
 
-      {/* Chat Container */}
+      {/* Content */}
       <div className="w-full max-w-2xl flex flex-col flex-1">
-        <div className="flex-1 space-y-4 mb-4 min-h-[300px]">
-          {/* Messages */}
+        <div className="flex-1 space-y-3 mb-4 min-h-[300px]">
+
+          {/* Discovery chat messages */}
           {messages.map(msg => (
             <MessageBubble key={msg.id} message={msg} />
           ))}
 
-          {/* Scanning indicator */}
-          {scanLoading && (
-            <div className="flex justify-start">
-              <div className="max-w-[85%]">
-                <ScanStatusBar />
-              </div>
-            </div>
-          )}
+          {/* Typing indicator (discovery) */}
+          {isStreaming && phase === 'discovery' && <TypingIndicator />}
 
-          {/* Scan results card (appears after scan completes, before lead capture) */}
-          {scanResults && scanResults.status !== 'skipped' && scanResults.status !== 'error' && !showFinalReport && (
-            <div className="flex justify-start">
-              <div className="max-w-[85%]">
+          {/* Quiz + Scan section */}
+          {phase !== 'discovery' && (
+            <>
+              {/* Scan status / results */}
+              {scanLoading && <ScanStatusBar />}
+              {scanResults && !scanLoading && scanResults.status !== 'skipped' && scanResults.status !== 'error' && phase !== 'report' && (
                 <ScanResultsCard analysis={scanResults} />
-              </div>
-            </div>
+              )}
+
+              {/* Quiz progress bar */}
+              {phase === 'quiz' && (
+                <div className="pt-2">
+                  <div className="flex justify-between text-xs text-[#64748b] mb-1.5">
+                    <span>Question {Math.min(quizIndex + 1, assessmentQuestions.length)} of {assessmentQuestions.length}</span>
+                    <span>{quizPct}%</span>
+                  </div>
+                  <div className="h-1.5 bg-[#1a1d2e] rounded-full overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-[#10b981] to-[#3b82f6] transition-all duration-500"
+                      style={{ width: `${quizPct}%` }}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Quiz questions */}
+              {(phase === 'quiz' || phase === 'lead-capture' || phase === 'report') && (
+                <div className="space-y-2">
+                  {renderQuizSection()}
+                </div>
+              )}
+            </>
           )}
 
-          {/* Typing indicator */}
-          {isStreaming && !showFinalReport && (
-            <div className="flex justify-start">
-              <div className={`${card} rounded-2xl rounded-bl-sm`}>
-                <TypingIndicator />
+          {/* Lead capture */}
+          {phase === 'lead-capture' && (
+            <>
+              <div className="flex justify-start animate-fadeIn">
+                <div className={`max-w-[85%] ${card} rounded-2xl rounded-bl-sm px-4 py-3`}>
+                  <p className="text-sm text-[#e2e8f0] leading-relaxed">
+                    Great, that's everything I need! Let me put together a detailed visibility report for {businessContext.name || 'your business'} with specific recommendations. Just drop your info below and I'll generate it.
+                  </p>
+                </div>
               </div>
-            </div>
+              <LeadCaptureCard onSubmit={handleLeadSubmit} submitting={leadSubmitting} />
+            </>
           )}
 
-          {/* Lead capture card */}
-          {showLeadCapture && !leadCaptured && (
-            <div className="flex justify-start">
-              <div className="max-w-[85%] w-full">
-                <LeadCaptureCard onSubmit={handleLeadSubmit} submitting={leadSubmitting} />
+          {/* Report */}
+          {phase === 'report' && scores && (
+            <div className="animate-fadeIn space-y-4 pt-4">
+              {/* Overall Score */}
+              <div className="text-center mb-2">
+                <p className="text-sm text-[#64748b] mb-2">Visibility Score for {businessContext.name || 'Your Business'}</p>
+                <div className="flex items-center justify-center gap-3 mb-2">
+                  <span className="text-6xl font-bold" style={{ color: gradeColor(scores.overallGrade) }}>{scores.overall}</span>
+                  <span className="text-2xl text-[#4a5568] font-light">/10</span>
+                </div>
+                <span
+                  className="inline-block text-sm font-bold px-4 py-1.5 rounded-full"
+                  style={{ backgroundColor: `${gradeColor(scores.overallGrade)}20`, color: gradeColor(scores.overallGrade) }}
+                >
+                  {scores.overallGrade} — {gradeLabel(scores.overallGrade)}
+                </span>
               </div>
-            </div>
-          )}
 
-          {/* Final report */}
-          {showFinalReport && (
-            <div className="animate-fadeIn">
-              <div className={`${card} p-6 sm:p-8 mb-4`}>
+              {/* Category Breakdown */}
+              <div className="grid sm:grid-cols-3 gap-3">
+                {scores.categories.map(cat => {
+                  const gColor = gradeColor(cat.grade)
+                  return (
+                    <div key={cat.key} className={`${card} p-4`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="font-semibold text-white text-sm">{cat.name}</h3>
+                        <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${gColor}20`, color: gColor }}>
+                          {cat.grade}
+                        </span>
+                      </div>
+                      <div className="flex items-end gap-1.5 mb-2">
+                        <span className="text-2xl font-bold" style={{ color: cat.color }}>{cat.score}</span>
+                        <span className="text-xs text-[#64748b] mb-0.5">/10</span>
+                      </div>
+                      <div className="h-1.5 bg-[#0f1117] rounded-full overflow-hidden">
+                        <div className="h-full rounded-full transition-all duration-700" style={{ width: `${cat.score * 10}%`, backgroundColor: cat.color }} />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+
+              {/* Scan results */}
+              {scanResults && scanResults.status !== 'skipped' && scanResults.status !== 'error' && (
+                <ScanResultsCard analysis={scanResults} />
+              )}
+
+              {/* AI Report */}
+              <div className={`${card} p-6 sm:p-8`}>
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center flex-shrink-0">
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-bold text-white">Your Visibility Report</h3>
+                  <h3 className="text-lg font-bold text-white">Your Personalized Report</h3>
                 </div>
-                {finalReport ? (
-                  <div>{renderMarkdown(finalReport)}</div>
-                ) : (
+                {reportLoading ? (
                   <div className="flex items-center gap-3 py-8 justify-center">
                     <div className="w-5 h-5 border-2 border-[#10b981] border-t-transparent rounded-full animate-spin" />
                     <p className="text-sm text-[#94a3b8]">Writing your personalized report...</p>
                   </div>
+                ) : aiReport ? (
+                  <div>{renderMarkdown(aiReport)}</div>
+                ) : (
+                  <p className="text-sm text-[#64748b]">Report unavailable — please try refreshing the page.</p>
                 )}
               </div>
-
-              {/* Scan results in final report section too */}
-              {scanResults && scanResults.status !== 'skipped' && scanResults.status !== 'error' && (
-                <div className="mb-4">
-                  <ScanResultsCard analysis={scanResults} />
-                </div>
-              )}
 
               {/* CTA */}
               <div className={`${card} p-8 text-center`}>
@@ -716,8 +792,8 @@ export default function ChatAudit() {
           <div ref={chatEndRef} />
         </div>
 
-        {/* Input area (hidden after lead capture) */}
-        {!showLeadCapture && !leadCaptured && (
+        {/* Input (discovery only) */}
+        {phase === 'discovery' && (
           <div className="sticky bottom-0 pt-2 pb-4 bg-gradient-to-t from-[#0b0d14] via-[#0b0d14] to-transparent">
             <div className="flex gap-2">
               <input
