@@ -118,6 +118,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 ></textarea>
               </div>
 
+              <!-- SMS Opt-In -->
+              <div class="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="sms-optin"
+                  name="sms_optin"
+                  class="mt-1 w-5 h-5 rounded border-gray-300 text-primary-500 focus:ring-primary-100"
+                />
+                <label for="sms-optin" class="text-sm text-text-light leading-relaxed">
+                  I agree to receive text messages from LeadFair about my inquiry and related services. Message frequency varies. Message and data rates may apply. Reply STOP to unsubscribe at any time. View our <a href="/privacy" class="text-primary-500 underline hover:text-primary-600">Privacy Policy</a>.
+                </label>
+              </div>
+
               <button
                 type="submit"
                 class="w-full bg-accent-500 hover:bg-accent-600 text-white px-8 py-4 rounded-xl font-semibold transition-all text-lg btn-scale shadow-glow-orange inline-flex items-center justify-center gap-2"
