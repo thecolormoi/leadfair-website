@@ -12,7 +12,7 @@ interface Props {
 
 const {
   title,
-  description = 'LeadFair is AI-powered business management software for small businesses. AI receptionist, automations, visibility optimization, and a company companion — all in one platform.',
+  description = 'LeadFair is an AI-powered CRM and business management platform for small businesses. Lead pipeline, AI receptionist, automations, visibility optimization, customizable dashboard, and a company companion AI — all in one platform.',
   ogImage = '/og-default.png',
   faqItems = []
 } = Astro.props;
@@ -53,7 +53,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       "@type": "Organization",
       "name": "LeadFair",
       "url": "https://leadfair.ai",
-      "description": "LeadFair is AI-powered business management software for small businesses. One platform with an AI receptionist, automations, visibility optimization, and a company companion.",
+      "description": "LeadFair is an AI-powered CRM and business management platform for small businesses. One platform with a lead pipeline, AI receptionist, automations, visibility optimization, customizable dashboard, and a company companion AI.",
       "founder": {
         "@type": "Person",
         "name": "Jeremy Turner"
@@ -62,7 +62,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         "@type": "Place",
         "name": "Huntsville, Alabama"
       },
-      "knowsAbout": ["AI Business Management", "AI Receptionist", "Business Automation", "Search Engine Optimization", "AI Visibility", "Small Business Software"]
+      "knowsAbout": ["AI CRM", "AI Business Management", "AI Receptionist", "Business Automation", "Lead Management", "Search Engine Optimization", "AI Visibility", "Small Business Software"]
     })} />
 
     <!-- Structured Data - SoftwareApplication -->
@@ -72,7 +72,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       "name": "LeadFair",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
-      "description": "AI-powered business management platform. Includes AI receptionist for 24/7 call answering, automated follow-ups, visibility optimization for Google and AI search, and a company companion AI for team knowledge.",
+      "description": "AI-powered CRM and business management platform. Includes lead pipeline, customizable dashboard, AI receptionist for 24/7 call answering, automated follow-ups, visibility optimization for Google and AI search, and a company companion AI for team knowledge.",
       "url": "https://leadfair.ai",
       "offers": {
         "@type": "AggregateOffer",
@@ -81,7 +81,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         "priceCurrency": "USD",
         "offerCount": "3"
       },
-      "featureList": ["AI Receptionist", "Business Automations", "Visibility Optimization", "Company Companion AI", "Lead Pipeline", "24/7 Call Answering"]
+      "featureList": ["CRM & Lead Pipeline", "Customizable Dashboard", "AI Receptionist", "Business Automations", "Visibility Optimization", "Company Companion AI", "24/7 Call Answering", "Call History & Summaries", "Activity Feed"]
     })} />
 
     {faqItems.length > 0 && (

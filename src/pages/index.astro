@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const faqItems = [
-  { question: "What is LeadFair?", answer: "LeadFair is AI-powered business management software for small businesses. At its core is the Company Companion — an AI that learns your entire business through conversation. It then powers an AI receptionist, automated follow-ups, and visibility optimization — all from one platform." },
+  { question: "What is LeadFair?", answer: "LeadFair is an AI-powered CRM and business management platform for small businesses. At its core is the Company Companion — an AI that learns your entire business through conversation. It powers a 24/7 AI receptionist, a lead pipeline, automated follow-ups, visibility optimization, and a customizable dashboard — all from one platform." },
   { question: "How much does LeadFair cost?", answer: "LeadFair starts at $199/month for solo operators. Team plans are $399/month (2-5 people) and Business plans are $599/month (6-15 people). Every plan includes every feature — no add-ons or hidden fees." },
   { question: "How long does it take to set up LeadFair?", answer: "Most businesses are up and running within a day. Sign up, tell LeadFair about your business, and it configures itself. No tech skills required." },
   { question: "Is my business data safe with LeadFair?", answer: "Yes. All data is encrypted at rest and in transit, never sold, never shared, and never used to train AI models for other customers. LeadFair runs proprietary AI security monitoring to protect against AI-era threats." },
@@ -27,7 +27,7 @@ const faqItems = [
         <span class="gradient-text-blue-green">on Autopilot.</span>
       </h1>
       <p class="text-xl md:text-2xl text-text-light max-w-3xl mx-auto mb-12 leading-relaxed">
-        LeadFair handles calls, follow-ups, scheduling, and customer management with AI — so you can focus on the work you actually started your business to do.
+        One platform that answers your calls, manages your leads, automates your follow-ups, and gets you found online — all powered by an AI that knows your business inside and out.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
         <a href="/pricing" class="group bg-accent-500 text-white px-10 py-4 rounded-xl font-semibold hover:bg-accent-600 transition-all text-lg shadow-glow-orange btn-scale flex items-center gap-2">
@@ -240,6 +240,85 @@ const faqItems = [
             </ul>
           </div>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Your Command Center — CRM / Dashboard -->
+  <section class="py-24 bg-gradient-warm relative overflow-hidden">
+    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 space-y-4">
+        <div class="inline-block bg-accent-100 text-accent-700 px-4 py-1.5 rounded-full text-sm font-semibold">Built-In CRM &amp; Dashboard</div>
+        <h2 class="text-4xl md:text-5xl font-bold">Your Whole Business,<br/>One Screen</h2>
+        <p class="text-xl text-text-light max-w-3xl mx-auto">LeadFair isn't just AI — it's a full CRM and command center. Every lead, every call, every follow-up, all in one place. No more juggling five different apps.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-10 h-10 icon-box icon-box-blue rounded-xl">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold mb-1">Lead Pipeline</h3>
+              <p class="text-text-light text-sm leading-relaxed">Track every lead from first contact to closed deal. Filter, search, and move leads through stages. New leads from calls sync automatically.</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-10 h-10 icon-box icon-box-green rounded-xl">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold mb-1">Call History &amp; Summaries</h3>
+              <p class="text-text-light text-sm leading-relaxed">Every call logged with a summary of what was discussed, who called, and what action was taken. Search and filter by date, caller, or status.</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-10 h-10 icon-box icon-box-orange rounded-xl">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold mb-1">Customizable Dashboard</h3>
+              <p class="text-text-light text-sm leading-relaxed">Widgets for call stats, leads needing attention, recent activity, repeat callers, and more. Toggle what you see — every owner's dashboard is different.</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-10 h-10 icon-box icon-box-blue rounded-xl">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold mb-1">Needs Attention Alerts</h3>
+              <p class="text-text-light text-sm leading-relaxed">LeadFair flags leads that need follow-up, missed calls that need callbacks, and automations that need review — so nothing falls through the cracks.</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-10 h-10 icon-box icon-box-green rounded-xl">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold mb-1">Activity Feed</h3>
+              <p class="text-text-light text-sm leading-relaxed">A real-time stream of everything happening in your business — new leads, calls answered, automations fired, follow-ups sent. See it all at a glance.</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-10 h-10 icon-box icon-box-orange rounded-xl">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold mb-1">Scheduling <span class="text-xs text-accent-500 font-semibold">Coming Soon</span></h3>
+              <p class="text-text-light text-sm leading-relaxed">Appointments, recurring slots, availability management, and booking portals for your customers — all connected to the Companion and Receptionist.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
