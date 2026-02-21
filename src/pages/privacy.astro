@@ -4,36 +4,73 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Privacy Policy — LeadFair"
-  description="LeadFair's privacy policy. How we collect, use, and protect your information."
+  description="LeadFair's privacy policy. How we collect, use, store, and protect your information — including data retention, your rights, and our security practices."
 >
   <section class="py-20 lg:py-28 bg-white">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-lg">
       <h1 class="text-4xl font-extrabold mb-2">Privacy Policy</h1>
-      <p class="text-text-light text-sm mb-12">Last updated: February 17, 2026</p>
+      <p class="text-text-light text-sm mb-12">Last updated: February 21, 2026</p>
 
       <h2>Who We Are</h2>
-      <p>LeadFair ("we," "us," "our") is a business technology company based in Huntsville, Alabama. We provide AI-powered tools and services to help small businesses grow. This policy explains how we handle your information when you use our website (leadfair.ai) and services.</p>
+      <p>LeadFair ("we," "us," "our") is an AI-powered business management platform based in Huntsville, Alabama. We help small businesses manage leads, answer calls, automate workflows, and improve their online visibility. This policy explains how we handle your information when you use our website (leadfair.ai) and platform.</p>
 
       <h2>Information We Collect</h2>
-      <p>When you fill out a form on our website, we may collect:</p>
+      <h3>Information you provide</h3>
+      <p>When you sign up, fill out a form, or use LeadFair, we may collect:</p>
       <ul>
-        <li>Your name</li>
-        <li>Email address</li>
-        <li>Phone number</li>
-        <li>Business name</li>
-        <li>Any additional information you provide in form fields</li>
+        <li>Your name, email address, and phone number</li>
+        <li>Business name and industry</li>
+        <li>Business information you teach the Company Companion (policies, procedures, pricing, etc.)</li>
+        <li>Call recordings and transcripts from the AI receptionist</li>
+        <li>Lead and customer data you manage in the CRM</li>
+        <li>Any other information you provide through the platform</li>
       </ul>
-      <p>We also collect standard website usage data (pages visited, browser type, etc.) through our hosting provider.</p>
+
+      <h3>Information collected automatically</h3>
+      <ul>
+        <li>Standard website usage data (pages visited, browser type, device info)</li>
+        <li>Platform usage data (features used, login times)</li>
+        <li>IP address and approximate location</li>
+      </ul>
 
       <h2>How We Use Your Information</h2>
-      <p>We use the information you provide to:</p>
+      <p>We use your information to:</p>
       <ul>
-        <li>Respond to your inquiries</li>
-        <li>Provide the services you request</li>
+        <li>Provide and operate the LeadFair platform</li>
+        <li>Power the Company Companion, AI receptionist, CRM, automations, and visibility features</li>
+        <li>Respond to your inquiries and provide support</li>
         <li>Send you text messages if you have opted in</li>
-        <li>Improve our website and services</li>
+        <li>Improve the platform and fix bugs</li>
+        <li>Protect against fraud and abuse</li>
       </ul>
-      <p>We do not sell, rent, or share your personal information with third parties for their marketing purposes.</p>
+
+      <h2>What We Never Do With Your Data</h2>
+      <ul>
+        <li><strong>We never sell your data</strong> — not to advertisers, data brokers, or anyone else</li>
+        <li><strong>We never share your data for third-party marketing</strong></li>
+        <li><strong>We never use your data to train AI models for other customers</strong> — your Company Companion knowledge, call recordings, and business data are yours alone</li>
+      </ul>
+
+      <h2>Data Storage &amp; Security</h2>
+      <p>We take the security of your data seriously:</p>
+      <ul>
+        <li><strong>Encryption:</strong> All data is encrypted at rest and in transit using industry-standard encryption (TLS 1.2+ for transit, AES-256 for storage)</li>
+        <li><strong>Access controls:</strong> Only authorized personnel can access customer data, and only when necessary for support or platform operation</li>
+        <li><strong>AI security monitoring:</strong> We run proprietary AI security agents that monitor for threats including prompt injection, data poisoning, and other AI-specific attack vectors</li>
+        <li><strong>Regular scanning:</strong> Our systems are regularly scanned against the latest known vulnerabilities</li>
+      </ul>
+      <p>No system is 100% secure, and we cannot guarantee absolute security. If we discover a breach that affects your data, we will notify you by email within 72 hours of confirming the breach, along with details about what was affected and what steps we're taking.</p>
+
+      <h2>Data Retention</h2>
+      <p>We keep your data for as long as your account is active. Specifically:</p>
+      <ul>
+        <li><strong>Account data</strong> (name, email, business info): Retained while your account is active and for 30 days after cancellation</li>
+        <li><strong>Company Companion knowledge:</strong> Retained while your account is active. Deleted within 30 days of account cancellation</li>
+        <li><strong>Call recordings and transcripts:</strong> Retained for 12 months, then automatically deleted. You can delete them manually at any time</li>
+        <li><strong>CRM and lead data:</strong> Retained while your account is active. Deleted within 30 days of cancellation unless you export it first</li>
+        <li><strong>Usage logs:</strong> Retained for 90 days for debugging and security purposes</li>
+      </ul>
+      <p>When data is deleted, it is permanently removed from our systems and backups within 30 days.</p>
 
       <h2>Text Messaging (SMS)</h2>
       <p>If you opt in to receive text messages from LeadFair:</p>
@@ -43,36 +80,47 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <li>Message and data rates may apply</li>
         <li>You can opt out at any time by replying <strong>STOP</strong> to any message</li>
         <li>Reply <strong>HELP</strong> for assistance</li>
-        <li>Your phone number will not be shared with third parties for their marketing purposes</li>
+        <li>Your phone number will not be shared with third parties for marketing</li>
         <li>Carriers are not liable for delayed or undelivered messages</li>
       </ul>
 
-      <h2>Data Security</h2>
-      <p>We take reasonable measures to protect your information. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
-
       <h2>Third-Party Services</h2>
-      <p>We use the following third-party services to operate our business:</p>
+      <p>We use the following third-party services to operate LeadFair:</p>
       <ul>
-        <li><strong>Twilio</strong> — for text messaging and phone services</li>
-        <li><strong>Netlify</strong> — for website hosting</li>
-        <li><strong>FormSubmit</strong> — for processing contact form submissions</li>
+        <li><strong>Twilio</strong> — phone and text messaging infrastructure</li>
+        <li><strong>ElevenLabs</strong> — AI voice generation for the receptionist</li>
+        <li><strong>Netlify</strong> — website hosting</li>
+        <li><strong>FormSubmit</strong> — contact form processing</li>
+        <li><strong>Anthropic (Claude)</strong> — AI language model powering the Company Companion</li>
       </ul>
-      <p>Each of these services has their own privacy policies governing how they handle data.</p>
+      <p>Each service has its own privacy policy. We only share the minimum data necessary for each service to function. We do not allow any third party to use your data for their own purposes beyond providing their service to us.</p>
 
       <h2>Your Rights</h2>
-      <p>You can request to:</p>
+      <p>Regardless of where you live, you have the right to:</p>
       <ul>
-        <li>See what personal information we have about you</li>
-        <li>Update or correct your information</li>
-        <li>Delete your information</li>
-        <li>Opt out of text messages (reply STOP)</li>
+        <li><strong>Access:</strong> Request a copy of the personal data we hold about you</li>
+        <li><strong>Correction:</strong> Request that we update or correct inaccurate information</li>
+        <li><strong>Deletion:</strong> Request that we delete your personal data. We will process deletion requests within 30 days</li>
+        <li><strong>Export:</strong> Request a copy of your data in a standard format (CSV/JSON) so you can take it elsewhere</li>
+        <li><strong>Opt out:</strong> Stop receiving text messages by replying STOP, or unsubscribe from emails via the link in any email</li>
       </ul>
+      <p>To exercise any of these rights, email us at hello@leadfair.ai or use the <a href="/contact">contact form</a>. We will respond within 30 days.</p>
+
+      <h3>California Residents</h3>
+      <p>Under the California Consumer Privacy Act (CCPA), California residents have additional rights including the right to know what personal information is collected, the right to delete it, and the right to opt out of its sale. We do not sell personal information. To make a CCPA request, email hello@leadfair.ai.</p>
+
+      <h2>Children's Privacy</h2>
+      <p>LeadFair is designed for businesses and is not intended for use by anyone under 18. We do not knowingly collect personal information from children. If we learn that we have collected data from a child, we will delete it promptly.</p>
+
+      <h2>Changes to This Policy</h2>
+      <p>We may update this policy from time to time. If we make significant changes, we will notify you by email or through the platform. The "Last updated" date at the top reflects the most recent revision.</p>
 
       <h2>Contact Us</h2>
       <p>If you have questions about this privacy policy or your data, contact us at:</p>
       <ul>
         <li>Email: hello@leadfair.ai</li>
         <li>Website: <a href="/contact">leadfair.ai/contact</a></li>
+        <li>Location: Huntsville, Alabama</li>
       </ul>
     </div>
   </section>
