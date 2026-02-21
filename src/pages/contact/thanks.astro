@@ -17,11 +17,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         </svg>
       </div>
       <h1 class="text-3xl sm:text-4xl font-extrabold mb-4">Message Sent</h1>
-      <p class="text-lg text-text-light mb-8">Thanks for reaching out. We'll get back to you within one business day.</p>
-      <a href="/" class="bg-accent-500 hover:bg-accent-600 text-white px-8 py-4 rounded-xl font-semibold transition-all btn-scale shadow-glow-orange inline-flex items-center gap-2">
-        Back to Home
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
+      <p class="text-lg text-text-light mb-4">Thanks for reaching out. We'll reply by email within one business day.</p>
+      <p class="text-sm text-text-lighter mb-10">If you opted into texts, you may also hear from us via SMS.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/" class="bg-accent-500 hover:bg-accent-600 text-white px-8 py-4 rounded-xl font-semibold transition-all btn-scale shadow-glow-orange inline-flex items-center gap-2">
+          Back to Home
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="/tools/business-diagnostic" class="border-2 border-gray-300 text-text px-8 py-4 rounded-xl font-semibold hover:border-gray-400 hover:bg-white/50 transition-all inline-flex items-center gap-2">
+          Try the Free Diagnostic
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>
