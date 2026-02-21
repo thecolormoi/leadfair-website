@@ -7,9 +7,11 @@ interface Props {
   headline: string;
   subheadline: string;
   accentColor: 'primary' | 'secondary' | 'accent';
+  toolHref?: string;
+  toolLabel?: string;
 }
 
-const { title, description, headline, subheadline, accentColor } = Astro.props;
+const { title, description, headline, subheadline, accentColor, toolHref = '/tools/business-diagnostic', toolLabel = 'Free Diagnostic' } = Astro.props;
 
 const colorMap = {
   primary: {
@@ -49,17 +51,17 @@ const colors = colorMap[accentColor];
       <p class="text-lg sm:text-xl text-text-light max-w-2xl mx-auto leading-relaxed mb-10">{subheadline}</p>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
         <a
-          href="/contact"
+          href="/pricing"
           class="bg-accent-500 hover:bg-accent-600 text-white px-8 py-4 rounded-xl font-semibold transition-all text-lg btn-scale shadow-glow-orange inline-flex items-center gap-2"
         >
           Get Started
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
         <a
-          href="/tools/business-diagnostic"
+          href={toolHref}
           class="border-2 border-gray-300 text-text px-8 py-4 rounded-xl font-semibold hover:border-gray-400 hover:bg-white/50 transition-all text-lg"
         >
-          Free Diagnostic
+          {toolLabel}
         </a>
       </div>
     </div>
@@ -77,23 +79,23 @@ const colors = colorMap[accentColor];
     <div class="blob blob-green w-48 h-48 bottom-0 right-10 opacity-20"></div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Interested? Let's Talk.</h2>
+      <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Ready to Get Started?</h2>
       <p class="text-gray-400 max-w-xl mx-auto mb-10 text-lg leading-relaxed">
-        Every business is different. Let's figure out if this is the right fit for yours — no pressure, no sales pitch.
+        Pick a plan and put your business on autopilot. Or try a free tool first — no signup required.
       </p>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
         <a
-          href="/contact"
+          href="/pricing"
           class="bg-accent-500 hover:bg-accent-600 text-white px-8 py-4 rounded-xl font-semibold transition-all text-lg btn-scale shadow-glow-orange inline-flex items-center gap-2"
         >
-          Get in Touch
+          See Pricing
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
         <a
-          href="/tools/business-diagnostic"
+          href={toolHref}
           class="border-2 border-gray-600 text-gray-300 px-8 py-4 rounded-xl font-semibold hover:border-white hover:text-white transition-all text-lg"
         >
-          Take the Free Diagnostic
+          {toolLabel}
         </a>
       </div>
     </div>
