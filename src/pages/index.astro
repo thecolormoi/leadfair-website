@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="LeadFair — Smart Systems. Real Growth. Real Visibility.">
+<BaseLayout title="LeadFair — Your Business's AI">
   <!-- Hero -->
   <section class="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-hero-light">
     <!-- Decorative blobs -->
@@ -13,22 +13,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="absolute inset-0 bg-grid opacity-40"></div>
 
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
-      <div class="inline-block bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-8">AI-Powered Growth for Small Business</div>
+      <div class="inline-block bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-8">Your Business's AI</div>
       <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-8 text-text">
-        Smart Systems.<br/>
-        <span class="gradient-text-blue-green">Real Growth.</span>{" "}
-        <span class="gradient-text-green-blue">Real Visibility.</span>
+        Your Business,<br/>
+        <span class="gradient-text-blue-green">on Autopilot.</span>
       </h1>
       <p class="text-xl md:text-2xl text-text-light max-w-3xl mx-auto mb-12 leading-relaxed">
-        We install and manage AI-powered tools — automations, companions, and visibility systems — so your business saves time and gets discovered everywhere, from Google to ChatGPT.
+        LeadFair is your business's AI. It handles leads, follow-ups, scheduling, and customer management — so you don't have to.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <a href="/tools/business-diagnostic" class="group bg-accent-500 text-white px-10 py-4 rounded-xl font-semibold hover:bg-accent-600 transition-all text-lg shadow-glow-orange btn-scale flex items-center gap-2">
-          Get Your Free Business Diagnostic
+        <a href="/pricing" class="group bg-accent-500 text-white px-10 py-4 rounded-xl font-semibold hover:bg-accent-600 transition-all text-lg shadow-glow-orange btn-scale flex items-center gap-2">
+          Get Started
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
-        <a href="/tools/visibility-audit" class="group bg-primary-500 text-white px-10 py-4 rounded-xl font-semibold hover:bg-primary-600 transition-all text-lg shadow-lg hover:shadow-xl btn-scale flex items-center gap-2">
-          Run Your AI Visibility Audit
+        <a href="/tools/business-diagnostic" class="group bg-primary-500 text-white px-10 py-4 rounded-xl font-semibold hover:bg-primary-600 transition-all text-lg shadow-lg hover:shadow-xl btn-scale flex items-center gap-2">
+          Try the Free Diagnostic
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
       </div>
@@ -52,14 +51,56 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <div class="shimmer-line"></div>
 
-  <!-- Two Front Doors -->
+  <!-- How It Works -->
   <section class="py-24 bg-white relative overflow-hidden">
-    <div class="absolute top-0 right-0 w-72 h-72 blob blob-blue opacity-20"></div>
-    <div class="absolute bottom-0 left-0 w-72 h-72 blob blob-green opacity-20"></div>
+    <div class="absolute inset-0 bg-grid opacity-30"></div>
     <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16 space-y-4">
-        <h2 class="text-4xl md:text-5xl font-bold">Two Ways to Get Started</h2>
-        <p class="text-xl text-text-light max-w-2xl mx-auto">Choose the path that matches your biggest challenge right now</p>
+        <h2 class="text-4xl md:text-5xl font-bold">How It Works</h2>
+        <p class="text-xl text-text-light max-w-2xl mx-auto">Three steps. No tech skills required.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+        <div class="relative text-center space-y-4">
+          <div class="relative inline-block">
+            <div class="w-24 h-24 icon-box icon-box-blue animate-float">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+            </div>
+            <div class="absolute -top-2 -right-2 w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">01</div>
+          </div>
+          <h3 class="text-xl font-bold">Sign Up</h3>
+          <p class="text-text-light leading-relaxed">Pick your plan and create your account. Takes about two minutes.</p>
+        </div>
+        <div class="relative text-center space-y-4">
+          <div class="relative inline-block">
+            <div class="w-24 h-24 icon-box icon-box-green animate-float-delay">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            </div>
+            <div class="absolute -top-2 -right-2 w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">02</div>
+          </div>
+          <h3 class="text-xl font-bold">It Learns Your Business</h3>
+          <p class="text-text-light leading-relaxed">Tell it about your services, hours, and how you work. The AI configures itself around your business.</p>
+        </div>
+        <div class="relative text-center space-y-4">
+          <div class="relative inline-block">
+            <div class="w-24 h-24 icon-box icon-box-orange animate-float-slow">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <div class="absolute -top-2 -right-2 w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">03</div>
+          </div>
+          <h3 class="text-xl font-bold">It Runs Things</h3>
+          <p class="text-text-light leading-relaxed">Calls get answered. Follow-ups go out. Appointments get booked. You focus on the work you actually started your business to do.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Two Front Doors -->
+  <section class="py-24 bg-gradient-blue-green relative overflow-hidden">
+    <div class="absolute inset-0 bg-dots opacity-30"></div>
+    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 space-y-4">
+        <h2 class="text-4xl md:text-5xl font-bold">Not Sure Yet? Start Here.</h2>
+        <p class="text-xl text-text-light max-w-2xl mx-auto">Two free tools to see exactly where AI can help your business</p>
       </div>
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Growth -->
@@ -69,9 +110,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
             </div>
             <div>
-              <h3 class="text-2xl font-bold mb-3">Growth & Efficiency</h3>
+              <h3 class="text-2xl font-bold mb-3">Business Diagnostic</h3>
               <p class="text-text-light leading-relaxed">
-                Start with the <strong class="text-text">Business Diagnostic</strong>. Identify wasted time, inefficiencies, and automation opportunities. See exactly where AI can help.
+                Answer a few questions about how your business runs. Get a personalized report showing where you're losing time and where AI can take over.
               </p>
             </div>
             <ul class="space-y-3">
@@ -93,9 +134,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
             <div>
-              <h3 class="text-2xl font-bold mb-3">Visibility</h3>
+              <h3 class="text-2xl font-bold mb-3">AI Visibility Audit</h3>
               <p class="text-text-light leading-relaxed">
-                Start with the <strong class="text-text">AI Visibility Audit</strong>. See how your business shows up (or doesn't) in Google, ChatGPT, Perplexity, and more.
+                See how your business shows up (or doesn't) in Google, ChatGPT, Perplexity, and more. Free, instant results.
               </p>
             </div>
             <ul class="space-y-3">
@@ -113,13 +154,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 
-  <!-- Services -->
-  <section class="py-24 bg-gradient-blue-green relative overflow-hidden">
-    <div class="absolute inset-0 bg-dots opacity-30"></div>
+  <!-- What's Built In -->
+  <section class="py-24 bg-white relative overflow-hidden">
     <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16 space-y-4">
-        <h2 class="text-4xl md:text-5xl font-bold">What We Build For You</h2>
-        <p class="text-xl text-text-light max-w-2xl mx-auto">Powerful AI-powered systems installed and managed for you</p>
+        <h2 class="text-4xl md:text-5xl font-bold">What's Built In</h2>
+        <p class="text-xl text-text-light max-w-2xl mx-auto">Every plan includes all four capabilities. No add-ons, no upgrades.</p>
       </div>
       <div class="grid md:grid-cols-2 gap-8">
         <a href="/services/ai-receptionist" class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-green group">
@@ -128,7 +168,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
             </div>
             <h3 class="text-2xl font-bold">AI Receptionist</h3>
-            <p class="text-text-light leading-relaxed">Never miss a lead again. AI answers calls with instant, accurate responses trained on your business — 24/7.</p>
+            <p class="text-text-light leading-relaxed">Your AI answers calls, books appointments, and handles questions — 24/7. Trained on your business from day one.</p>
             <ul class="space-y-2">
               <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-secondary-500 rounded-full"></div><span class="text-sm text-text-light">24/7 call answering</span></li>
               <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-secondary-500 rounded-full"></div><span class="text-sm text-text-light">Appointment scheduling</span></li>
@@ -143,7 +183,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
             </div>
             <h3 class="text-2xl font-bold">Visibility</h3>
-            <p class="text-text-light leading-relaxed">Get found in Google, ChatGPT, Perplexity, and Gemini. Search, AI, and local visibility strategies for small businesses.</p>
+            <p class="text-text-light leading-relaxed">LeadFair optimizes how you show up in Google, ChatGPT, Perplexity, and local search — automatically.</p>
             <ul class="space-y-2">
               <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-primary-500 rounded-full"></div><span class="text-sm text-text-light">Search & AI optimization</span></li>
               <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-primary-500 rounded-full"></div><span class="text-sm text-text-light">Google Business Profile</span></li>
@@ -158,7 +198,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             </div>
             <h3 class="text-2xl font-bold">Automations</h3>
-            <p class="text-text-light leading-relaxed">End-to-end workflow automation across sales, marketing, scheduling, and operations. If it's repetitive, we automate it.</p>
+            <p class="text-text-light leading-relaxed">Follow-ups, reminders, data sync, and custom workflows — baked in from the start, with presets you can customize.</p>
             <ul class="space-y-2">
               <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-accent-500 rounded-full"></div><span class="text-sm text-text-light">Follow-ups & reminders</span></li>
               <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-accent-500 rounded-full"></div><span class="text-sm text-text-light">Data sync between tools</span></li>
@@ -173,7 +213,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
             </div>
             <h3 class="text-2xl font-bold">Company Companion</h3>
-            <p class="text-text-light leading-relaxed">A private AI trained on your company's knowledge. Your team gets instant answers about policies, processes, and procedures — without interrupting you.</p>
+            <p class="text-text-light leading-relaxed">A private AI that learns your business through conversation. Your team gets instant answers — without interrupting you.</p>
             <ul class="space-y-2">
               <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-primary-500 rounded-full"></div><span class="text-sm text-text-light">Internal knowledge hub</span></li>
               <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-primary-500 rounded-full"></div><span class="text-sm text-text-light">Employee onboarding</span></li>
@@ -185,49 +225,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 
-  <!-- How It Works -->
-  <section class="py-24 bg-white relative overflow-hidden">
-    <div class="absolute inset-0 bg-grid opacity-30"></div>
-    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16 space-y-4">
-        <h2 class="text-4xl md:text-5xl font-bold">How It Works</h2>
-        <p class="text-xl text-text-light max-w-2xl mx-auto">Three simple steps to transform your business with AI</p>
-      </div>
-      <div class="grid md:grid-cols-3 gap-8 md:gap-12">
-        <div class="relative text-center space-y-4">
-          <div class="relative inline-block">
-            <div class="w-24 h-24 icon-box icon-box-blue animate-float">
-              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-            </div>
-            <div class="absolute -top-2 -right-2 w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">01</div>
-          </div>
-          <h3 class="text-xl font-bold">Choose Your Entry Point</h3>
-          <p class="text-text-light leading-relaxed">Take the Business Diagnostic or the Visibility Audit — both free, both give you actionable insights right away.</p>
-        </div>
-        <div class="relative text-center space-y-4">
-          <div class="relative inline-block">
-            <div class="w-24 h-24 icon-box icon-box-green animate-float-delay">
-              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            </div>
-            <div class="absolute -top-2 -right-2 w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">02</div>
-          </div>
-          <h3 class="text-xl font-bold">We Install & Manage</h3>
-          <p class="text-text-light leading-relaxed">Our team sets up and configures your AI tools, handling all the technical details so you don't have to.</p>
-        </div>
-        <div class="relative text-center space-y-4">
-          <div class="relative inline-block">
-            <div class="w-24 h-24 icon-box icon-box-orange animate-float-slow">
-              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-            </div>
-            <div class="absolute -top-2 -right-2 w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">03</div>
-          </div>
-          <h3 class="text-xl font-bold">See Real Results</h3>
-          <p class="text-text-light leading-relaxed">Save time, cut costs, grow revenue, and stay visible. We monitor and keep things running while you focus on your business.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <div class="shimmer-line"></div>
 
   <!-- Why LeadFair -->
@@ -235,7 +232,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16 space-y-4">
         <h2 class="text-4xl md:text-5xl font-bold">Why LeadFair?</h2>
-        <p class="text-xl text-text-light max-w-2xl mx-auto">We make AI work for your business, not the other way around</p>
+        <p class="text-xl text-text-light max-w-2xl mx-auto">AI that works for your business, not the other way around</p>
       </div>
       <div class="grid md:grid-cols-2 gap-6">
         <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover card-glow-green">
@@ -244,8 +241,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div class="space-y-2">
+              <h3 class="text-lg font-bold">It Sets Itself Up</h3>
+              <p class="text-text-light leading-relaxed">No tech expertise needed. Tell LeadFair about your business and it configures everything — phone agent, automations, visibility — automatically.</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover card-glow-green">
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-secondary-500 rounded-xl flex items-center justify-center shadow-sm">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div class="space-y-2">
               <h3 class="text-lg font-bold">Practical Wins, Not AI Hype</h3>
-              <p class="text-text-light leading-relaxed">We deliver AI solutions that actually solve your real business problems — no buzzwords, no empty promises.</p>
+              <p class="text-text-light leading-relaxed">LeadFair solves real business problems — no buzzwords, no empty promises. If it doesn't move the needle, it's not in the product.</p>
             </div>
           </div>
         </div>
@@ -255,8 +263,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div class="space-y-2">
-              <h3 class="text-lg font-bold">We Install & Manage Everything</h3>
-              <p class="text-text-light leading-relaxed">No tech expertise needed. We handle setup, configuration, and ongoing management for you. Turnkey from day one.</p>
+              <h3 class="text-lg font-bold">Battle-Tested on a Real Business</h3>
+              <p class="text-text-light leading-relaxed">LeadFair was built and tested on our own small business before we ever offered it to anyone else. If it doesn't work for us, it's not in the product.</p>
             </div>
           </div>
         </div>
@@ -266,19 +274,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             </div>
             <div class="space-y-2">
-              <h3 class="text-lg font-bold">We Practice What We Sell</h3>
-              <p class="text-text-light leading-relaxed">We use the same AI tools and visibility strategies on our own business. If it doesn't work for us, we don't sell it to you.</p>
-            </div>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover card-glow-green">
-          <div class="flex gap-4">
-            <div class="flex-shrink-0 w-10 h-10 bg-secondary-500 rounded-xl flex items-center justify-center shadow-sm">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            </div>
-            <div class="space-y-2">
-              <h3 class="text-lg font-bold">Local & Accessible</h3>
-              <p class="text-text-light leading-relaxed">Based in Huntsville, Alabama. We're a real person you can talk to, not a faceless company behind a support ticket.</p>
+              <h3 class="text-lg font-bold">Everything Included</h3>
+              <p class="text-text-light leading-relaxed">No feature gates, no nickel-and-diming. Every plan includes every capability — AI receptionist, automations, visibility, and company companion.</p>
             </div>
           </div>
         </div>
@@ -292,12 +289,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid lg:grid-cols-5 gap-12 items-center">
         <div class="lg:col-span-3">
-          <div class="inline-block bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">Case Study</div>
+          <div class="inline-block bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">Where We Built & Battle-Tested LeadFair</div>
           <h2 class="text-3xl sm:text-4xl font-bold mb-6">Alabama Music Academy</h2>
           <p class="text-text-light leading-relaxed text-lg mb-6">
-            A local music school drowning in missed calls, manual scheduling, and zero online visibility. We built an AI receptionist, automated their follow-ups, and rebuilt their visibility strategy from scratch.
+            A local music school drowning in missed calls, manual scheduling, and zero online visibility. We built LeadFair's AI receptionist, automated follow-ups, and rebuilt the visibility strategy from scratch — all inside one platform.
           </p>
-          <p class="text-text font-medium text-lg mb-8">The result: a business that runs with less day-to-day involvement from the owner.</p>
+          <p class="text-text font-medium text-lg mb-8">The result: a business that runs with less day-to-day involvement from the owner. That's the product every LeadFair customer gets.</p>
           <div class="flex flex-wrap gap-3">
             <span class="bg-secondary-100 text-secondary-700 px-4 py-1.5 rounded-full text-sm font-semibold">AI Receptionist</span>
             <span class="bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-semibold">Visibility</span>
@@ -305,7 +302,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
         </div>
         <div class="lg:col-span-2">
-          <!-- Visual placeholder — will be replaced with dashboard screenshot -->
           <div class="bg-gradient-to-br from-primary-100 via-secondary-50 to-accent-50 rounded-2xl p-8 aspect-square flex items-center justify-center border border-gray-100 shadow-lg relative overflow-hidden">
             <div class="blob blob-blue w-32 h-32 top-0 right-0 opacity-40"></div>
             <div class="blob blob-green w-24 h-24 bottom-0 left-0 opacity-30"></div>
@@ -331,18 +327,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="blob blob-green w-72 h-72 -bottom-20 -left-20 opacity-15"></div>
     <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center space-y-8">
       <h2 class="text-3xl md:text-5xl font-bold">
-        Ready to Transform Your Business?
+        Ready to Put Your Business on Autopilot?
       </h2>
       <p class="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
-        Start with one of our free tools and see exactly where AI can save you time, cut costs, and boost your visibility.
+        Pick a plan and get started today. Or try one of our free tools to see what LeadFair can do for your business.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-        <a href="/tools/business-diagnostic" class="group bg-accent-500 text-white px-10 py-4 rounded-xl font-semibold hover:bg-accent-600 transition-all text-lg shadow-glow-orange btn-scale flex items-center justify-center gap-2">
-          Start Your Free Diagnostic
+        <a href="/pricing" class="group bg-accent-500 text-white px-10 py-4 rounded-xl font-semibold hover:bg-accent-600 transition-all text-lg shadow-glow-orange btn-scale flex items-center justify-center gap-2">
+          See Pricing
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
-        <a href="/tools/visibility-audit" class="group bg-white text-dark px-10 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all text-lg shadow-xl btn-scale flex items-center justify-center gap-2">
-          Run Your Visibility Audit
+        <a href="/tools/business-diagnostic" class="group bg-white text-dark px-10 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all text-lg shadow-xl btn-scale flex items-center justify-center gap-2">
+          Try the Free Diagnostic
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
       </div>
