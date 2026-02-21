@@ -7,12 +7,14 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  faqItems?: Array<{ question: string; answer: string }>;
 }
 
 const {
   title,
-  description = 'LeadFair helps small businesses grow with AI-powered tools, visibility optimization, and smart automations.',
-  ogImage = '/og-default.png'
+  description = 'LeadFair is AI-powered business management software for small businesses. AI receptionist, automations, visibility optimization, and a company companion — all in one platform.',
+  ogImage = '/og-default.png',
+  faqItems = []
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -45,23 +47,57 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Structured Data - LocalBusiness -->
+    <!-- Structured Data - Organization -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@type": "Organization",
       "name": "LeadFair",
-      "description": "AI-powered tools and visibility strategies for small businesses. AI Receptionist, Company Companion, search and AI visibility, and business automations.",
       "url": "https://leadfair.ai",
-      "areaServed": {
-        "@type": "Place",
-        "name": "Huntsville, Alabama"
-      },
+      "description": "LeadFair is AI-powered business management software for small businesses. One platform with an AI receptionist, automations, visibility optimization, and a company companion.",
       "founder": {
         "@type": "Person",
         "name": "Jeremy Turner"
       },
-      "knowsAbout": ["Artificial Intelligence", "Search Visibility", "AI Visibility", "Business Automation", "AI Phone Agents", "Small Business Technology"]
+      "foundingLocation": {
+        "@type": "Place",
+        "name": "Huntsville, Alabama"
+      },
+      "knowsAbout": ["AI Business Management", "AI Receptionist", "Business Automation", "Search Engine Optimization", "AI Visibility", "Small Business Software"]
     })} />
+
+    <!-- Structured Data - SoftwareApplication -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "LeadFair",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "AI-powered business management platform. Includes AI receptionist for 24/7 call answering, automated follow-ups, visibility optimization for Google and AI search, and a company companion AI for team knowledge.",
+      "url": "https://leadfair.ai",
+      "offers": {
+        "@type": "AggregateOffer",
+        "lowPrice": "199",
+        "highPrice": "599",
+        "priceCurrency": "USD",
+        "offerCount": "3"
+      },
+      "featureList": ["AI Receptionist", "Business Automations", "Visibility Optimization", "Company Companion AI", "Lead Pipeline", "24/7 Call Answering"]
+    })} />
+
+    {faqItems.length > 0 && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqItems.map(item => ({
+          "@type": "Question",
+          "name": item.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": item.answer
+          }
+        }))
+      })} />
+    )}
 
     <!-- Preload Inter font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

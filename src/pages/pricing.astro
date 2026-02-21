@@ -1,15 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const faqItems = [
+  { question: "What's included in every LeadFair plan?", answer: "Everything. AI receptionist, automations, visibility optimization, and company companion. The only difference between plans is team size — the number of people who can log in and use LeadFair." },
+  { question: "Can I cancel LeadFair anytime?", answer: "Yes. No contracts, no cancellation fees. If LeadFair isn't working for you, cancel anytime from your account settings." },
+  { question: "Does LeadFair have a free trial?", answer: "Not yet — but you can try the free Business Diagnostic or Visibility Audit to see exactly what LeadFair would do for your business before signing up." },
+  { question: "Are there any hidden fees or usage limits with LeadFair?", answer: "No. The price you see is the price you pay. No per-call charges, no overage fees, no usage meters." },
+  { question: "How long does LeadFair take to set up?", answer: "Most businesses are up and running within a day. Sign up, tell LeadFair about your business, and it configures itself. The more detail you give it, the better it works." },
+  { question: "Is my business data safe with LeadFair?", answer: "Yes. Your data is encrypted at rest and in transit, stored securely, and never sold or shared with third parties. It's never used to train AI models for other customers. Only you and your team can access it." },
+  { question: "What does LeadFair founding member pricing mean?", answer: "LeadFair is in early access. If you sign up now, you lock in the current rates — even when prices go up later. Only the first 10 customers get founding member pricing." }
+];
 ---
 
 <BaseLayout
-  title="Pricing — LeadFair"
-  description="Simple pricing for your business's AI. Three plans by team size — everything included at every tier. No feature gates, no hidden fees."
+  title="Pricing — LeadFair | AI Business Management Starting at $199/mo"
+  description="LeadFair pricing starts at $199/month. Every plan includes AI receptionist, automations, visibility optimization, and company companion. No feature gates, no hidden fees. Cancel anytime."
+  faqItems={faqItems}
 >
   <!-- Founding Member Banner -->
   <section class="bg-gradient-to-r from-primary-500 to-secondary-500 text-white py-4 text-center">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <p class="text-sm sm:text-base font-semibold">Founding Member Pricing — Lock in these rates. They won't last forever.</p>
+      <p class="text-sm sm:text-base font-semibold">Founding Member Pricing — Only 10 spots at these rates. Lock yours in before they're gone.</p>
     </div>
   </section>
 
@@ -37,7 +48,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="gradient-border rounded-2xl p-8 card-hover card-glow-blue">
           <div class="space-y-6">
             <div>
-              <h3 class="text-2xl font-bold mb-1">Solo</h3>
+              <h2 class="text-2xl font-bold mb-1">Solo</h2>
               <p class="text-text-light text-sm">For one-person businesses</p>
             </div>
             <div>
@@ -88,7 +99,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-secondary-500 text-white px-4 py-1 rounded-full text-sm font-semibold">Most Popular</div>
           <div class="space-y-6">
             <div>
-              <h3 class="text-2xl font-bold mb-1">Team</h3>
+              <h2 class="text-2xl font-bold mb-1">Team</h2>
               <p class="text-text-light text-sm">For small teams (2-5 people)</p>
             </div>
             <div>
@@ -138,7 +149,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="gradient-border rounded-2xl p-8 card-hover card-glow-orange">
           <div class="space-y-6">
             <div>
-              <h3 class="text-2xl font-bold mb-1">Business</h3>
+              <h2 class="text-2xl font-bold mb-1">Business</h2>
               <p class="text-text-light text-sm">For growing teams (6-15 people)</p>
             </div>
             <div>
@@ -203,10 +214,41 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 
+  <!-- ROI Comparison -->
+  <section class="py-16 bg-gradient-blue-green relative overflow-hidden">
+    <div class="absolute inset-0 bg-dots opacity-30"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">What You'd Pay Without LeadFair</h2>
+      <p class="text-center text-text-light mb-12 text-lg">The things LeadFair replaces cost most businesses $4,000+/month — if they do them at all.</p>
+      <div class="space-y-4 max-w-2xl mx-auto">
+        <div class="flex items-center justify-between bg-white rounded-xl p-5 border border-gray-100">
+          <span class="text-text font-medium">Part-time receptionist</span>
+          <span class="text-red-600 font-bold text-lg">$2,500/mo</span>
+        </div>
+        <div class="flex items-center justify-between bg-white rounded-xl p-5 border border-gray-100">
+          <span class="text-text font-medium">SEO agency retainer</span>
+          <span class="text-red-600 font-bold text-lg">$1,500/mo</span>
+        </div>
+        <div class="flex items-center justify-between bg-white rounded-xl p-5 border border-gray-100">
+          <span class="text-text font-medium">CRM + automation tools</span>
+          <span class="text-red-600 font-bold text-lg">$300/mo</span>
+        </div>
+        <div class="flex items-center justify-between bg-white rounded-xl p-5 border border-gray-100 border-t-2 border-t-gray-300">
+          <span class="text-text font-bold">Total</span>
+          <span class="text-red-700 font-extrabold text-xl">$4,300/mo</span>
+        </div>
+        <div class="flex items-center justify-between bg-secondary-500 text-white rounded-xl p-5 shadow-lg">
+          <span class="font-bold text-lg">LeadFair — all of this, one platform</span>
+          <span class="font-extrabold text-2xl">$199/mo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <div class="shimmer-line"></div>
 
   <!-- FAQ -->
-  <section class="py-24 bg-gradient-warm">
+  <section class="py-24 bg-white">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-16">Frequently Asked Questions</h2>
       <div class="space-y-6">
@@ -220,7 +262,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
         <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
           <h3 class="font-bold text-lg mb-2">Is there a free trial?</h3>
-          <p class="text-text-light leading-relaxed">Not yet — but you can try our free Business Diagnostic or Visibility Audit to see exactly what LeadFair would do for your business before signing up.</p>
+          <p class="text-text-light leading-relaxed">Not yet — but you can try our free <a href="/tools/business-diagnostic" class="text-primary-500 underline hover:text-primary-600">Business Diagnostic</a> or <a href="/tools/visibility-audit" class="text-primary-500 underline hover:text-primary-600">Visibility Audit</a> to see exactly what LeadFair would do for your business before signing up.</p>
         </div>
         <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
           <h3 class="font-bold text-lg mb-2">Are there any hidden fees or usage limits?</h3>
@@ -236,7 +278,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
         <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
           <h3 class="font-bold text-lg mb-2">What does "founding member pricing" mean?</h3>
-          <p class="text-text-light leading-relaxed">We're in early access. If you sign up now, you lock in the current rates — even when prices go up later. Think of it as a thank-you for being early.</p>
+          <p class="text-text-light leading-relaxed">We're in early access. The first 10 customers lock in the current rates — even when prices go up later. Once those spots are taken, founding member pricing is gone for good.</p>
         </div>
       </div>
     </div>
@@ -253,7 +295,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         Ready to Get Started?
       </h2>
       <p class="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
-        Pick a plan and put your business on autopilot. Or try a free tool first — no signup required.
+        Pick a plan and put your business on autopilot. Founding member spots are limited.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
         <a href="/contact" class="group bg-accent-500 text-white px-10 py-4 rounded-xl font-semibold hover:bg-accent-600 transition-all text-lg shadow-glow-orange btn-scale flex items-center justify-center gap-2">

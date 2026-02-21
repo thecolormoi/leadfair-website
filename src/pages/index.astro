@@ -1,8 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const faqItems = [
+  { question: "What is LeadFair?", answer: "LeadFair is AI-powered business management software for small businesses. It combines an AI receptionist, business automations, visibility optimization, and a company companion AI into one platform — so your business runs on autopilot." },
+  { question: "How much does LeadFair cost?", answer: "LeadFair starts at $199/month for solo operators. Team plans are $399/month (2-5 people) and Business plans are $599/month (6-15 people). Every plan includes every feature — no add-ons or hidden fees." },
+  { question: "How long does it take to set up LeadFair?", answer: "Most businesses are up and running within a day. Sign up, tell LeadFair about your business, and it configures itself. No tech skills required." },
+  { question: "Is my business data safe with LeadFair?", answer: "Yes. All data is encrypted at rest and in transit, never sold, never shared, and never used to train AI models for other customers. LeadFair runs proprietary AI security monitoring to protect against AI-era threats." },
+  { question: "Can I cancel LeadFair anytime?", answer: "Yes. No contracts, no cancellation fees. Cancel anytime from your account settings in one click." }
+];
 ---
 
-<BaseLayout title="LeadFair — Your Business's AI">
+<BaseLayout title="LeadFair — AI-Powered Business Management Software" faqItems={faqItems}>
   <!-- Hero -->
   <section class="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-hero-light">
     <!-- Decorative blobs -->
@@ -13,17 +21,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="absolute inset-0 bg-grid opacity-40"></div>
 
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
-      <div class="inline-block bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-8">Your Business's AI</div>
+      <div class="inline-block bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-8">AI-Powered Business Management</div>
       <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-8 text-text">
         Your Business,<br/>
         <span class="gradient-text-blue-green">on Autopilot.</span>
       </h1>
       <p class="text-xl md:text-2xl text-text-light max-w-3xl mx-auto mb-12 leading-relaxed">
-        LeadFair is your business's AI. It handles leads, follow-ups, scheduling, and customer management — so you don't have to.
+        LeadFair handles calls, follow-ups, scheduling, and customer management with AI — so you can focus on the work you actually started your business to do.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
         <a href="/pricing" class="group bg-accent-500 text-white px-10 py-4 rounded-xl font-semibold hover:bg-accent-600 transition-all text-lg shadow-glow-orange btn-scale flex items-center gap-2">
-          Get Started
+          See Plans &amp; Pricing
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
         <a href="/tools/business-diagnostic" class="group bg-primary-500 text-white px-10 py-4 rounded-xl font-semibold hover:bg-primary-600 transition-all text-lg shadow-lg hover:shadow-xl btn-scale flex items-center gap-2">
@@ -35,7 +43,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="pt-14 flex flex-wrap justify-center items-center gap-8 text-sm text-text-lighter">
         <div class="flex items-center gap-2">
           <div class="w-2 h-2 bg-secondary-400 rounded-full"></div>
-          <span>No setup fees</span>
+          <span>Set up in one day</span>
         </div>
         <div class="flex items-center gap-2">
           <div class="w-2 h-2 bg-secondary-400 rounded-full"></div>
@@ -43,7 +51,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
         <div class="flex items-center gap-2">
           <div class="w-2 h-2 bg-secondary-400 rounded-full"></div>
-          <span>Built in Huntsville, AL</span>
+          <span>Everything included — no add-ons</span>
         </div>
       </div>
     </div>
@@ -94,68 +102,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 
-  <!-- Two Front Doors -->
+  <!-- What's Built In -->
   <section class="py-24 bg-gradient-blue-green relative overflow-hidden">
     <div class="absolute inset-0 bg-dots opacity-30"></div>
-    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16 space-y-4">
-        <h2 class="text-4xl md:text-5xl font-bold">Not Sure Yet? Start Here.</h2>
-        <p class="text-xl text-text-light max-w-2xl mx-auto">Two free tools to see exactly where AI can help your business</p>
-      </div>
-      <div class="grid md:grid-cols-2 gap-8">
-        <!-- Growth -->
-        <div class="gradient-border p-8 lg:p-10 card-hover card-glow-green">
-          <div class="space-y-6">
-            <div class="w-16 h-16 icon-box icon-box-green">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold mb-3">Business Diagnostic</h3>
-              <p class="text-text-light leading-relaxed">
-                Answer a few questions about how your business runs. Get a personalized report showing where you're losing time and where AI can take over.
-              </p>
-            </div>
-            <ul class="space-y-3">
-              <li class="flex items-start gap-2"><div class="w-1.5 h-1.5 bg-secondary-500 rounded-full mt-2"></div><span class="text-sm text-text-light">Analyze your current workflows</span></li>
-              <li class="flex items-start gap-2"><div class="w-1.5 h-1.5 bg-secondary-500 rounded-full mt-2"></div><span class="text-sm text-text-light">Find automation opportunities</span></li>
-              <li class="flex items-start gap-2"><div class="w-1.5 h-1.5 bg-secondary-500 rounded-full mt-2"></div><span class="text-sm text-text-light">Get custom recommendations</span></li>
-            </ul>
-            <a href="/tools/business-diagnostic" class="group w-full flex items-center justify-center gap-2 bg-secondary-500 text-white py-3.5 rounded-xl font-semibold hover:bg-secondary-600 transition-all shadow-md hover:shadow-lg btn-scale">
-              Start Business Diagnostic
-              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Visibility -->
-        <div class="gradient-border p-8 lg:p-10 card-hover card-glow-blue">
-          <div class="space-y-6">
-            <div class="w-16 h-16 icon-box icon-box-blue">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold mb-3">AI Visibility Audit</h3>
-              <p class="text-text-light leading-relaxed">
-                See how your business shows up (or doesn't) in Google, ChatGPT, Perplexity, and more. Free, instant results.
-              </p>
-            </div>
-            <ul class="space-y-3">
-              <li class="flex items-start gap-2"><div class="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2"></div><span class="text-sm text-text-light">Check AI search presence</span></li>
-              <li class="flex items-start gap-2"><div class="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2"></div><span class="text-sm text-text-light">Search, AI & local visibility analysis</span></li>
-              <li class="flex items-start gap-2"><div class="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2"></div><span class="text-sm text-text-light">Visibility improvement plan</span></li>
-            </ul>
-            <a href="/tools/visibility-audit" class="group w-full flex items-center justify-center gap-2 bg-primary-500 text-white py-3.5 rounded-xl font-semibold hover:bg-primary-600 transition-all shadow-md hover:shadow-lg btn-scale">
-              Start AI Visibility Audit
-              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- What's Built In -->
-  <section class="py-24 bg-white relative overflow-hidden">
     <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16 space-y-4">
         <h2 class="text-4xl md:text-5xl font-bold">What's Built In</h2>
@@ -225,6 +174,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 
+  <!-- The Math — ROI strip -->
+  <section class="py-16 bg-white relative overflow-hidden">
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">The Math Speaks for Itself</h2>
+        <p class="text-lg text-text-light">What you'd pay without LeadFair vs. what you pay with it.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-red-50 rounded-2xl p-6 border border-red-100 text-center">
+          <p class="text-sm text-red-600 font-semibold mb-2">Part-time receptionist</p>
+          <p class="text-3xl font-extrabold text-red-700">$2,500<span class="text-lg font-medium">/mo</span></p>
+        </div>
+        <div class="bg-red-50 rounded-2xl p-6 border border-red-100 text-center">
+          <p class="text-sm text-red-600 font-semibold mb-2">SEO agency retainer</p>
+          <p class="text-3xl font-extrabold text-red-700">$1,500<span class="text-lg font-medium">/mo</span></p>
+        </div>
+        <div class="bg-red-50 rounded-2xl p-6 border border-red-100 text-center">
+          <p class="text-sm text-red-600 font-semibold mb-2">CRM + automation tools</p>
+          <p class="text-3xl font-extrabold text-red-700">$300<span class="text-lg font-medium">/mo</span></p>
+        </div>
+      </div>
+      <div class="mt-8 bg-secondary-50 rounded-2xl p-8 border border-secondary-200 text-center">
+        <p class="text-sm text-secondary-600 font-semibold mb-2">LeadFair does all of this</p>
+        <p class="text-5xl font-extrabold text-secondary-700">$199<span class="text-xl font-medium">/mo</span></p>
+        <p class="text-text-light mt-3">One platform. Everything included. No surprise fees.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Security -->
   <section class="py-24 bg-dark text-white relative overflow-hidden">
     <div class="absolute inset-0 bg-grid-dark opacity-20"></div>
@@ -259,115 +237,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <p class="text-gray-300 leading-relaxed">All data encrypted at rest and in transit. Never sold, never shared, never used to train AI for anyone else. Your business information belongs to you — period.</p>
         </div>
       </div>
-      <div class="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm text-gray-400">
-        <div class="flex items-center gap-2">
-          <div class="w-2 h-2 bg-secondary-400 rounded-full"></div>
-          <span>AI-specific threat intelligence</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <div class="w-2 h-2 bg-secondary-400 rounded-full"></div>
-          <span>Prompt injection defense</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <div class="w-2 h-2 bg-secondary-400 rounded-full"></div>
-          <span>Automated vulnerability remediation</span>
-        </div>
-      </div>
     </div>
   </section>
 
   <div class="shimmer-line"></div>
 
-  <!-- Why LeadFair -->
-  <section class="py-24 bg-gradient-warm relative overflow-hidden">
-    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16 space-y-4">
-        <h2 class="text-4xl md:text-5xl font-bold">Why LeadFair?</h2>
-        <p class="text-xl text-text-light max-w-2xl mx-auto">AI that works for your business, not the other way around</p>
-      </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover card-glow-green">
-          <div class="flex gap-4">
-            <div class="flex-shrink-0 w-10 h-10 bg-secondary-500 rounded-xl flex items-center justify-center shadow-sm">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            </div>
-            <div class="space-y-2">
-              <h3 class="text-lg font-bold">It Sets Itself Up</h3>
-              <p class="text-text-light leading-relaxed">No tech expertise needed. Tell LeadFair about your business and it configures everything automatically.</p>
-            </div>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover card-glow-green">
-          <div class="flex gap-4">
-            <div class="flex-shrink-0 w-10 h-10 bg-secondary-500 rounded-xl flex items-center justify-center shadow-sm">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-            </div>
-            <div class="space-y-2">
-              <h3 class="text-lg font-bold">Your Data Stays Yours</h3>
-              <p class="text-text-light leading-relaxed">Encrypted, never sold, never used to train other models. Only you and your team can access your business data. Period.</p>
-            </div>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover card-glow-green">
-          <div class="flex gap-4">
-            <div class="flex-shrink-0 w-10 h-10 bg-secondary-500 rounded-xl flex items-center justify-center shadow-sm">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            </div>
-            <div class="space-y-2">
-              <h3 class="text-lg font-bold">Practical Wins, Not AI Hype</h3>
-              <p class="text-text-light leading-relaxed">LeadFair solves real problems — no buzzwords, no empty promises. If it doesn't move the needle, it's not in the product.</p>
-            </div>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover card-glow-green">
-          <div class="flex gap-4">
-            <div class="flex-shrink-0 w-10 h-10 bg-secondary-500 rounded-xl flex items-center justify-center shadow-sm">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            </div>
-            <div class="space-y-2">
-              <h3 class="text-lg font-bold">Battle-Tested on a Real Business</h3>
-              <p class="text-text-light leading-relaxed">Built and proven on our own small business first. If it doesn't work for us, it's not in the product.</p>
-            </div>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover card-glow-green">
-          <div class="flex gap-4">
-            <div class="flex-shrink-0 w-10 h-10 bg-secondary-500 rounded-xl flex items-center justify-center shadow-sm">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            </div>
-            <div class="space-y-2">
-              <h3 class="text-lg font-bold">Everything Included</h3>
-              <p class="text-text-light leading-relaxed">No feature gates, no nickel-and-diming. Every plan includes every capability.</p>
-            </div>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover card-glow-green">
-          <div class="flex gap-4">
-            <div class="flex-shrink-0 w-10 h-10 bg-secondary-500 rounded-xl flex items-center justify-center shadow-sm">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            </div>
-            <div class="space-y-2">
-              <h3 class="text-lg font-bold">Cancel Anytime</h3>
-              <p class="text-text-light leading-relaxed">No contracts, no cancellation fees. If LeadFair isn't working for you, cancel from your account in one click.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Case Study -->
+  <!-- Case Study / Social Proof -->
   <section class="py-24 bg-white relative overflow-hidden">
     <div class="absolute top-10 right-10 w-80 h-80 blob blob-blue opacity-15"></div>
     <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid lg:grid-cols-5 gap-12 items-center">
         <div class="lg:col-span-3">
-          <div class="inline-block bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">Where We Built & Battle-Tested LeadFair</div>
+          <div class="inline-block bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">Built &amp; Battle-Tested on a Real Business</div>
           <h2 class="text-3xl sm:text-4xl font-bold mb-6">Alabama Music Academy</h2>
           <p class="text-text-light leading-relaxed text-lg mb-6">
-            A local music school drowning in missed calls, manual scheduling, and zero online visibility. We built LeadFair's AI receptionist, automated follow-ups, and rebuilt the visibility strategy from scratch — all inside one platform.
+            A local music school drowning in missed calls, manual scheduling, and zero online visibility. LeadFair's AI receptionist, automated follow-ups, and visibility tools were built and proven here first.
           </p>
-          <p class="text-text font-medium text-lg mb-8">The result: a business that runs with less day-to-day involvement from the owner. That's the product every LeadFair customer gets.</p>
+          <p class="text-text font-medium text-lg mb-8">The result: a business that runs with less day-to-day involvement from the owner. That's what every LeadFair customer gets.</p>
           <div class="flex flex-wrap gap-3">
             <span class="bg-secondary-100 text-secondary-700 px-4 py-1.5 rounded-full text-sm font-semibold">AI Receptionist</span>
             <span class="bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-semibold">Visibility</span>
@@ -391,6 +277,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 
+  <!-- Objection Busters — quick FAQ for homepage -->
+  <section class="py-16 bg-gradient-warm relative overflow-hidden">
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Common Questions</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
+          <h3 class="font-bold text-lg mb-2">Is this hard to set up?</h3>
+          <p class="text-text-light leading-relaxed">No. Most businesses are up and running within a day. You tell LeadFair about your business through plain conversation — it handles the rest. No tech skills needed.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
+          <h3 class="font-bold text-lg mb-2">What if it doesn't work for me?</h3>
+          <p class="text-text-light leading-relaxed">Cancel anytime — no contracts, no fees, no hoops. One click from your account settings. We're confident it will, though — it's built on what works for our own business.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
+          <h3 class="font-bold text-lg mb-2">Is my data safe?</h3>
+          <p class="text-text-light leading-relaxed">Yes. Encrypted at rest and in transit, never sold or shared, never used to train AI for anyone else. We run our own AI security monitoring — <a href="/services/company-companion" class="text-primary-500 underline hover:text-primary-600">details here</a>.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
+          <h3 class="font-bold text-lg mb-2">Are there hidden fees?</h3>
+          <p class="text-text-light leading-relaxed">No. Every plan includes every feature. No per-call charges, no overage fees, no "premium" add-ons. The price on the <a href="/pricing" class="text-primary-500 underline hover:text-primary-600">pricing page</a> is what you pay.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <div class="shimmer-line"></div>
 
   <!-- Final CTA -->
@@ -403,11 +314,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         Ready to Put Your Business on Autopilot?
       </h2>
       <p class="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
-        Pick a plan and get started today. Or try one of our free tools to see what LeadFair can do for your business.
+        Plans start at $199/mo. Everything included. Cancel anytime.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
         <a href="/pricing" class="group bg-accent-500 text-white px-10 py-4 rounded-xl font-semibold hover:bg-accent-600 transition-all text-lg shadow-glow-orange btn-scale flex items-center justify-center gap-2">
-          See Pricing
+          See Plans &amp; Pricing
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
         <a href="/tools/business-diagnostic" class="group bg-white text-dark px-10 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all text-lg shadow-xl btn-scale flex items-center justify-center gap-2">
@@ -415,6 +326,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
       </div>
+      <p class="text-sm text-gray-400">Or try the <a href="/tools/visibility-audit" class="text-primary-400 underline hover:text-primary-300">free Visibility Audit</a> to see how you show up in search and AI.</p>
     </div>
   </section>
 </BaseLayout>
