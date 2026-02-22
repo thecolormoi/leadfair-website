@@ -271,3 +271,30 @@ body {
   background: linear-gradient(135deg, hsl(24 95% 50%), hsl(24 95% 60%));
   box-shadow: 0 8px 24px hsl(24 95% 53% / 0.25);
 }
+
+/* ===== SCROLL REVEAL ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children in grids */
+.reveal-stagger > .reveal {
+  transition-delay: calc(var(--reveal-index, 0) * 100ms);
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

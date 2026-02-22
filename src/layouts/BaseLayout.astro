@@ -110,5 +110,49 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <slot />
     </main>
     <Footer />
+
+    <script>
+      // Scroll reveal — fade elements in as they enter the viewport
+      function initReveal() {
+        // Target sections (skip the first/hero section) and key content blocks
+        const sections = document.querySelectorAll('main > section, main > div > section, main > slot > section');
+        const allSections = Array.from(document.querySelectorAll('section'));
+
+        // Apply reveal to all sections except the first one (hero)
+        allSections.forEach((section, i) => {
+          if (i === 0) return; // skip hero
+          section.classList.add('reveal');
+
+          // Find grid children and stagger them
+          const grid = section.querySelector('.grid');
+          if (grid) {
+            grid.classList.add('reveal-stagger');
+            Array.from(grid.children).forEach((child, j) => {
+              child.classList.add('reveal');
+              (child as HTMLElement).style.setProperty('--reveal-index', String(j));
+            });
+          }
+        });
+
+        // Observe and reveal
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+        );
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+      }
+
+      // Run on page load and on Astro page transitions
+      initReveal();
+      document.addEventListener('astro:page-load', initReveal);
+    </script>
   </body>
 </html>
