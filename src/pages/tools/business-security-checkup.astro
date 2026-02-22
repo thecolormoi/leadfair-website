@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BusinessSecurityCheckup from '../../components/security-checkup/BusinessSecurityCheckup';
+---
+
+<BaseLayout
+  title="Free Business Security Checkup — LeadFair"
+  description="Find out how protected your business really is. Free 5-minute security checkup with personalized recommendations."
+>
+  <section class="relative overflow-hidden bg-dark text-white">
+    <div class="absolute inset-0 bg-grid-dark opacity-20"></div>
+    <div class="blob blob-blue w-96 h-96 -top-32 -right-32 opacity-10"></div>
+    <div class="blob blob-green w-64 h-64 bottom-0 left-10 opacity-10"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <BusinessSecurityCheckup client:load />
+    </div>
+  </section>
+
+  <!-- Hidden form for Netlify Forms detection at build time -->
+  <form name="security-checkup-results" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input name="form-name" value="security-checkup-results" />
+    <input name="bot-field" />
+    <input name="name" />
+    <input name="email" />
+    <input name="phone" />
+    <input name="business-name" />
+    <input name="industry" />
+    <input name="team-size" />
+    <input name="biggest-fear" />
+    <input name="overall-score" />
+    <input name="overall-grade" />
+    <input name="score-data-protection" />
+    <input name="grade-data-protection" />
+    <input name="score-access-control" />
+    <input name="grade-access-control" />
+    <input name="score-payment-security" />
+    <input name="grade-payment-security" />
+    <input name="score-incident-readiness" />
+    <input name="grade-incident-readiness" />
+  </form>
+</BaseLayout>
