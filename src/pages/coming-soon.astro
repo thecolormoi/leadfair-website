@@ -266,7 +266,7 @@
     <div class="form-card">
       <p>Get notified when we launch. No spam — just one email when it's ready.</p>
 
-      <form id="waitlist-form" name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/coming-soon?success=true">
+      <form id="waitlist-form" name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="waitlist" />
         <p class="hidden" style="display:none"><input name="bot-field" /></p>
 
@@ -305,14 +305,29 @@
   </div>
 
   <script>
-    if (window.location.search.includes('success=true')) {
-      const form = document.getElementById('waitlist-form');
-      const msg = document.getElementById('success-msg');
-      if (form && msg) {
+    const form = document.getElementById('waitlist-form');
+    const msg = document.getElementById('success-msg');
+    const btn = form?.querySelector('.submit-btn');
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+
+      try {
+        await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(form)).toString()
+        });
         form.style.display = 'none';
         msg.style.display = 'block';
+      } catch {
+        btn.textContent = 'Notify Me';
+        btn.disabled = false;
+        alert('Something went wrong — please try again.');
       }
-    }
+    });
   </script>
 </body>
 </html>
