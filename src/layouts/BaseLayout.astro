@@ -151,6 +151,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       }
 
       // Word-by-word reveal for hero headlines
+      function hasGradientText(el: Element): boolean {
+        return Array.from(el.classList).some(c => c.startsWith('gradient-text'));
+      }
+
       function wrapTextInSpans(el: Element) {
         const nodes = Array.from(el.childNodes);
         nodes.forEach((node) => {
@@ -171,8 +175,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
               }
             });
             node.replaceWith(frag);
-          } else if (node.nodeType === Node.ELEMENT_NODE && (node as Element).tagName !== 'BR') {
-            wrapTextInSpans(node as Element);
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            const child = node as Element;
+            if (child.tagName === 'BR') return;
+            // Don't recurse into gradient-text elements — opacity breaks background-clip:text
+            // Instead, animate the whole gradient span as one unit
+            if (hasGradientText(child)) {
+              child.classList.add('word');
+            } else {
+              wrapTextInSpans(child);
+            }
           }
         });
       }
