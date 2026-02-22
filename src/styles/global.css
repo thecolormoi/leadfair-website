@@ -69,7 +69,7 @@ body {
 
 /* ===== GRADIENT TEXT ===== */
 .gradient-text-blue-green {
-  background: linear-gradient(135deg, hsl(217 91% 55%), hsl(152 68% 48%));
+  background: linear-gradient(135deg, hsl(217 91% 55%), hsl(152 68% 48%), hsl(24 95% 53%));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

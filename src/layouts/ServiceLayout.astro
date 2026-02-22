@@ -39,14 +39,14 @@ const colors = colorMap[accentColor];
 
 <BaseLayout title={title} description={description}>
   <!-- Hero -->
-  <section class={`relative overflow-hidden ${colors.heroGradient} py-20 lg:py-32`}>
+  <section class="relative overflow-hidden bg-gradient-hero-light py-20 lg:py-32">
     <div class={`blob ${colors.blob1} w-72 h-72 -top-20 -right-20`}></div>
     <div class={`blob ${colors.blob2} w-56 h-56 bottom-0 left-10`}></div>
     <div class="absolute inset-0 bg-grid opacity-40"></div>
 
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-        <span class={colors.gradientText}>{headline}</span>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-text">
+        <span class="gradient-text-blue-green">{headline}</span>
       </h1>
       <p class="text-lg sm:text-xl text-text-light max-w-2xl mx-auto leading-relaxed mb-6">{subheadline}</p>
       <p class="text-sm font-semibold text-primary-600 mb-10">Included in all plans — no add-ons, no extra fees</p>

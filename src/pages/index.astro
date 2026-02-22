@@ -329,31 +329,275 @@ const faqItems = [
     </div>
   </section>
 
-  <!-- The Math — ROI strip -->
-  <section class="py-16 bg-white relative overflow-hidden">
+  <!-- The Math — Feature Comparison -->
+  <section class="py-24 bg-dark text-white relative overflow-hidden" id="math-section">
+    <div class="absolute inset-0 bg-grid-dark opacity-20"></div>
+    <div class="blob blob-blue w-72 h-72 -top-20 -left-20 opacity-10"></div>
+    <div class="blob blob-green w-56 h-56 bottom-0 right-10 opacity-10"></div>
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">The Math Speaks for Itself</h2>
-        <p class="text-lg text-text-light">What you'd pay without LeadFair vs. what you pay with it.</p>
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4">The Math Speaks for Itself</h2>
+        <p class="text-lg text-gray-300 font-medium">Here's what businesses typically pay for these services — and what you get with LeadFair.</p>
       </div>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-red-50 rounded-2xl p-6 border border-red-100 text-center">
-          <p class="text-sm text-red-600 font-semibold mb-2">Part-time receptionist</p>
-          <p class="text-3xl font-extrabold text-red-700">$2,500<span class="text-lg font-medium">/mo</span></p>
+
+      <div class="math-compare">
+        <!-- Column Headers -->
+        <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 mb-2 compare-row opacity-0 translate-y-4 transition-all duration-500">
+          <div></div>
+          <div class="text-center py-3">
+            <p class="text-xs md:text-sm font-bold uppercase tracking-wider text-gray-500">Old Way</p>
+          </div>
+          <div class="text-center py-3">
+            <p class="text-xs md:text-sm font-bold uppercase tracking-wider gradient-text-blue-green">LeadFair</p>
+          </div>
         </div>
-        <div class="bg-red-50 rounded-2xl p-6 border border-red-100 text-center">
-          <p class="text-sm text-red-600 font-semibold mb-2">SEO agency retainer</p>
-          <p class="text-3xl font-extrabold text-red-700">$1,500<span class="text-lg font-medium">/mo</span></p>
+
+        <!-- ===== RECEPTIONIST ===== -->
+        <div class="compare-group opacity-0 translate-y-4 transition-all duration-500 mb-5" style="transition-delay: 100ms">
+          <div class="rounded-xl p-[1px] bg-gradient-to-br from-primary-500/40 via-secondary-500/40 to-accent-500/40">
+            <div class="rounded-xl overflow-hidden bg-dark-light">
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 bg-white/5">
+                <div class="px-5 py-4 flex items-center justify-between">
+                  <span class="text-white font-bold">Receptionist</span>
+                  <span class="text-gray-500 font-semibold text-sm md:hidden">$2,500/mo</span>
+                </div>
+                <div class="px-3 py-4 text-center border-l border-white/10">
+                  <span class="text-gray-400 font-semibold text-sm hidden md:inline">$2,500<span class="text-xs text-gray-600">/mo</span></span>
+                </div>
+                <div class="px-3 py-4 text-center border-l border-white/10 bg-white/[0.03]">
+                  <span class="text-sm font-bold text-secondary-400">Included</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-400">Answers calls</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-400">Takes messages</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-400">Books appointments</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><span class="text-red-400/80 text-xs font-semibold">Sometimes</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Available 24/7</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Answers business questions</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Auto-creates leads from calls</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Call recordings & summaries</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Knows your pricing & policies</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="bg-red-50 rounded-2xl p-6 border border-red-100 text-center">
-          <p class="text-sm text-red-600 font-semibold mb-2">CRM + automation tools</p>
-          <p class="text-3xl font-extrabold text-red-700">$300<span class="text-lg font-medium">/mo</span></p>
+
+        <!-- ===== SEO / VISIBILITY ===== -->
+        <div class="compare-group opacity-0 translate-y-4 transition-all duration-500 mb-5" style="transition-delay: 300ms">
+          <div class="rounded-xl p-[1px] bg-gradient-to-br from-primary-500/40 via-secondary-500/40 to-accent-500/40">
+            <div class="rounded-xl overflow-hidden bg-dark-light">
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 bg-white/5">
+                <div class="px-5 py-4 flex items-center justify-between">
+                  <span class="text-white font-bold">SEO / Visibility</span>
+                  <span class="text-gray-500 font-semibold text-sm md:hidden">$1,500/mo</span>
+                </div>
+                <div class="px-3 py-4 text-center border-l border-white/10">
+                  <span class="text-gray-400 font-semibold text-sm hidden md:inline">$1,500<span class="text-xs text-gray-600">/mo</span></span>
+                </div>
+                <div class="px-3 py-4 text-center border-l border-white/10 bg-white/[0.03]">
+                  <span class="text-sm font-bold text-secondary-400">Included</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-400">Google search optimization</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-400">Local listings</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-400">Monthly reporting</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">AI search optimization</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Structured data & schema</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><span class="text-red-400/80 text-xs font-semibold">Extra $$</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Google Business Profile mgmt</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><span class="text-red-400/80 text-xs font-semibold">Extra $$</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">ChatGPT & Perplexity visibility</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== CRM + TOOLS ===== -->
+        <div class="compare-group opacity-0 translate-y-4 transition-all duration-500 mb-5" style="transition-delay: 500ms">
+          <div class="rounded-xl p-[1px] bg-gradient-to-br from-primary-500/40 via-secondary-500/40 to-accent-500/40">
+            <div class="rounded-xl overflow-hidden bg-dark-light">
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 bg-white/5">
+                <div class="px-5 py-4 flex items-center justify-between">
+                  <span class="text-white font-bold">CRM + Tools</span>
+                  <span class="text-gray-500 font-semibold text-sm md:hidden">$300/mo</span>
+                </div>
+                <div class="px-3 py-4 text-center border-l border-white/10">
+                  <span class="text-gray-400 font-semibold text-sm hidden md:inline">$300<span class="text-xs text-gray-600">/mo</span></span>
+                </div>
+                <div class="px-3 py-4 text-center border-l border-white/10 bg-white/[0.03]">
+                  <span class="text-sm font-bold text-secondary-400">Included</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-400">Contact management</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-400">Basic automations</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Auto-fills from AI calls</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Needs-attention alerts</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Custom dashboard</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Automated follow-ups</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Appointment reminders</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Custom workflow builder</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Lead routing & notifications</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Real-time activity feed</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== ONLY WITH LEADFAIR ===== -->
+        <div class="compare-group opacity-0 translate-y-4 transition-all duration-500 mb-6" style="transition-delay: 700ms">
+          <div class="rounded-xl p-[1px] bg-gradient-to-br from-accent-500/50 via-primary-500/40 to-secondary-500/50">
+            <div class="rounded-xl overflow-hidden bg-dark-light">
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 bg-gradient-to-r from-accent-500/10 to-accent-500/5">
+                <div class="px-5 py-4">
+                  <span class="text-accent-400 font-bold">Only with LeadFair</span>
+                </div>
+                <div class="px-3 py-4 text-center border-l border-white/10"></div>
+                <div class="px-3 py-4 text-center border-l border-white/10 bg-white/[0.03]"></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Company Companion AI</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-accent-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">AI security intelligence</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-accent-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Encrypted data protection</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-accent-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0 border-t border-white/5">
+                <div class="px-5 py-2.5"><span class="text-sm text-gray-300 font-medium">Everything connected</span></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5"><svg class="w-5 h-5 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="px-3 py-2.5 text-center border-l border-white/5 bg-white/[0.03]"><svg class="w-4 h-4 text-accent-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRICE COMPARISON ===== -->
+        <div class="compare-price opacity-0 scale-95 transition-all duration-700" style="transition-delay: 900ms">
+          <div class="rounded-xl p-[2px] bg-gradient-to-r from-primary-500/70 via-secondary-500/70 to-accent-500/70">
+            <div class="bg-dark-light rounded-xl overflow-hidden">
+              <div class="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] gap-0">
+                <div class="px-5 py-5">
+                  <span class="text-white font-bold text-lg">Total per month</span>
+                </div>
+                <div class="px-3 py-5 text-center border-l border-white/10">
+                  <div class="relative inline-block">
+                    <span class="text-xl md:text-2xl font-extrabold text-gray-500">$4,300</span>
+                    <div class="old-total-strike absolute top-1/2 left-0 w-0 h-[3px] bg-red-500/80 transition-all duration-700" style="transition-delay: 1200ms"></div>
+                  </div>
+                </div>
+                <div class="px-3 py-5 text-center border-l border-white/10 bg-white/[0.03]">
+                  <span class="text-xl md:text-2xl font-extrabold gradient-text-blue-green inline-block">$199</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="mt-8 bg-secondary-50 rounded-2xl p-8 border border-secondary-200 text-center">
-        <p class="text-sm text-secondary-600 font-semibold mb-2">LeadFair does all of this</p>
-        <p class="text-5xl font-extrabold text-secondary-700">$199<span class="text-xl font-medium">/mo</span></p>
-        <p class="text-text-light mt-3">One platform. Everything included. No surprise fees.</p>
+
+      <!-- Bottom tagline -->
+      <div class="math-tagline text-center mt-10 opacity-0 translate-y-4 transition-all duration-700" style="transition-delay: 1400ms">
+        <p class="text-gray-400 text-lg">One platform. No add-ons. No surprise fees.</p>
       </div>
     </div>
   </section>
@@ -522,3 +766,45 @@ const faqItems = [
     </div>
   </section>
 </BaseLayout>
+
+<script>
+// Math comparison — scroll-triggered reveal
+const mathSection = document.querySelector('.math-compare');
+if (mathSection) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Reveal header row
+        const headerRow = mathSection.querySelector('.compare-row');
+        if (headerRow) { headerRow.style.opacity = '1'; headerRow.style.transform = 'translateY(0)'; }
+
+        // Reveal each comparison group with stagger
+        mathSection.querySelectorAll('.compare-group').forEach(group => {
+          group.style.opacity = '1';
+          group.style.transform = 'translateY(0)';
+        });
+
+        // Reveal price comparison
+        const price = mathSection.querySelector('.compare-price');
+        if (price) { price.style.opacity = '1'; price.style.transform = 'scale(1)'; }
+
+        // Strikethrough old total
+        setTimeout(() => {
+          const strike = mathSection.querySelector('.old-total-strike');
+          if (strike) strike.style.width = '100%';
+        }, 1200);
+
+        // Reveal bottom tagline
+        const tagline = document.querySelector('.math-tagline');
+        if (tagline) {
+          tagline.style.opacity = '1';
+          tagline.style.transform = 'translateY(0)';
+        }
+
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  observer.observe(mathSection);
+}
+</script>

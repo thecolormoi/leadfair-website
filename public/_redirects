@@ -1,0 +1,5 @@
+# Coming Soon gate — remove this file to launch the full site
+/coming-soon  /coming-soon  200
+/_astro/*     /_astro/:splat  200
+/favicon.svg  /favicon.svg   200
+/*            /coming-soon   302!

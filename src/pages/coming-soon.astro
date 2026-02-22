@@ -1,0 +1,288 @@
+---
+// Coming Soon — standalone page, no site layout
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LeadFair — Coming Soon</title>
+  <meta name="description" content="LeadFair is an AI-powered business platform for small businesses. AI receptionist, visibility optimization, CRM, automations, and more — all in one place. Sign up to get notified when we launch." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #121517;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      overflow-x: hidden;
+    }
+
+    /* Background */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      opacity: 0.12;
+    }
+    .blob-1 { width: 400px; height: 400px; top: -100px; left: -100px; background: #0a52d4; }
+    .blob-2 { width: 300px; height: 300px; bottom: -80px; right: -80px; background: #23b56e; }
+    .blob-3 { width: 200px; height: 200px; top: 50%; right: 20%; background: #f97316; opacity: 0.06; }
+
+    /* Content */
+    .container {
+      position: relative;
+      z-index: 10;
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Logo */
+    .logo {
+      font-weight: 800;
+      font-size: 2.5rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #0a52d4, #23b56e, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 9999px;
+      padding: 0.375rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #23b56e;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    @media (min-width: 640px) { h1 { font-size: 3rem; } }
+
+    .subtitle {
+      color: #9ca3af;
+      font-size: 1.125rem;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Form */
+    .form-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .form-card p {
+      font-size: 0.875rem;
+      color: #9ca3af;
+      margin-bottom: 1.25rem;
+    }
+
+    .field {
+      margin-bottom: 0.75rem;
+    }
+    .field input, .field select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.75rem;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .field input::placeholder { color: #656e7d; }
+    .field input:focus, .field select:focus {
+      border-color: #0a52d4;
+      box-shadow: 0 0 0 3px rgba(10,82,212,0.15);
+    }
+    .field select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23656e7d'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1.25rem;
+      padding-right: 2.5rem;
+    }
+    .field select option { background: #1e2127; color: #fff; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.875rem 1.5rem;
+      background: linear-gradient(135deg, #0a52d4, #23b56e);
+      color: #fff;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      margin-top: 0.5rem;
+    }
+    .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+
+    /* Features */
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 1.5rem;
+      text-align: left;
+      max-width: 400px;
+      margin: 0 auto 2rem;
+    }
+    .features span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: #9ca3af;
+    }
+    .features .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0a52d4, #23b56e);
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    .footer {
+      color: #4b5563;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    /* Success state */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+    .success-msg h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #23b56e;
+    }
+    .success-msg p {
+      color: #9ca3af;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="container">
+    <div class="logo">LeadFair</div>
+
+    <div class="badge">Coming Soon</div>
+
+    <h1>AI That Runs Your Business</h1>
+
+    <p class="subtitle">One platform with everything a small business needs — AI receptionist, visibility optimization, CRM, automations, and security. All for $199/mo.</p>
+
+    <div class="features">
+      <span><span class="dot"></span>AI Receptionist</span>
+      <span><span class="dot"></span>Visibility & SEO</span>
+      <span><span class="dot"></span>CRM & Dashboard</span>
+      <span><span class="dot"></span>Automations</span>
+      <span><span class="dot"></span>Company Companion</span>
+      <span><span class="dot"></span>AI Security</span>
+    </div>
+
+    <div class="form-card">
+      <p>Get notified when we launch. No spam — just one email when it's ready.</p>
+
+      <form id="waitlist-form" name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/coming-soon?success=true">
+        <input type="hidden" name="form-name" value="waitlist" />
+        <p class="hidden" style="display:none"><input name="bot-field" /></p>
+
+        <div class="field">
+          <input type="text" name="name" placeholder="Your name" required />
+        </div>
+        <div class="field">
+          <input type="email" name="email" placeholder="Email address" required />
+        </div>
+        <div class="field">
+          <input type="tel" name="phone" placeholder="Phone (optional)" />
+        </div>
+        <div class="field">
+          <select name="business-type">
+            <option value="" disabled selected>What kind of business? (optional)</option>
+            <option value="service">Service business</option>
+            <option value="retail">Retail / shop</option>
+            <option value="restaurant">Restaurant / food</option>
+            <option value="health">Health / wellness</option>
+            <option value="professional">Professional services</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <button type="submit" class="submit-btn">Notify Me</button>
+      </form>
+
+      <div class="success-msg" id="success-msg">
+        <h3>You're on the list!</h3>
+        <p>We'll let you know as soon as LeadFair is ready.</p>
+      </div>
+    </div>
+
+    <p class="footer">&copy; 2026 LeadFair. Huntsville, Alabama.</p>
+  </div>
+
+  <script>
+    if (window.location.search.includes('success=true')) {
+      const form = document.getElementById('waitlist-form');
+      const msg = document.getElementById('success-msg');
+      if (form && msg) {
+        form.style.display = 'none';
+        msg.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
