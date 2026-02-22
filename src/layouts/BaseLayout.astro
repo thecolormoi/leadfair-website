@@ -151,38 +151,51 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       }
 
       // Word-by-word reveal for hero headlines
+      function wrapTextInSpans(el: Element) {
+        const nodes = Array.from(el.childNodes);
+        nodes.forEach((node) => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent || '';
+            if (!text.trim()) return;
+            const parts = text.split(/(\s+)/);
+            const frag = document.createDocumentFragment();
+            parts.forEach((part) => {
+              if (!part) return;
+              if (/^\s+$/.test(part)) {
+                frag.appendChild(document.createTextNode(part));
+              } else {
+                const span = document.createElement('span');
+                span.className = 'word';
+                span.textContent = part;
+                frag.appendChild(span);
+              }
+            });
+            node.replaceWith(frag);
+          } else if (node.nodeType === Node.ELEMENT_NODE && (node as Element).tagName !== 'BR') {
+            wrapTextInSpans(node as Element);
+          }
+        });
+      }
+
       function initWordReveal() {
-        // Target h1 and the first paragraph in the first section (hero)
         const hero = document.querySelector('section');
         if (!hero) return;
 
         const targets = hero.querySelectorAll('h1, h1 + p');
-        targets.forEach((el) => {
-          if (el.classList.contains('word-reveal')) return; // already processed
+        let totalWords = 0;
 
-          // Preserve HTML structure (like <br/> and <span>)
-          const html = el.innerHTML;
-          // Split on whitespace but keep HTML tags intact
-          const wrapped = html.replace(
-            /(?<=>|^)([^<>\s]+)(?=\s|<|$)/g,
-            '<span class="word">$1</span>'
-          );
-          el.innerHTML = wrapped;
+        targets.forEach((el) => {
+          if (el.classList.contains('word-reveal')) return;
+          wrapTextInSpans(el);
           el.classList.add('word-reveal');
 
-          // Stagger the words
           const words = el.querySelectorAll('.word');
-          const baseDelay = el.tagName === 'H1' ? 0 : words.length > 0 ? 400 : 0;
-          // Count h1 words for offset
-          const h1 = hero.querySelector('h1');
-          const h1WordCount = h1 ? h1.querySelectorAll('.word').length : 0;
-          const offset = el.tagName === 'H1' ? 0 : h1WordCount;
-
           words.forEach((word, i) => {
             setTimeout(() => {
               word.classList.add('visible');
-            }, (offset + i) * 60 + 200);
+            }, (totalWords + i) * 60 + 200);
           });
+          totalWords += words.length;
         });
       }
 
