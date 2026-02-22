@@ -205,7 +205,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           words.forEach((word, i) => {
             setTimeout(() => {
               word.classList.add('visible');
-            }, (totalWords + i) * 60 + 200);
+            }, (totalWords + i) * 40 + 150);
           });
           totalWords += words.length;
         });
