@@ -150,9 +150,46 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
       }
 
+      // Word-by-word reveal for hero headlines
+      function initWordReveal() {
+        // Target h1 and the first paragraph in the first section (hero)
+        const hero = document.querySelector('section');
+        if (!hero) return;
+
+        const targets = hero.querySelectorAll('h1, h1 + p');
+        targets.forEach((el) => {
+          if (el.classList.contains('word-reveal')) return; // already processed
+
+          // Preserve HTML structure (like <br/> and <span>)
+          const html = el.innerHTML;
+          // Split on whitespace but keep HTML tags intact
+          const wrapped = html.replace(
+            /(?<=>|^)([^<>\s]+)(?=\s|<|$)/g,
+            '<span class="word">$1</span>'
+          );
+          el.innerHTML = wrapped;
+          el.classList.add('word-reveal');
+
+          // Stagger the words
+          const words = el.querySelectorAll('.word');
+          const baseDelay = el.tagName === 'H1' ? 0 : words.length > 0 ? 400 : 0;
+          // Count h1 words for offset
+          const h1 = hero.querySelector('h1');
+          const h1WordCount = h1 ? h1.querySelectorAll('.word').length : 0;
+          const offset = el.tagName === 'H1' ? 0 : h1WordCount;
+
+          words.forEach((word, i) => {
+            setTimeout(() => {
+              word.classList.add('visible');
+            }, (offset + i) * 60 + 200);
+          });
+        });
+      }
+
       // Run on page load and on Astro page transitions
       initReveal();
-      document.addEventListener('astro:page-load', initReveal);
+      initWordReveal();
+      document.addEventListener('astro:page-load', () => { initReveal(); initWordReveal(); });
     </script>
   </body>
 </html>

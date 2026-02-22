@@ -272,6 +272,36 @@ body {
   box-shadow: 0 8px 24px hsl(24 95% 53% / 0.25);
 }
 
+/* ===== WORD REVEAL ===== */
+.word-reveal .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  filter: blur(4px);
+  transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+}
+
+.word-reveal .word.visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Preserve line breaks inside word-reveal */
+.word-reveal br {
+  display: block;
+  content: '';
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word-reveal .word {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+
 /* ===== SCROLL REVEAL ===== */
 .reveal {
   opacity: 0;
