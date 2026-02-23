@@ -32,6 +32,77 @@ function gradeLabel(grade: string) {
   return 'Critical'
 }
 
+// ─── Build answer details for AI report ──────────────────
+function buildAnswerDetails(answers: Record<string, string | number>): string {
+  const lines: string[] = []
+  for (const cat of categories) {
+    lines.push(`\n${cat.name}:`)
+    const catQuestions = assessmentQuestions.filter(q => q.category === cat.key)
+    for (const q of catQuestions) {
+      const val = answers[q.id]
+      if (q.type === 'slider') {
+        lines.push(`- ${q.text}: ${val}/10`)
+      } else if (q.options) {
+        const opt = q.options.find(o => o.value === val)
+        const label = opt?.label || String(val)
+        lines.push(`- ${q.text}: "${label}" (scored ${val}/10)`)
+      }
+    }
+  }
+  return lines.join('\n')
+}
+
+// ─── Markdown Renderer ──────────────────────────────────
+function renderMarkdown(text: string) {
+  const lines = text.split('\n')
+  const elements: React.ReactNode[] = []
+  let listItems: string[] = []
+  let listIndex = 0
+
+  function flushList() {
+    if (listItems.length > 0) {
+      elements.push(
+        <ul key={`list-${listIndex++}`} className="space-y-1.5 mb-4 ml-1">
+          {listItems.map((item, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-[#94a3b8]">
+              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#3b82f6] flex-shrink-0" />
+              <span dangerouslySetInnerHTML={{ __html: inlineMd(item) }} />
+            </li>
+          ))}
+        </ul>
+      )
+      listItems = []
+    }
+  }
+
+  function inlineMd(s: string) {
+    return s.replace(/\*\*(.+?)\*\*/g, '<strong class="text-white">$1</strong>')
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i]
+    const listMatch = line.match(/^[-*]\s+(.+)/)
+    const numListMatch = line.match(/^\d+\.\s+(.+)/)
+
+    if (listMatch) { listItems.push(listMatch[1]); continue }
+    if (numListMatch) { listItems.push(numListMatch[1]); continue }
+
+    flushList()
+
+    if (line.startsWith('### ')) {
+      elements.push(<h4 key={i} className="text-base font-bold text-white mt-5 mb-2">{line.slice(4).replace(/\*\*/g, '')}</h4>)
+    } else if (line.startsWith('## ')) {
+      elements.push(<h3 key={i} className="text-lg font-bold text-white mt-6 mb-2">{line.slice(3).replace(/\*\*/g, '')}</h3>)
+    } else if (line.trim() === '') {
+      continue
+    } else {
+      elements.push(<p key={i} className="text-sm text-[#94a3b8] leading-relaxed mb-3" dangerouslySetInnerHTML={{ __html: inlineMd(line) }} />)
+    }
+  }
+  flushList()
+  return elements
+}
+
 // ─── Progress Bar ────────────────────────────────────────
 function ProgressBar({ current, total }: { current: number; total: number }) {
   const pct = Math.round((current / total) * 100)
@@ -61,7 +132,6 @@ function QuestionView({
   value: string | number
   onChange: (val: string | number) => void
 }) {
-  // Find category header for assessment questions
   const catInfo = question.category
     ? categories.find(c => c.key === question.category)
     : null
@@ -186,7 +256,7 @@ function LeadCapture({
       </div>
       <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">Your Results Are Ready</h2>
       <p className="text-[#94a3b8] mb-8 max-w-md mx-auto">
-        Enter your info below to see your personalized diagnostic report with specific recommendations for your business.
+        We'll generate a personalized diagnostic report with specific recommendations for your business — not generic advice.
       </p>
 
       <div className="max-w-sm mx-auto space-y-4 text-left">
@@ -225,10 +295,37 @@ function LeadCapture({
           disabled={!name.trim() || !email.trim() || submitting}
           className={`${btnPrimary} w-full mt-2`}
         >
-          {submitting ? 'Loading...' : 'See My Results'}
+          {submitting ? 'Generating Report...' : 'Get My Report'}
         </button>
       </div>
     </div>
+  )
+}
+
+// ─── Animated Score ──────────────────────────────────────
+function AnimatedScore({ value, color }: { value: number; color: string }) {
+  const [display, setDisplay] = useState(0)
+  useEffect(() => {
+    let start = 0
+    const duration = 1200
+    const step = 16
+    const increment = value / (duration / step)
+    const timer = setInterval(() => {
+      start += increment
+      if (start >= value) {
+        setDisplay(value)
+        clearInterval(timer)
+      } else {
+        setDisplay(Math.round(start * 10) / 10)
+      }
+    }, step)
+    return () => clearInterval(timer)
+  }, [value])
+
+  return (
+    <span className="text-7xl font-bold tabular-nums" style={{ color }}>
+      {display}
+    </span>
   )
 }
 
@@ -260,13 +357,6 @@ function ScoreCard({ cat, weak }: { cat: CategoryScore; weak: boolean }) {
       </div>
 
       <p className="text-xs text-[#64748b]">{gradeLabel(cat.grade)}</p>
-
-      {weak && (
-        <div className="mt-4 pt-4 border-t border-[#2a2d3e]">
-          <p className="text-xs font-semibold text-[#f59e0b] mb-1">Recommended: {cat.service}</p>
-          <p className="text-xs text-[#94a3b8] leading-relaxed">{cat.serviceDescription}</p>
-        </div>
-      )}
     </div>
   )
 }
@@ -275,25 +365,31 @@ function ScoreCard({ cat, weak }: { cat: CategoryScore; weak: boolean }) {
 function Results({
   scores,
   businessName,
+  aiReport,
+  reportLoading,
+  loadingStatus,
 }: {
   scores: ReturnType<typeof calculateScores>
   businessName: string
+  aiReport: string
+  reportLoading: boolean
+  loadingStatus: string
 }) {
   const color = gradeColor(scores.overallGrade)
   const weakAreas = scores.categories.filter(c => c.score < 6)
   const strongAreas = scores.categories.filter(c => c.score >= 7)
 
   return (
-    <div className="animate-fadeIn">
-      {/* Overall Score */}
-      <div className="text-center mb-10">
-        <p className="text-sm text-[#64748b] mb-2">Overall Score for {businessName}</p>
-        <div className="flex items-center justify-center gap-3 mb-2">
-          <span className="text-6xl font-bold" style={{ color }}>{scores.overall}</span>
+    <div className="animate-fadeIn space-y-8">
+      {/* Overall Score — Hero */}
+      <div className={`${card} p-8 sm:p-10 text-center`}>
+        <p className="text-sm text-[#64748b] mb-4">Business Health Score for {businessName}</p>
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <AnimatedScore value={scores.overall} color={color} />
           <span className="text-2xl text-[#4a5568] font-light">/10</span>
         </div>
         <span
-          className="inline-block text-sm font-bold px-4 py-1.5 rounded-full"
+          className="inline-block text-sm font-bold px-5 py-2 rounded-full"
           style={{ backgroundColor: `${color}20`, color }}
         >
           {scores.overallGrade} — {gradeLabel(scores.overallGrade)}
@@ -301,65 +397,60 @@ function Results({
       </div>
 
       {/* Category Breakdown */}
-      <h3 className="text-lg font-bold text-white mb-4">Category Breakdown</h3>
-      <div className="grid sm:grid-cols-2 gap-4 mb-10">
-        {scores.categories.map(cat => (
-          <ScoreCard key={cat.key} cat={cat} weak={cat.score < 6} />
-        ))}
+      <div>
+        <h3 className="text-lg font-bold text-white mb-4">Category Breakdown</h3>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {scores.categories.map(cat => (
+            <ScoreCard key={cat.key} cat={cat} weak={cat.score < 6} />
+          ))}
+        </div>
       </div>
 
-      {/* Weak Areas — Recommendations */}
-      {weakAreas.length > 0 && (
-        <div className="mb-10">
-          <h3 className="text-lg font-bold text-white mb-2">Where LeadFair Can Help</h3>
-          <p className="text-sm text-[#64748b] mb-4">
-            Based on your scores, here are the areas where you'd see the biggest improvement:
-          </p>
-          <div className="space-y-4">
-            {weakAreas
-              .sort((a, b) => a.score - b.score)
-              .map(cat => (
-                <div key={cat.key} className={`${card} p-5`}>
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="text-sm font-bold text-[#f59e0b]">{cat.name}: {cat.score}/10</span>
-                  </div>
-                  <h4 className="font-semibold text-white mb-1">{cat.service}</h4>
-                  <p className="text-sm text-[#94a3b8] leading-relaxed">{cat.serviceDescription}</p>
-                </div>
-              ))}
+      {/* AI Report */}
+      <div className={`${card} p-6 sm:p-8`}>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3b82f6] to-[#06b6d4] flex items-center justify-center flex-shrink-0">
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-white">Your Personalized Report</h3>
+            <p className="text-xs text-[#64748b]">AI-generated analysis based on your specific answers</p>
           </div>
         </div>
-      )}
-
-      {/* Strong Areas */}
-      {strongAreas.length > 0 && (
-        <div className="mb-10">
-          <h3 className="text-lg font-bold text-white mb-4">Your Strengths</h3>
-          <div className="flex flex-wrap gap-3">
-            {strongAreas.map(cat => (
-              <span
-                key={cat.key}
-                className="text-sm font-medium px-4 py-2 rounded-full"
-                style={{ backgroundColor: `${gradeColor(cat.grade)}15`, color: gradeColor(cat.grade) }}
-              >
-                {cat.name}: {cat.score}/10
-              </span>
-            ))}
+        {reportLoading ? (
+          <div className="flex items-center gap-3 py-12 justify-center">
+            <div className="w-5 h-5 border-2 border-[#3b82f6] border-t-transparent rounded-full animate-spin" />
+            <p className="text-sm text-[#94a3b8]">{loadingStatus || 'Analyzing your business...'}</p>
           </div>
-        </div>
-      )}
+        ) : aiReport ? (
+          <div>{renderMarkdown(aiReport)}</div>
+        ) : (
+          <p className="text-sm text-[#64748b] py-4">Report unavailable — please try refreshing the page.</p>
+        )}
+      </div>
 
-      {/* CTA */}
-      <div className={`${card} p-8 text-center`}>
-        <h3 className="text-xl font-bold text-white mb-3">Ready to Fix the Gaps?</h3>
-        <p className="text-[#94a3b8] mb-6 max-w-md mx-auto">
-          Book a free call and we'll walk through your results together. No pressure, no pitch — just an honest conversation about what would actually help.
-        </p>
-        <a
-          href="/contact"
-          className={btnPrimary}
+      {/* Actions */}
+      <div className="flex flex-col sm:flex-row gap-3 no-print">
+        <button
+          onClick={() => window.print()}
+          className="flex-1 flex items-center justify-center gap-2 bg-[#1a1d2e] border border-[#2a2d3e] text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-[#232640] transition-colors"
         >
-          Book a Free Call
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Save Report
+        </button>
+        <a
+          href="/tools/test-drive"
+          className={`${btnPrimary} flex-1 text-center flex items-center justify-center gap-2`}
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Try the Demo — See It In Action
         </a>
       </div>
     </div>
@@ -373,6 +464,9 @@ export default function BusinessDiagnostic() {
   const [answers, setAnswers] = useState<Record<string, string | number>>({})
   const [scores, setScores] = useState<ReturnType<typeof calculateScores> | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [aiReport, setAiReport] = useState('')
+  const [reportLoading, setReportLoading] = useState(false)
+  const [loadingStatus, setLoadingStatus] = useState('')
   const containerRef = useRef<HTMLDivElement>(null)
 
   const totalQuestions = allQuestions.length
@@ -388,7 +482,7 @@ export default function BusinessDiagnostic() {
   function canProceed() {
     if (!currentQuestion) return false
     const val = answers[currentQuestion.id]
-    if (currentQuestion.type === 'slider') return true // always has a value
+    if (currentQuestion.type === 'slider') return true
     if (currentQuestion.required === false) return true
     if (val === undefined || val === '') return false
     return true
@@ -399,7 +493,6 @@ export default function BusinessDiagnostic() {
       setCurrentIndex(currentIndex + 1)
       containerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
     } else {
-      // Done with questions — go to lead capture
       setPhase('capture')
     }
   }
@@ -420,6 +513,53 @@ export default function BusinessDiagnostic() {
     const result = calculateScores(answers)
     setScores(result)
 
+    // Switch to results immediately
+    setPhase('results')
+    setSubmitting(false)
+    setReportLoading(true)
+    setLoadingStatus('Analyzing your answers...')
+
+    // Generate AI report
+    let reportText = ''
+    try {
+      const res = await fetch('/.netlify/functions/generate-diagnostic-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          businessName: String(answers['business-name'] || ''),
+          industry: String(answers['industry'] || ''),
+          teamSize: String(answers['team-size'] || ''),
+          yearsInBusiness: String(answers['years'] || ''),
+          biggestChallenge: String(answers['challenge'] || ''),
+          scores: result,
+          answerDetails: buildAnswerDetails(answers),
+        }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        reportText = data.report || ''
+        setAiReport(reportText)
+      }
+    } catch (err) {
+      console.error('Report error:', err)
+    }
+    setReportLoading(false)
+
+    // Store for test drive demo
+    try {
+      localStorage.setItem('leadfair_audit', JSON.stringify({
+        type: 'diagnostic',
+        businessName: String(answers['business-name'] || ''),
+        industry: String(answers['industry'] || ''),
+        teamSize: String(answers['team-size'] || ''),
+        yearsInBusiness: String(answers['years'] || ''),
+        biggestChallenge: String(answers['challenge'] || ''),
+        scores: result,
+        report: reportText,
+        completedAt: new Date().toISOString(),
+      }))
+    } catch { /* localStorage not available */ }
+
     // Submit to FormSubmit
     try {
       const formData = new FormData()
@@ -437,7 +577,10 @@ export default function BusinessDiagnostic() {
         formData.append(`score-${cat.key}`, String(cat.score))
         formData.append(`grade-${cat.key}`, cat.grade)
       })
-      formData.append('_subject', 'New Business Diagnostic Result')
+      if (reportText) {
+        formData.append('diagnostic-report', reportText)
+      }
+      formData.append('_subject', `Business Diagnostic — ${answers['business-name'] || 'Unknown'} (${result.overallGrade})`)
       formData.append('_captcha', 'false')
       formData.append('_template', 'table')
 
@@ -448,9 +591,6 @@ export default function BusinessDiagnostic() {
     } catch (err) {
       console.error('Form submission error:', err)
     }
-
-    setSubmitting(false)
-    setPhase('results')
   }
 
   return (
@@ -459,7 +599,7 @@ export default function BusinessDiagnostic() {
       onKeyDown={handleKeyDown}
       className="min-h-[70vh] flex flex-col items-center justify-center py-12 px-4"
     >
-      {/* Persistent branding header */}
+      {/* Branding header */}
       <div className="w-full max-w-2xl text-center mb-8">
         <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#3b82f6] to-[#06b6d4] flex items-center justify-center mx-auto mb-4">
           <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -468,7 +608,9 @@ export default function BusinessDiagnostic() {
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1">Business Diagnostic</h1>
         <p className="text-xs font-medium text-[#64748b] mb-2">by <span className="text-[#06b6d4]">LeadFair</span></p>
-        <p className="text-sm text-[#64748b]">Find out where AI and automation can help your business the most</p>
+        {phase === 'questions' && (
+          <p className="text-sm text-[#64748b]">Find out where AI and automation can help your business the most</p>
+        )}
       </div>
 
       <div className="w-full max-w-2xl">
@@ -490,14 +632,14 @@ export default function BusinessDiagnostic() {
                 className={btnSecondary}
                 style={{ visibility: currentIndex > 0 ? 'visible' : 'hidden' }}
               >
-                ← Back
+                &larr; Back
               </button>
               <button
                 onClick={handleNext}
                 disabled={!canProceed()}
                 className={btnPrimary}
               >
-                {currentIndex === totalQuestions - 1 ? 'See Results' : 'Continue →'}
+                {currentIndex === totalQuestions - 1 ? 'See Results' : 'Continue \u2192'}
               </button>
             </div>
           </>
@@ -510,7 +652,13 @@ export default function BusinessDiagnostic() {
         )}
 
         {phase === 'results' && scores && (
-          <Results scores={scores} businessName={String(answers['business-name'] || 'Your Business')} />
+          <Results
+            scores={scores}
+            businessName={String(answers['business-name'] || 'Your Business')}
+            aiReport={aiReport}
+            reportLoading={reportLoading}
+            loadingStatus={loadingStatus}
+          />
         )}
       </div>
 
@@ -538,6 +686,17 @@ export default function BusinessDiagnostic() {
           background: linear-gradient(135deg, #3b82f6, #06b6d4);
           cursor: pointer;
           border: 2px solid #0f1117;
+        }
+        @media print {
+          header, footer, nav, .no-print { display: none !important; }
+          body, main, section { background: white !important; color: #1a1a2e !important; }
+          * { color-adjust: exact !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+          .min-h-\\[70vh\\] { min-height: auto !important; padding: 0 !important; }
+          .bg-\\[\\#1a1d2e\\] { background: #f8f9fa !important; border-color: #e2e8f0 !important; }
+          .bg-\\[\\#0f1117\\] { background: #f1f5f9 !important; }
+          .text-white { color: #1a1a2e !important; }
+          .text-\\[\\#94a3b8\\] { color: #475569 !important; }
+          .text-\\[\\#64748b\\] { color: #64748b !important; }
         }
       `}</style>
     </div>
