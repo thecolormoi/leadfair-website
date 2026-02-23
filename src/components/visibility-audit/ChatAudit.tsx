@@ -17,10 +17,21 @@ interface BusinessContext {
   industry?: string
 }
 
+// ─── Theme (green/blue for visibility) ──────────────────
+const accent = {
+  from: '#10b981',
+  to: '#3b82f6',
+  primary: '#10b981',
+  light: '#34d399',
+  glow: 'rgba(16,185,129,0.35)',
+}
+
 // ─── Shared styles ──────────────────────────────────────
-const card = 'bg-[#1a1d2e] border border-[#2a2d3e] rounded-2xl'
-const btnPrimary = 'bg-gradient-to-r from-[#10b981] to-[#3b82f6] text-white font-semibold px-8 py-3.5 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-40'
+const glass = 'bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl'
+const chatCard = 'bg-[#1a1d2e] border border-[#2a2d3e] rounded-2xl'
+const btnPrimary = 'bg-gradient-to-r from-[#10b981] to-[#3b82f6] text-white font-semibold px-8 py-3.5 rounded-xl hover:shadow-lg hover:shadow-[#10b981]/20 transition-all disabled:opacity-40 disabled:hover:shadow-none'
 const inputBase = 'w-full bg-[#0f1117] border border-[#2a2d3e] rounded-xl px-5 py-3.5 text-white placeholder-[#4a5568] focus:border-[#10b981] focus:ring-2 focus:ring-[#10b981]/20 outline-none transition-all text-base'
+const inputStyleGlass = 'w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-5 py-4 text-white text-lg placeholder-white/20 focus:border-[#10b981]/50 focus:ring-2 focus:ring-[#10b981]/10 focus:bg-white/[0.06] outline-none transition-all'
 
 // ─── Helpers ────────────────────────────────────────────
 function extractUrl(text: string): string | null {
@@ -61,7 +72,7 @@ function gradeLabel(grade: string) {
 function MessageBubble({ message }: { message: Message }) {
   if (message.type === 'user') {
     return (
-      <div className="flex justify-end animate-fadeIn">
+      <div className="flex justify-end animate-slideIn">
         <div className="max-w-[80%] bg-gradient-to-r from-[#10b981] to-[#3b82f6] text-white rounded-2xl rounded-br-sm px-4 py-3">
           <p className="text-sm leading-relaxed">{message.content}</p>
         </div>
@@ -69,8 +80,8 @@ function MessageBubble({ message }: { message: Message }) {
     )
   }
   return (
-    <div className="flex justify-start animate-fadeIn">
-      <div className={`max-w-[85%] ${card} text-[#e2e8f0] rounded-2xl rounded-bl-sm px-4 py-3`}>
+    <div className="flex justify-start animate-slideIn">
+      <div className={`max-w-[85%] ${chatCard} text-[#e2e8f0] rounded-2xl rounded-bl-sm px-4 py-3`}>
         <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
       </div>
     </div>
@@ -80,7 +91,7 @@ function MessageBubble({ message }: { message: Message }) {
 function TypingIndicator() {
   return (
     <div className="flex justify-start">
-      <div className={`${card} rounded-2xl rounded-bl-sm`}>
+      <div className={`${chatCard} rounded-2xl rounded-bl-sm`}>
         <div className="flex items-center gap-1 px-4 py-3">
           <span className="w-2 h-2 rounded-full bg-[#64748b] animate-bounce" style={{ animationDelay: '0ms' }} />
           <span className="w-2 h-2 rounded-full bg-[#64748b] animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -93,7 +104,7 @@ function TypingIndicator() {
 
 function ScanStatusBar() {
   return (
-    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#8b5cf6]/10 border border-[#8b5cf6]/20 animate-fadeIn">
+    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#8b5cf6]/10 border border-[#8b5cf6]/20 animate-slideIn">
       <div className="w-4 h-4 border-2 border-[#8b5cf6] border-t-transparent rounded-full animate-spin" />
       <span className="text-xs text-[#8b5cf6]">Scanning your website...</span>
     </div>
@@ -110,8 +121,8 @@ function CheckItem({ ok, label, detail }: { ok: boolean; label: string; detail: 
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg>
         )}
       </span>
-      <span className="text-[#94a3b8] font-medium">{label}</span>
-      <span className="text-[#64748b] truncate">{detail}</span>
+      <span className="text-white/60 font-medium">{label}</span>
+      <span className="text-white/30 truncate">{detail}</span>
     </div>
   )
 }
@@ -131,7 +142,8 @@ function ScanResultsCard({ analysis }: { analysis: any }) {
   ].filter(s => s.value !== null && s.value !== undefined)
 
   return (
-    <div className={`${card} p-5 sm:p-6 animate-fadeIn`}>
+    <div className={`${glass} p-5 sm:p-6 animate-slideIn overflow-hidden`}>
+      <div className="h-[2px] -mt-5 -mx-5 sm:-mt-6 sm:-mx-6 mb-5" style={{ background: `linear-gradient(90deg, transparent, #8b5cf6, #3b82f6, transparent)` }} />
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#8b5cf6] to-[#3b82f6] flex items-center justify-center flex-shrink-0">
           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -140,16 +152,16 @@ function ScanResultsCard({ analysis }: { analysis: any }) {
         </div>
         <div>
           <h3 className="text-base font-bold text-white">Website Scan Results</h3>
-          <p className="text-xs text-[#64748b]">{analysis.url}</p>
+          <p className="text-xs text-white/30">{analysis.url}</p>
         </div>
       </div>
 
       {scoreItems.length > 0 && (
         <div className="grid grid-cols-3 gap-3 mb-5">
           {scoreItems.map(s => (
-            <div key={s.label} className="bg-[#0f1117] rounded-xl p-3 text-center">
+            <div key={s.label} className="bg-white/[0.04] border border-white/[0.06] rounded-xl p-3 text-center">
               <div className="text-2xl font-bold mb-0.5" style={{ color: psColor(s.value!) }}>{s.value}</div>
-              <div className="text-xs text-[#64748b]">{s.label}</div>
+              <div className="text-xs text-white/30">{s.label}</div>
             </div>
           ))}
         </div>
@@ -180,45 +192,49 @@ function LeadCaptureCard({ onSubmit, submitting }: {
   const [phone, setPhone] = useState('')
 
   return (
-    <div className={`${card} p-5 animate-fadeIn`}>
-      <div className="flex items-center gap-2 mb-4">
-        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center flex-shrink-0">
-          <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-          </svg>
+    <div className={`${glass} overflow-hidden animate-slideIn`}>
+      <div className="h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${accent.from}, ${accent.to}, transparent)` }} />
+      <div className="p-5">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#10b981]/20">
+            <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-white">Get Your Full Report</h3>
+            <p className="text-xs text-white/30">We'll generate a detailed visibility report with specific recommendations.</p>
+          </div>
         </div>
-        <div>
-          <h3 className="text-sm font-bold text-white">Get Your Full Report</h3>
-          <p className="text-xs text-[#64748b]">We'll generate a detailed visibility report with specific recommendations.</p>
-        </div>
-      </div>
 
-      <div className="space-y-3">
-        <div>
-          <label className="block text-xs font-medium text-[#94a3b8] mb-1">Name</label>
-          <input type="text" className={inputBase} value={name} onChange={e => setName(e.target.value)} placeholder="Your name" />
+        <div className="space-y-3">
+          <div>
+            <label className="block text-xs font-medium text-white/40 mb-1 ml-1">Name</label>
+            <input type="text" className={inputStyleGlass} value={name} onChange={e => setName(e.target.value)} placeholder="Your name" />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-white/40 mb-1 ml-1">Email</label>
+            <input type="email" className={inputStyleGlass} value={email} onChange={e => setEmail(e.target.value)} placeholder="you@company.com" />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-white/40 mb-1 ml-1">Phone <span className="text-white/20">(optional)</span></label>
+            <input type="tel" className={inputStyleGlass} value={phone} onChange={e => setPhone(e.target.value)} placeholder="(256) 555-0000" />
+          </div>
+          <button
+            onClick={() => onSubmit({ name, email, phone })}
+            disabled={!name.trim() || !email.trim() || submitting}
+            className={`${btnPrimary} w-full mt-1`}
+          >
+            {submitting ? 'Generating Report...' : 'Get My Report'}
+          </button>
         </div>
-        <div>
-          <label className="block text-xs font-medium text-[#94a3b8] mb-1">Email</label>
-          <input type="email" className={inputBase} value={email} onChange={e => setEmail(e.target.value)} placeholder="you@company.com" />
-        </div>
-        <div>
-          <label className="block text-xs font-medium text-[#94a3b8] mb-1">Phone <span className="text-[#4a5568]">(optional)</span></label>
-          <input type="tel" className={inputBase} value={phone} onChange={e => setPhone(e.target.value)} placeholder="(256) 555-0000" />
-        </div>
-        <button
-          onClick={() => onSubmit({ name, email, phone })}
-          disabled={!name.trim() || !email.trim() || submitting}
-          className={`${btnPrimary} w-full mt-1`}
-        >
-          {submitting ? 'Generating Report...' : 'Get My Report'}
-        </button>
       </div>
     </div>
   )
 }
 
 // ─── Quiz Question Card ─────────────────────────────────
+const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F']
 
 function QuizQuestionCard({ question, selectedValue, onSelect, active }: {
   question: Question
@@ -227,15 +243,15 @@ function QuizQuestionCard({ question, selectedValue, onSelect, active }: {
   active: boolean
 }) {
   const catInfo = question.category ? categories.find(c => c.key === question.category) : null
-  const accentColor = catInfo?.color || '#10b981'
+  const catColor = catInfo?.color || '#10b981'
 
   // Compact answered state
   if (!active && selectedValue !== undefined) {
     const label = question.options?.find(o => o.value === selectedValue)?.label || ''
     return (
-      <div className="bg-[#1a1d2e]/50 border border-[#2a2d3e]/50 rounded-xl px-4 py-2.5">
-        <p className="text-xs text-[#64748b]">{question.text}</p>
-        <p className="text-xs mt-0.5" style={{ color: accentColor }}>
+      <div className="bg-white/[0.02] border border-white/[0.04] rounded-xl px-4 py-2.5">
+        <p className="text-xs text-white/25">{question.text}</p>
+        <p className="text-xs mt-0.5" style={{ color: catColor }}>
           <span className="mr-1">&#10003;</span>{label}
         </p>
       </div>
@@ -247,19 +263,27 @@ function QuizQuestionCard({ question, selectedValue, onSelect, active }: {
 
   // Active question with selectable options
   return (
-    <div className={`${card} p-5 animate-fadeIn`}>
-      <p className="text-sm font-medium text-white mb-1">{question.text}</p>
-      {question.subtext && <p className="text-xs text-[#64748b] mb-3">{question.subtext}</p>}
-      <div className="space-y-2 mt-3">
-        {question.options?.map(opt => (
-          <button
-            key={String(opt.value)}
-            onClick={() => onSelect(opt.value as number)}
-            className="w-full text-left px-4 py-2.5 rounded-lg text-sm border transition-all border-[#2a2d3e] bg-[#0f1117] text-[#94a3b8] hover:border-[#10b981]/50 hover:text-white"
-          >
-            {opt.label}
-          </button>
-        ))}
+    <div className={`${glass} overflow-hidden animate-slideIn`}>
+      <div className="h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${catColor}, transparent)` }} />
+      <div className="p-5">
+        <p className="text-sm font-medium text-white mb-1">{question.text}</p>
+        {question.subtext && <p className="text-xs text-white/30 mb-3">{question.subtext}</p>}
+        <div className="space-y-2 mt-3">
+          {question.options?.map((opt, i) => (
+            <button
+              key={String(opt.value)}
+              onClick={() => onSelect(opt.value as number)}
+              className={`group w-full flex items-center gap-3 px-4 py-2.5 rounded-xl border transition-all duration-200 text-left border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.05]`}
+            >
+              <span className="w-6 h-6 rounded-md flex items-center justify-center text-[10px] font-bold flex-shrink-0 bg-white/[0.06] text-white/30 group-hover:text-white/50 group-hover:bg-white/[0.08] transition-all">
+                {LETTERS[i] || String(i + 1)}
+              </span>
+              <span className="text-sm text-white/50 group-hover:text-white/70 transition-colors">
+                {opt.label}
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   )
@@ -276,9 +300,9 @@ function renderMarkdown(text: string) {
   function flushList() {
     if (listItems.length > 0) {
       elements.push(
-        <ul key={`list-${listIndex++}`} className="space-y-1.5 mb-4 ml-1">
+        <ul key={`list-${listIndex++}`} className="space-y-2 mb-5 ml-1">
           {listItems.map((item, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-[#94a3b8]">
+            <li key={i} className="flex items-start gap-2.5 text-sm text-white/60">
               <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#10b981] flex-shrink-0" />
               <span dangerouslySetInnerHTML={{ __html: inlineMd(item) }} />
             </li>
@@ -290,7 +314,7 @@ function renderMarkdown(text: string) {
   }
 
   function inlineMd(s: string) {
-    return s.replace(/\*\*(.+?)\*\*/g, '<strong class="text-white">$1</strong>')
+    return s.replace(/\*\*(.+?)\*\*/g, '<strong class="text-white/90 font-semibold">$1</strong>')
   }
 
   for (let i = 0; i < lines.length; i++) {
@@ -304,17 +328,58 @@ function renderMarkdown(text: string) {
     flushList()
 
     if (line.startsWith('### ')) {
-      elements.push(<h4 key={i} className="text-base font-bold text-white mt-5 mb-2">{line.slice(4).replace(/\*\*/g, '')}</h4>)
+      elements.push(<h4 key={i} className="text-base font-bold text-white/90 mt-6 mb-2">{line.slice(4).replace(/\*\*/g, '')}</h4>)
     } else if (line.startsWith('## ')) {
-      elements.push(<h3 key={i} className="text-lg font-bold text-white mt-5 mb-2">{line.slice(3).replace(/\*\*/g, '')}</h3>)
+      elements.push(<h3 key={i} className="text-lg font-bold text-white mt-7 mb-2">{line.slice(3).replace(/\*\*/g, '')}</h3>)
     } else if (line.trim() === '') {
       continue
     } else {
-      elements.push(<p key={i} className="text-sm text-[#94a3b8] leading-relaxed mb-3" dangerouslySetInnerHTML={{ __html: inlineMd(line) }} />)
+      elements.push(<p key={i} className="text-sm text-white/60 leading-relaxed mb-3" dangerouslySetInnerHTML={{ __html: inlineMd(line) }} />)
     }
   }
   flushList()
   return elements
+}
+
+// ─── Animated Score ──────────────────────────────────────
+function AnimatedScore({ value, color }: { value: number; color: string }) {
+  const [display, setDisplay] = useState(0)
+  useEffect(() => {
+    let start = 0
+    const duration = 1200
+    const step = 16
+    const increment = value / (duration / step)
+    const timer = setInterval(() => {
+      start += increment
+      if (start >= value) { setDisplay(value); clearInterval(timer) }
+      else setDisplay(Math.round(start * 10) / 10)
+    }, step)
+    return () => clearInterval(timer)
+  }, [value])
+  return <span className="text-7xl font-bold tabular-nums" style={{ color }}>{display}</span>
+}
+
+// ─── Score Card ──────────────────────────────────────────
+function ScoreCard({ cat }: { cat: any }) {
+  const color = gradeColor(cat.grade)
+  return (
+    <div className={`${glass} p-5`}>
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="font-semibold text-white text-sm">{cat.name}</h3>
+        <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${color}15`, color }}>
+          {cat.grade}
+        </span>
+      </div>
+      <div className="flex items-end gap-2 mb-3">
+        <span className="text-3xl font-bold" style={{ color: cat.color || color }}>{cat.score}</span>
+        <span className="text-sm text-white/20 mb-1">/10</span>
+      </div>
+      <div className="h-1.5 bg-white/[0.06] rounded-full overflow-hidden mb-3">
+        <div className="h-full rounded-full transition-all duration-700" style={{ width: `${cat.score * 10}%`, backgroundColor: cat.color || color }} />
+      </div>
+      <p className="text-xs text-white/30">{gradeLabel(cat.grade)}</p>
+    </div>
+  )
 }
 
 // ─── Main Component ─────────────────────────────────────
@@ -581,7 +646,7 @@ export default function ChatAudit() {
     }
     setReportLoading(false)
 
-    // Step 3: Submit to FormSubmit with everything — CC the customer
+    // Step 3: Submit to FormSubmit with everything
     try {
       const formData = new FormData()
       formData.append('name', info.name)
@@ -650,8 +715,8 @@ export default function ChatAudit() {
         if (cat) {
           const catIdx = categories.indexOf(cat)
           items.push(
-            <div key={`cat-${q.category}`} className="flex justify-start animate-fadeIn">
-              <div className={`max-w-[85%] ${card} rounded-2xl rounded-bl-sm px-4 py-3`}>
+            <div key={`cat-${q.category}`} className="flex justify-start animate-slideIn">
+              <div className={`max-w-[85%] ${chatCard} rounded-2xl rounded-bl-sm px-4 py-3`}>
                 <p className="text-sm text-[#e2e8f0] leading-relaxed">
                   {catIdx === 0 ? "Let's start with " : catIdx === categories.length - 1 ? 'Last section — ' : 'Next up: '}
                   <span className="font-semibold" style={{ color: cat.color }}>{cat.name}</span>
@@ -684,59 +749,30 @@ export default function ChatAudit() {
 
   // Report phase: clean view — hide chat/quiz clutter
   if (phase === 'report' && scores) {
+    const color = gradeColor(scores.overallGrade)
     return (
-      <div className="min-h-[70vh] flex flex-col items-center py-12 px-4">
-        {/* Header */}
-        <div className="w-full max-w-2xl text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
-            <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1">Visibility Audit</h1>
-          <p className="text-xs font-medium text-[#64748b] mb-2">by <span className="text-[#10b981]">LeadFair</span></p>
-        </div>
-
-        <div className="w-full max-w-2xl space-y-6">
-          {/* Overall Score — Hero */}
-          <div className={`${card} p-8 sm:p-10 text-center`}>
-            <p className="text-sm text-[#64748b] mb-4">Visibility Score for {businessContext.name || 'Your Business'}</p>
+      <div className="min-h-[calc(100dvh-64px)] flex flex-col items-center py-12 px-4">
+        <div className="w-full max-w-2xl space-y-8 animate-slideIn">
+          {/* Hero Score */}
+          <div className={`${glass} p-8 sm:p-10 text-center`}>
+            <p className="text-sm text-white/30 mb-4">Visibility Score for {businessContext.name || 'Your Business'}</p>
             <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="text-7xl font-bold" style={{ color: gradeColor(scores.overallGrade) }}>{scores.overall}</span>
-              <span className="text-2xl text-[#4a5568] font-light">/10</span>
+              <AnimatedScore value={scores.overall} color={color} />
+              <span className="text-2xl text-white/15 font-light">/10</span>
             </div>
-            <span
-              className="inline-block text-sm font-bold px-5 py-2 rounded-full"
-              style={{ backgroundColor: `${gradeColor(scores.overallGrade)}20`, color: gradeColor(scores.overallGrade) }}
-            >
+            <span className="inline-block text-sm font-bold px-5 py-2 rounded-full" style={{ backgroundColor: `${color}15`, color }}>
               {scores.overallGrade} — {gradeLabel(scores.overallGrade)}
             </span>
           </div>
 
           {/* Category Breakdown */}
-          <h3 className="text-lg font-bold text-white mb-3">Category Breakdown</h3>
-          <div className="grid sm:grid-cols-3 gap-4">
-            {scores.categories.map(cat => {
-              const gColor = gradeColor(cat.grade)
-              return (
-                <div key={cat.key} className={`${card} p-5`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-white text-sm">{cat.name}</h3>
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${gColor}20`, color: gColor }}>
-                      {cat.grade}
-                    </span>
-                  </div>
-                  <div className="flex items-end gap-2 mb-3">
-                    <span className="text-3xl font-bold" style={{ color: cat.color }}>{cat.score}</span>
-                    <span className="text-sm text-[#64748b] mb-1">/10</span>
-                  </div>
-                  <div className="h-1.5 bg-[#0f1117] rounded-full overflow-hidden mb-2">
-                    <div className="h-full rounded-full transition-all duration-700" style={{ width: `${cat.score * 10}%`, backgroundColor: cat.color }} />
-                  </div>
-                  <p className="text-xs text-[#64748b]">{gradeLabel(cat.grade)}</p>
-                </div>
-              )
-            })}
+          <div>
+            <h3 className="text-lg font-bold text-white mb-4">Category Breakdown</h3>
+            <div className="grid sm:grid-cols-3 gap-3">
+              {scores.categories.map(cat => (
+                <ScoreCard key={cat.key} cat={cat} />
+              ))}
+            </div>
           </div>
 
           {/* Website Scan Results */}
@@ -745,27 +781,27 @@ export default function ChatAudit() {
           )}
 
           {/* AI Report */}
-          <div className={`${card} p-6 sm:p-8`}>
+          <div className={`${glass} p-6 sm:p-8`}>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#10b981]/20">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">Your Personalized Report</h3>
-                <p className="text-xs text-[#64748b]">AI-generated analysis based on your answers and website scan</p>
+                <p className="text-xs text-white/30">AI-generated analysis based on your answers and website scan</p>
               </div>
             </div>
             {reportLoading ? (
-              <div className="flex items-center gap-3 py-8 justify-center">
+              <div className="flex items-center gap-3 py-12 justify-center">
                 <div className="w-5 h-5 border-2 border-[#10b981] border-t-transparent rounded-full animate-spin" />
-                <p className="text-sm text-[#94a3b8]">{loadingStatus || 'Generating your report...'}</p>
+                <p className="text-sm text-white/40">{loadingStatus || 'Generating your report...'}</p>
               </div>
             ) : aiReport ? (
               <div>{renderMarkdown(aiReport)}</div>
             ) : (
-              <p className="text-sm text-[#64748b]">Report unavailable — please try refreshing the page.</p>
+              <p className="text-sm text-white/30 py-4">Report unavailable — please try refreshing the page.</p>
             )}
           </div>
 
@@ -773,53 +809,20 @@ export default function ChatAudit() {
           <div className="flex flex-col sm:flex-row gap-3 no-print">
             <button
               onClick={() => window.print()}
-              className="flex-1 flex items-center justify-center gap-2 bg-[#1a1d2e] border border-[#2a2d3e] text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-[#232640] transition-colors"
+              className={`flex-1 flex items-center justify-center gap-2 ${glass} text-white font-semibold px-6 py-3.5 hover:bg-white/[0.06] transition-all`}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
               Save Report
             </button>
-            <a
-              href="/tools/test-drive"
-              className={`${btnPrimary} flex-1 text-center flex items-center justify-center gap-2`}
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+            <a href="/tools/test-drive" className={`${btnPrimary} flex-1 text-center flex items-center justify-center gap-2`}>
               Try the Demo — See It In Action
             </a>
           </div>
         </div>
 
-        <style>{`
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          .animate-fadeIn {
-            animation: fadeIn 0.3s ease-out;
-          }
-          @media print {
-            /* Hide site chrome */
-            header, footer, nav, .no-print { display: none !important; }
-            /* White background for print */
-            body, main, section { background: white !important; color: #1a1a2e !important; }
-            * { color-adjust: exact !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            /* Report container */
-            .min-h-\\[70vh\\] { min-height: auto !important; padding: 0 !important; }
-            /* Cards */
-            .bg-\\[\\#1a1d2e\\] { background: #f8f9fa !important; border-color: #e2e8f0 !important; }
-            .bg-\\[\\#0f1117\\] { background: #f1f5f9 !important; }
-            /* Text colors for print */
-            .text-white { color: #1a1a2e !important; }
-            .text-\\[\\#e2e8f0\\] { color: #334155 !important; }
-            .text-\\[\\#94a3b8\\] { color: #475569 !important; }
-            .text-\\[\\#64748b\\] { color: #64748b !important; }
-            .text-\\[\\#4a5568\\] { color: #64748b !important; }
-          }
-        `}</style>
+        <style>{styles}</style>
       </div>
     )
   }
@@ -829,31 +832,35 @@ export default function ChatAudit() {
   return (
     <div className="flex flex-col" style={{ height: 'calc(100dvh - 64px)' }}>
       {/* Compact header — always visible */}
-      <div className="flex-shrink-0 text-center pt-5 pb-3 px-4">
+      <div className="flex-shrink-0 border-b border-white/[0.04] pt-5 pb-3 px-4">
         <div className="flex items-center justify-center gap-2.5 mb-1.5">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center">
-            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#10b981] to-[#3b82f6] flex items-center justify-center">
+            <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
           <h1 className="text-lg sm:text-xl font-extrabold text-white">Visibility Audit</h1>
-          <span className="text-xs text-[#64748b]">by <span className="text-[#10b981]">LeadFair</span></span>
+          <span className="text-xs text-white/25">by <span className="text-[#10b981]">LeadFair</span></span>
         </div>
-        <p className="text-xs text-[#4a5568]">See how visible your business is on Google, AI search, and in your local area</p>
+        <p className="text-xs text-white/20 text-center">See how visible your business is on Google, AI search, and in your local area</p>
       </div>
 
       {/* Quiz progress bar — pinned below header during quiz */}
       {phase === 'quiz' && (
-        <div className="flex-shrink-0 px-4 sm:px-6 max-w-2xl w-full mx-auto pb-2">
-          <div className="flex justify-between text-xs text-[#64748b] mb-1">
-            <span>Question {Math.min(quizIndex + 1, assessmentQuestions.length)} of {assessmentQuestions.length}</span>
-            <span>{quizPct}%</span>
-          </div>
-          <div className="h-1.5 bg-[#1a1d2e] rounded-full overflow-hidden">
+        <div className="flex-shrink-0 px-4 sm:px-6 max-w-2xl w-full mx-auto pt-2 pb-1">
+          <div className="h-1 bg-white/[0.04] rounded-full overflow-hidden">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-[#10b981] to-[#3b82f6] transition-all duration-500"
-              style={{ width: `${quizPct}%` }}
+              className="h-full rounded-full transition-all duration-500 ease-out"
+              style={{
+                width: `${quizPct}%`,
+                background: `linear-gradient(90deg, ${accent.from}, ${accent.to})`,
+                boxShadow: `0 0 12px ${accent.glow}`,
+              }}
             />
+          </div>
+          <div className="flex justify-between text-[10px] text-white/20 mt-1 px-0.5">
+            <span>{Math.min(quizIndex + 1, assessmentQuestions.length)} of {assessmentQuestions.length}</span>
+            <span>{quizPct}%</span>
           </div>
         </div>
       )}
@@ -891,8 +898,8 @@ export default function ChatAudit() {
           {/* Lead capture */}
           {phase === 'lead-capture' && (
             <>
-              <div className="flex justify-start animate-fadeIn">
-                <div className={`max-w-[85%] ${card} rounded-2xl rounded-bl-sm px-4 py-3`}>
+              <div className="flex justify-start animate-slideIn">
+                <div className={`max-w-[85%] ${chatCard} rounded-2xl rounded-bl-sm px-4 py-3`}>
                   <p className="text-sm text-[#e2e8f0] leading-relaxed">
                     Great, that's everything I need! Let me put together a detailed visibility report for {businessContext.name || 'your business'} with specific recommendations. Just drop your info below and I'll generate it.
                   </p>
@@ -908,7 +915,7 @@ export default function ChatAudit() {
 
       {/* Input bar — pinned at bottom (discovery only) */}
       {phase === 'discovery' && (
-        <div className="flex-shrink-0 border-t border-[#1a1d2e] px-4 sm:px-6 py-3">
+        <div className="flex-shrink-0 border-t border-white/[0.04] px-4 sm:px-6 py-3">
           <div className="max-w-2xl mx-auto flex gap-2">
             <input
               ref={inputRef}
@@ -933,15 +940,23 @@ export default function ChatAudit() {
         </div>
       )}
 
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.3s ease-out;
-        }
-      `}</style>
+      <style>{styles}</style>
     </div>
   )
 }
+
+// ─── Styles ──────────────────────────────────────────────
+const styles = `
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-slideIn {
+    animation: slideIn 0.35s ease-out;
+  }
+  @media print {
+    header, footer, nav, .no-print { display: none !important; }
+    body, main, section { background: white !important; color: #1a1a2e !important; }
+    * { color-adjust: exact !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  }
+`
