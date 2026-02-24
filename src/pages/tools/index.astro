@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Free Business Tools — LeadFair" description="Free AI-powered tools for small businesses. No sign-up required. Run a business diagnostic, visibility audit, or security checkup in minutes.">
+  <!-- Hero -->
+  <section class="relative py-20 overflow-hidden bg-gradient-hero-light">
+    <div class="blob blob-blue w-80 h-80 -top-20 -left-20 animate-float"></div>
+    <div class="blob blob-green w-64 h-64 top-1/3 -right-20 animate-float-delay"></div>
+    <div class="absolute inset-0 bg-grid opacity-30"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-block bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">No Sign-Up Required</div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-text">
+        Free <span class="gradient-text-blue-green">Business Tools</span>
+      </h1>
+      <p class="text-xl text-text-light max-w-2xl mx-auto leading-relaxed">
+        AI-powered tools that give you real insights about your business — not lead capture forms. Run them as many times as you want.
+      </p>
+    </div>
+  </section>
+
+  <div class="shimmer-line"></div>
+
+  <!-- Tool Cards -->
+  <section class="py-24 bg-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-grid opacity-20"></div>
+    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Business Diagnostic -->
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-blue relative">
+          <div class="icon-box icon-box-blue w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+          </div>
+          <div class="inline-block bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-xs font-semibold mb-4">~5 min</div>
+          <h3 class="font-bold text-xl mb-3">Business Diagnostic</h3>
+          <p class="text-text-light leading-relaxed mb-6">Answer a few questions about your business and get a personalized report on where you're losing time, leads, and money — with specific recommendations.</p>
+          <a href="/tools/business-diagnostic" class="inline-flex items-center gap-2 text-primary-500 font-semibold hover:text-primary-600 transition-colors group">
+            Run the diagnostic
+            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+        <!-- Visibility Audit -->
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-green relative">
+          <div class="icon-box icon-box-green w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          </div>
+          <div class="inline-block bg-secondary-100 text-secondary-700 px-3 py-1 rounded-full text-xs font-semibold mb-4">AI-powered</div>
+          <h3 class="font-bold text-xl mb-3">Visibility Audit</h3>
+          <p class="text-text-light leading-relaxed mb-6">Find out how visible your business is online — in search engines, AI assistants, maps, and directories. Get a clear picture of what's working and what's not.</p>
+          <a href="/tools/visibility-audit" class="inline-flex items-center gap-2 text-secondary-500 font-semibold hover:text-secondary-600 transition-colors group">
+            Run the audit
+            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+        <!-- Security Checkup -->
+        <div class="bg-white rounded-2xl p-8 border border-gray-100 card-hover card-glow-orange relative">
+          <div class="icon-box icon-box-orange w-14 h-14 rounded-xl mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div class="inline-block bg-accent-100 text-accent-700 px-3 py-1 rounded-full text-xs font-semibold mb-4">~5 min</div>
+          <h3 class="font-bold text-xl mb-3">Security Checkup</h3>
+          <p class="text-text-light leading-relaxed mb-6">See how exposed your business is to AI-era threats — deepfakes, phishing, data leaks, and more. Get a risk score and actionable steps to lock things down.</p>
+          <a href="/tools/business-security-checkup" class="inline-flex items-center gap-2 text-accent-500 font-semibold hover:text-accent-600 transition-colors group">
+            Run the checkup
+            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Test Drive Callout -->
+      <div class="mt-12 bg-gradient-to-r from-primary-50 via-secondary-50 to-accent-50 rounded-2xl p-8 md:p-10 border border-gray-100 card-hover relative overflow-hidden">
+        <div class="blob blob-blue w-48 h-48 -top-20 -right-20 opacity-20"></div>
+        <div class="relative z-10 flex flex-col md:flex-row items-center gap-8">
+          <div class="icon-box icon-box-blue w-16 h-16 rounded-xl shrink-0 animate-float">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          </div>
+          <div class="flex-1 text-center md:text-left">
+            <h3 class="font-bold text-2xl mb-2">Test Drive the AI Receptionist</h3>
+            <p class="text-text-light leading-relaxed text-lg">Already ran an audit? See LeadFair in action. Call a demo number and talk to the AI receptionist yourself — it answers like a real employee who knows the business.</p>
+          </div>
+          <a href="/tools/test-drive" class="shrink-0 group bg-primary-500 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-primary-600 transition-all shadow-lg hover:shadow-xl btn-scale flex items-center gap-2">
+            Try the Test Drive
+            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="shimmer-line"></div>
+
+  <!-- Bottom CTA -->
+  <section class="py-20 bg-gradient-warm relative overflow-hidden">
+    <div class="blob blob-orange w-64 h-64 -bottom-20 -right-20 opacity-20"></div>
+    <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <h2 class="text-3xl md:text-4xl font-bold">Ready for the Full Platform?</h2>
+      <p class="text-lg text-text-light max-w-2xl mx-auto leading-relaxed">
+        These tools show you the problems. LeadFair fixes them — automatically. Every plan includes every feature, starting at $199/mo.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+        <a href="/pricing" class="group bg-accent-500 text-white px-10 py-4 rounded-xl font-semibold hover:bg-accent-600 transition-all text-lg shadow-glow-orange btn-scale flex items-center justify-center gap-2">
+          See Plans &amp; Pricing
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

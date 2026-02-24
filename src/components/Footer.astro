@@ -19,6 +19,8 @@ const companyLinks = [
 ];
 
 const toolLinks = [
+  { href: '/tools', label: 'All Free Tools' },
+  { href: '/tools/test-drive', label: 'Test Drive' },
   { href: '/tools/business-diagnostic', label: 'Business Diagnostic' },
   { href: '/tools/visibility-audit', label: 'Visibility Audit' },
   { href: '/tools/business-security-checkup', label: 'Security Checkup' },
@@ -57,9 +59,9 @@ const toolLinks = [
         </ul>
       </div>
 
-      <!-- Resources -->
+      <!-- Free Tools -->
       <div>
-        <h3 class="text-white font-bold text-lg mb-4">Resources</h3>
+        <h3 class="text-white font-bold text-lg mb-4">Free Tools</h3>
         <ul class="space-y-2">
           {toolLinks.map(link => (
             <li>
