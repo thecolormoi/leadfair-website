@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const faqItems = [
   { question: "What's included in every LeadFair plan?", answer: "Everything. AI receptionist, lead pipeline & CRM, automated follow-ups, scheduling, Company Companion AI, visibility optimization, in-app messaging, Stripe payments, AI security monitoring, customizable dashboard, and employee & customer portals. The only difference between plans is team size." },
   { question: "Can I cancel LeadFair anytime?", answer: "Yes. No contracts, no cancellation fees. If LeadFair isn't working for you, cancel anytime from your account settings." },
-  { question: "Does LeadFair have a free trial?", answer: "Not yet — but you can try the free Business Diagnostic or Visibility Audit to see exactly what LeadFair would do for your business before signing up." },
+  { question: "Does LeadFair have a free trial?", answer: "Take our free Test Drive instead — answer 5 questions about your business and get dropped into a live demo dashboard with an AI receptionist you can actually talk to. No signup required." },
   { question: "Are there any hidden fees or usage limits with LeadFair?", answer: "No. The price you see is the price you pay. No per-call charges, no overage fees, no usage meters." },
   { question: "How long does LeadFair take to set up?", answer: "Most businesses are up and running within a day. Sign up, tell LeadFair about your business, and it configures itself. The more detail you give it, the better it works." },
   { question: "Is my business data safe with LeadFair?", answer: "Yes. Your data is encrypted at rest and in transit, stored securely, and never sold or shared with third parties. It's never used to train AI models for other customers. Only you and your team can access it." },
@@ -129,7 +129,7 @@ const faqItems = [
                 <span class="text-sm font-medium text-text">1 team member</span>
               </li>
             </ul>
-            <a href="/contact" class="group w-full flex items-center justify-center gap-2 bg-primary-500 text-white py-3.5 rounded-xl font-semibold hover:bg-primary-600 transition-all shadow-md hover:shadow-lg btn-scale">
+            <a href="https://app.leadfair.ai/api/leadfair-checkout?plan=solo" class="group w-full flex items-center justify-center gap-2 bg-primary-500 text-white py-3.5 rounded-xl font-semibold hover:bg-primary-600 transition-all shadow-md hover:shadow-lg btn-scale">
               Get Started
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
@@ -228,7 +228,7 @@ const faqItems = [
                 <span class="text-sm font-medium text-text">Up to 5 team members</span>
               </li>
             </ul>
-            <a href="/contact" class="group w-full flex items-center justify-center gap-2 bg-secondary-500 text-white py-3.5 rounded-xl font-semibold hover:bg-secondary-600 transition-all shadow-md hover:shadow-lg btn-scale">
+            <a href="https://app.leadfair.ai/api/leadfair-checkout?plan=team" class="group w-full flex items-center justify-center gap-2 bg-secondary-500 text-white py-3.5 rounded-xl font-semibold hover:bg-secondary-600 transition-all shadow-md hover:shadow-lg btn-scale">
               Get Started
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
@@ -326,7 +326,7 @@ const faqItems = [
                 <span class="text-sm font-medium text-text">Up to 15 team members</span>
               </li>
             </ul>
-            <a href="/contact" class="group w-full flex items-center justify-center gap-2 bg-accent-500 text-white py-3.5 rounded-xl font-semibold hover:bg-accent-600 transition-all shadow-md hover:shadow-lg btn-scale">
+            <a href="https://app.leadfair.ai/api/leadfair-checkout?plan=business" class="group w-full flex items-center justify-center gap-2 bg-accent-500 text-white py-3.5 rounded-xl font-semibold hover:bg-accent-600 transition-all shadow-md hover:shadow-lg btn-scale">
               Get Started
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
@@ -400,7 +400,7 @@ const faqItems = [
         </div>
         <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
           <h3 class="font-bold text-lg mb-2">Is there a free trial?</h3>
-          <p class="text-text-light leading-relaxed">Not yet — but you can try our free <a href="/tools/business-diagnostic" class="text-primary-500 underline hover:text-primary-600">Business Diagnostic</a>, <a href="/tools/visibility-audit" class="text-primary-500 underline hover:text-primary-600">Visibility Audit</a>, or <a href="/tools/business-security-checkup" class="text-primary-500 underline hover:text-primary-600">Security Checkup</a> to see exactly what LeadFair would do for your business before signing up.</p>
+          <p class="text-text-light leading-relaxed">Take our free <a href="/tools/test-drive" class="text-primary-500 underline hover:text-primary-600">Test Drive</a> — answer 5 questions and get dropped into a live demo dashboard with an AI receptionist you can actually talk to. You can also try our <a href="/tools/business-diagnostic" class="text-primary-500 underline hover:text-primary-600">Business Diagnostic</a> or <a href="/tools/visibility-audit" class="text-primary-500 underline hover:text-primary-600">Visibility Audit</a>.</p>
         </div>
         <div class="bg-white rounded-2xl p-6 border border-gray-100 card-hover">
           <h3 class="font-bold text-lg mb-2">Are there any hidden fees or usage limits?</h3>
@@ -436,12 +436,12 @@ const faqItems = [
         Pick a plan and put your business on autopilot. Founding member spots are limited.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-        <a href="/contact" class="group bg-accent-500 text-white px-10 py-4 rounded-xl font-semibold hover:bg-accent-600 transition-all text-lg shadow-glow-orange btn-scale flex items-center justify-center gap-2">
+        <a href="https://app.leadfair.ai/api/leadfair-checkout?plan=solo" class="group bg-accent-500 text-white px-10 py-4 rounded-xl font-semibold hover:bg-accent-600 transition-all text-lg shadow-glow-orange btn-scale flex items-center justify-center gap-2">
           Get Started
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
-        <a href="/tools/business-diagnostic" class="group bg-white text-dark px-10 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all text-lg shadow-xl btn-scale flex items-center justify-center gap-2">
-          Try the Free Diagnostic
+        <a href="/tools/test-drive" class="group bg-white text-dark px-10 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all text-lg shadow-xl btn-scale flex items-center justify-center gap-2">
+          Take the Test Drive
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
       </div>
