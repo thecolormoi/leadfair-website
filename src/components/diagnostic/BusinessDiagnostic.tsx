@@ -331,13 +331,14 @@ function ScoreCard({ cat, weak }: { cat: CategoryScore; weak: boolean }) {
 
 // ─── Results ─────────────────────────────────────────────
 function Results({
-  scores, businessName, aiReport, reportLoading, loadingStatus,
+  scores, businessName, aiReport, reportLoading, loadingStatus, onStartOver,
 }: {
   scores: ReturnType<typeof calculateScores>
   businessName: string
   aiReport: string
   reportLoading: boolean
   loadingStatus: string
+  onStartOver: () => void
 }) {
   const color = gradeColor(scores.overallGrade)
 
@@ -387,7 +388,15 @@ function Results({
           ) : aiReport ? (
             <div>{renderMarkdown(aiReport)}</div>
           ) : (
-            <p className="text-sm text-white/30 py-4">Report unavailable — please try refreshing the page.</p>
+            <div className="text-center py-8">
+              <p className="text-sm text-white/40 mb-4">We couldn't generate your personalized report. This can happen if the server was busy.</p>
+              <button
+                onClick={() => window.location.reload()}
+                className="text-sm font-semibold px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#3b82f6] to-[#06b6d4] text-white hover:shadow-lg hover:shadow-[#3b82f6]/20 transition-all"
+              >
+                Retry Report
+              </button>
+            </div>
           )}
         </div>
 
@@ -406,6 +415,11 @@ function Results({
             Try the Demo — See It In Action
           </a>
         </div>
+        <div className="text-center no-print">
+          <button onClick={onStartOver} className="text-sm text-white/20 hover:text-white/40 transition-colors">
+            Start Over
+          </button>
+        </div>
       </div>
     </div>
   )
@@ -413,12 +427,24 @@ function Results({
 
 // ─── Main Component ──────────────────────────────────────
 export default function BusinessDiagnostic() {
-  const [phase, setPhase] = useState<'intro' | 'questions' | 'capture' | 'results'>('intro')
+  // Try to restore completed results from localStorage on mount
+  const savedResult = (() => {
+    try {
+      const raw = localStorage.getItem('leadfair_audit')
+      if (raw) {
+        const data = JSON.parse(raw)
+        if (data.type === 'diagnostic' && data.scores) return data
+      }
+    } catch {}
+    return null
+  })()
+
+  const [phase, setPhase] = useState<'intro' | 'questions' | 'capture' | 'results'>(savedResult ? 'results' : 'intro')
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string | number>>({})
-  const [scores, setScores] = useState<ReturnType<typeof calculateScores> | null>(null)
+  const [scores, setScores] = useState<ReturnType<typeof calculateScores> | null>(savedResult?.scores ?? null)
   const [submitting, setSubmitting] = useState(false)
-  const [aiReport, setAiReport] = useState('')
+  const [aiReport, setAiReport] = useState(savedResult?.report ?? '')
   const [reportLoading, setReportLoading] = useState(false)
   const [loadingStatus, setLoadingStatus] = useState('')
   const containerRef = useRef<HTMLDivElement>(null)
@@ -571,7 +597,14 @@ export default function BusinessDiagnostic() {
   if (phase === 'results' && scores) {
     return (
       <>
-        <Results scores={scores} businessName={String(answers['business-name'] || 'Your Business')} aiReport={aiReport} reportLoading={reportLoading} loadingStatus={loadingStatus} />
+        <Results scores={scores} businessName={String(answers['business-name'] || savedResult?.businessName || 'Your Business')} aiReport={aiReport} reportLoading={reportLoading} loadingStatus={loadingStatus} onStartOver={() => {
+          try { localStorage.removeItem('leadfair_audit') } catch {}
+          setPhase('intro')
+          setCurrentIndex(0)
+          setAnswers({})
+          setScores(null)
+          setAiReport('')
+        }} />
         <style>{styles}</style>
       </>
     )
